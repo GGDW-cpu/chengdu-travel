@@ -2404,6 +2404,15 @@
                 cards.forEach(card => grid.appendChild(card));
             });
         });
+        
+        // 使用事件委托处理卡片点击
+        document.getElementById('travelogueList').addEventListener('click', function(e) {
+            const card = e.target.closest('.travelogue-card');
+            if (card) {
+                const index = Array.from(this.children).indexOf(card);
+                window.openDetailModal(index);
+            }
+        });
     </script>
 <!-- ========== 登录弹窗 ========== -->
     <div class="modal" id="loginModal" style="display: none;">
