@@ -640,33 +640,33 @@
         // 节气数据
         const solarTermsData = [
             // 春季
-            { id: 1, name: "立春", season: "spring", date: "2月3-5日", recommend: "龙泉驿看桃花", custom: "咬春吃春饼，迎春祈福", location: "龙泉驿", image: "images/lc.jpg" },
-            { id: 2, name: "雨水", season: "spring", date: "2月18-20日", recommend: "都江堰放水节预热", custom: "回娘屋，拉保保", location: "都江堰", image: "images/ys.jpg" },
-            { id: 3, name: "惊蛰", season: "spring", date: "3月5-7日", recommend: "青城山采春茶", custom: "吃梨润肺，祭白虎", location: "青城山", image: "images/jz.jpg" },
-            { id: 4, name: "春分", season: "spring", date: "3月20-22日", recommend: "崇州油菜花海", custom: "竖蛋，吃春菜", location: "崇州", image: "images/cf.jpg" },
-            { id: 5, name: "清明", season: "spring", date: "4月4-6日", recommend: "都江堰放水节", custom: "祭祖扫墓，踏青", location: "都江堰", image: "images/qm.jpg" },
-            { id: 6, name: "谷雨", season: "spring", date: "4月19-21日", recommend: "蒲江采樱桃", custom: "喝谷雨茶，祭仓颉", location: "蒲江", image: "images/gy.jpg" },
+            { id: 1, name: "立春", season: "spring", date: "2月3-5日", recommend: "龙泉驿看桃花", custom: "咬春吃春饼，迎春祈福", location: "龙泉驿", image: "lc.jpg" },
+            { id: 2, name: "雨水", season: "spring", date: "2月18-20日", recommend: "都江堰放水节预热", custom: "回娘屋，拉保保", location: "都江堰", image: "ys.jpg" },
+            { id: 3, name: "惊蛰", season: "spring", date: "3月5-7日", recommend: "青城山采春茶", custom: "吃梨润肺，祭白虎", location: "青城山", image: "jz.jpg" },
+            { id: 4, name: "春分", season: "spring", date: "3月20-22日", recommend: "崇州油菜花海", custom: "竖蛋，吃春菜", location: "崇州", image: "cf.jpg" },
+            { id: 5, name: "清明", season: "spring", date: "4月4-6日", recommend: "都江堰放水节", custom: "祭祖扫墓，踏青", location: "都江堰", image: "qm.jpg" },
+            { id: 6, name: "谷雨", season: "spring", date: "4月19-21日", recommend: "蒲江采樱桃", custom: "喝谷雨茶，祭仓颉", location: "蒲江", image: "gy.jpg" },
             // 夏季
-            { id: 7, name: "立夏", season: "summer", date: "5月5-7日", recommend: "人民公园喝盖碗茶", custom: "秤人，吃立夏饭", location: "人民公园", image: "images/lx.jpg" },
-            { id: 8, name: "小满", season: "summer", date: "5月20-22日", recommend: "三圣乡赏荷", custom: "祭车神，吃苦菜", location: "三圣乡", image: "images/xm.jpg" },
-            { id: 9, name: "芒种", season: "summer", date: "6月5-7日", recommend: "彭州插秧体验", custom: "送花神，煮梅", location: "彭州", image: "images/mz.jpg" },
-            { id: 10, name: "夏至", season: "summer", date: "6月21-22日", recommend: "青城山避暑", custom: "吃凉面，祭地", location: "青城山", image: "images/xz.jpg" },
-            { id: 11, name: "小暑", season: "summer", date: "7月6-8日", recommend: "洛带古镇戏水", custom: "食新，晒伏", location: "洛带古镇", image: "images/xs.jpg" },
-            { id: 12, name: "大暑", season: "summer", date: "7月22-24日", recommend: "西岭雪山避暑", custom: "喝伏茶，赏荷", location: "西岭雪山", image: "images/ds.jpg" },
+            { id: 7, name: "立夏", season: "summer", date: "5月5-7日", recommend: "人民公园喝盖碗茶", custom: "秤人，吃立夏饭", location: "人民公园", image: "lx.jpg" },
+            { id: 8, name: "小满", season: "summer", date: "5月20-22日", recommend: "三圣乡赏荷", custom: "祭车神，吃苦菜", location: "三圣乡", image: "xm.jpg" },
+            { id: 9, name: "芒种", season: "summer", date: "6月5-7日", recommend: "彭州插秧体验", custom: "送花神，煮梅", location: "彭州", image: "mz.jpg" },
+            { id: 10, name: "夏至", season: "summer", date: "6月21-22日", recommend: "青城山避暑", custom: "吃凉面，祭地", location: "青城山", image: "xz.jpg" },
+            { id: 11, name: "小暑", season: "summer", date: "7月6-8日", recommend: "洛带古镇戏水", custom: "食新，晒伏", location: "洛带古镇", image: "xs.jpg" },
+            { id: 12, name: "大暑", season: "summer", date: "7月22-24日", recommend: "西岭雪山避暑", custom: "喝伏茶，赏荷", location: "西岭雪山", image: "ds.jpg" },
             // 秋季
-            { id: 13, name: "立秋", season: "autumn", date: "8月7-9日", recommend: "新都桂湖赏桂", custom: "贴秋膘，啃秋", location: "新都", image: "images/lq.jpg" },
-            { id: 14, name: "处暑", season: "autumn", date: "8月22-24日", recommend: "青城山登高", custom: "出游迎秋", location: "青城山", image: "images/cs.jpg" },
-            { id: 15, name: "白露", season: "autumn", date: "9月7-9日", recommend: "蒲江品猕猴桃", custom: "饮白露茶", location: "蒲江", image: "images/bl.jpg" },
-            { id: 16, name: "秋分", season: "autumn", date: "9月22-24日", recommend: "龙泉山看日出", custom: "祭月，吃秋菜", location: "龙泉山", image: "images/qf.jpg" },
-            { id: 17, name: "寒露", season: "autumn", date: "10月8-9日", recommend: "什邡看红叶", custom: "赏菊，登高", location: "什邡", image: "images/hl.jpg" },
-            { id: 18, name: "霜降", season: "autumn", date: "10月23-24日", recommend: "金堂脐橙采摘", custom: "赏菊，进补", location: "金堂", image: "images/sj.jpg" },
+            { id: 13, name: "立秋", season: "autumn", date: "8月7-9日", recommend: "新都桂湖赏桂", custom: "贴秋膘，啃秋", location: "新都", image: "lq.jpg" },
+            { id: 14, name: "处暑", season: "autumn", date: "8月22-24日", recommend: "青城山登高", custom: "出游迎秋", location: "青城山", image: "cs.jpg" },
+            { id: 15, name: "白露", season: "autumn", date: "9月7-9日", recommend: "蒲江品猕猴桃", custom: "饮白露茶", location: "蒲江", image: "bl.jpg" },
+            { id: 16, name: "秋分", season: "autumn", date: "9月22-24日", recommend: "龙泉山看日出", custom: "祭月，吃秋菜", location: "龙泉山", image: "qf.jpg" },
+            { id: 17, name: "寒露", season: "autumn", date: "10月8-9日", recommend: "什邡看红叶", custom: "赏菊，登高", location: "什邡", image: "hl.jpg" },
+            { id: 18, name: "霜降", season: "autumn", date: "10月23-24日", recommend: "金堂脐橙采摘", custom: "赏菊，进补", location: "金堂", image: "sj.jpg" },
             // 冬季
-            { id: 19, name: "立冬", season: "winter", date: "11月7-8日", recommend: "品尝羊肉汤", custom: "冬泳，补冬", location: "全城", image: "images/ld.jpg" },
-            { id: 20, name: "小雪", season: "winter", date: "11月22-23日", recommend: "西岭雪山初雪", custom: "吃糍粑，腌菜", location: "西岭雪山", image: "images/xx.jpg" },
-            { id: 21, name: "大雪", season: "winter", date: "12月6-8日", recommend: "逛宽窄巷子", custom: "进补，赏雪", location: "宽窄巷子", image: "images/dx.jpg" },
-            { id: 22, name: "冬至", season: "winter", date: "12月21-23日", recommend: "吃羊肉汤", custom: "冬至大如年", location: "全城", image: "images/dz.jpg" },
-            { id: 23, name: "小寒", season: "winter", date: "1月5-7日", recommend: "杜甫草堂寻梅", custom: "探梅，食补", location: "杜甫草堂", image: "images/xh.jpg" },
-            { id: 24, name: "大寒", season: "winter", date: "1月20-21日", recommend: "武侯祠祈福", custom: "备年货，守岁", location: "武侯祠", image: "images/dh.jpg" }
+            { id: 19, name: "立冬", season: "winter", date: "11月7-8日", recommend: "品尝羊肉汤", custom: "冬泳，补冬", location: "全城", image: "ld.jpg" },
+            { id: 20, name: "小雪", season: "winter", date: "11月22-23日", recommend: "西岭雪山初雪", custom: "吃糍粑，腌菜", location: "西岭雪山", image: "xx.jpg" },
+            { id: 21, name: "大雪", season: "winter", date: "12月6-8日", recommend: "逛宽窄巷子", custom: "进补，赏雪", location: "宽窄巷子", image: "dx.jpg" },
+            { id: 22, name: "冬至", season: "winter", date: "12月21-23日", recommend: "吃羊肉汤", custom: "冬至大如年", location: "全城", image: "dz.jpg" },
+            { id: 23, name: "小寒", season: "winter", date: "1月5-7日", recommend: "杜甫草堂寻梅", custom: "探梅，食补", location: "杜甫草堂", image: "xh.jpg" },
+            { id: 24, name: "大寒", season: "winter", date: "1月20-21日", recommend: "武侯祠祈福", custom: "备年货，守岁", location: "武侯祠", image: "dh.jpg" }
         ];
 
         // 季节名称映射
