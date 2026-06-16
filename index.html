@@ -227,7 +227,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('images/ifs-chengdu.png') center/cover no-repeat;
+            background: url('ifs-chengdu.png') center/cover no-repeat;
             filter: brightness(0.75);
             animation: zoomPan 25s ease-in-out infinite;
         }
@@ -2047,7 +2047,7 @@
                     playsinline
                     poster="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=1400"
                 >
-                    <source src="images/sy.mp4" type="video/mp4">
+                    <source src="sy.mp4" type="video/mp4">
                 </video>
                 <div class="video-overlay"></div>
             </div>
@@ -2101,7 +2101,7 @@
             <div class="explore-grid">
                 <div class="explore-card" onclick="window.location.href='articles.html'">
                     <img 
-                        src="images/shuxiu.png" 
+                        src="shuxiu.png" 
                         alt="文化解码" 
                         class="explore-card-image"
                         onerror="this.src='https://picsum.photos/600/800?random=2'"
@@ -2115,7 +2115,7 @@
 
                 <div class="explore-card" onclick="window.location.href='travelogue.html'">
                     <img 
-                        src="images/df2.png" 
+                        src="df2.png" 
                         alt="探访实录" 
                         class="explore-card-image"
                         onerror="this.src='https://picsum.photos/600/800?random=3'"
@@ -2129,7 +2129,7 @@
 
                 <div class="explore-card" onclick="window.location.href='fengwu.html'">
                     <img 
-                        src="images/huoguo.png" 
+                        src="huoguo.png" 
                         alt="风物档案" 
                         class="explore-card-image"
                         onerror="this.src='https://picsum.photos/600/800?random=4'"
@@ -2143,7 +2143,7 @@
 
                 <div class="explore-card" onclick="window.location.href='map.html'">
                     <img 
-                        src="images/sl.png" 
+                        src="sl.png" 
                         alt="互动地图" 
                         class="explore-card-image"
                         onerror="this.src='https://picsum.photos/600/800?random=5'"
@@ -2513,36 +2513,36 @@
         // ========== 首页节气数据 ==========
         const solarData = {
             spring: [
-                { name: "立春", date: "2月3-5日", dateStart: [2, 3], dateEnd: [2, 5], recommend: "龙泉驿看桃花", recommendDetail: "万亩桃花盛开，春意盎然", custom: "咬春吃春饼，迎春祈福", location: "龙泉驿", emoji: "🌸", image: "images/lc.jpg" },
-                { name: "雨水", date: "2月18-20日", dateStart: [2, 18], dateEnd: [2, 20], recommend: "都江堰放水节", recommendDetail: "千年水利工程，春灌开始", custom: "回娘屋，拉保保", location: "都江堰", emoji: "💧", image: "images/ys.jpg" },
-                { name: "惊蛰", date: "3月5-7日", dateStart: [3, 5], dateEnd: [3, 7], recommend: "青城山采春茶", recommendDetail: "明前春茶，清香扑鼻", custom: "吃梨润肺，祭白虎", location: "青城山", emoji: "🦋", image: "images/jz.jpg" },
-                { name: "春分", date: "3月20-22日", dateStart: [3, 20], dateEnd: [3, 22], recommend: "崇州油菜花", recommendDetail: "金色花海，美不胜收", custom: "竖蛋，吃春菜", location: "崇州", emoji: "🌼", image: "images/cf.jpg" },
-                { name: "清明", date: "4月4-6日", dateStart: [4, 4], dateEnd: [4, 6], recommend: "都江堰放水节", recommendDetail: "清明放水，盛况空前", custom: "祭祖扫墓，踏青", location: "都江堰", emoji: "🌿", image: "images/qm.jpg" },
-                { name: "谷雨", date: "4月19-21日", dateStart: [4, 19], dateEnd: [4, 21], recommend: "蒲江采樱桃", recommendDetail: "酸甜可口，新鲜采摘", custom: "喝谷雨茶，祭仓颉", location: "蒲江", emoji: "🍒", image: "images/gy.jpg" }
+                { name: "立春", date: "2月3-5日", dateStart: [2, 3], dateEnd: [2, 5], recommend: "龙泉驿看桃花", recommendDetail: "万亩桃花盛开，春意盎然", custom: "咬春吃春饼，迎春祈福", location: "龙泉驿", emoji: "🌸", image: "lc.jpg" },
+                { name: "雨水", date: "2月18-20日", dateStart: [2, 18], dateEnd: [2, 20], recommend: "都江堰放水节", recommendDetail: "千年水利工程，春灌开始", custom: "回娘屋，拉保保", location: "都江堰", emoji: "💧", image: "ys.jpg" },
+                { name: "惊蛰", date: "3月5-7日", dateStart: [3, 5], dateEnd: [3, 7], recommend: "青城山采春茶", recommendDetail: "明前春茶，清香扑鼻", custom: "吃梨润肺，祭白虎", location: "青城山", emoji: "🦋", image: "jz.jpg" },
+                { name: "春分", date: "3月20-22日", dateStart: [3, 20], dateEnd: [3, 22], recommend: "崇州油菜花", recommendDetail: "金色花海，美不胜收", custom: "竖蛋，吃春菜", location: "崇州", emoji: "🌼", image: "cf.jpg" },
+                { name: "清明", date: "4月4-6日", dateStart: [4, 4], dateEnd: [4, 6], recommend: "都江堰放水节", recommendDetail: "清明放水，盛况空前", custom: "祭祖扫墓，踏青", location: "都江堰", emoji: "🌿", image: "qm.jpg" },
+                { name: "谷雨", date: "4月19-21日", dateStart: [4, 19], dateEnd: [4, 21], recommend: "蒲江采樱桃", recommendDetail: "酸甜可口，新鲜采摘", custom: "喝谷雨茶，祭仓颉", location: "蒲江", emoji: "🍒", image: "gy.jpg" }
             ],
             summer: [
-                { name: "立夏", date: "5月5-7日", dateStart: [5, 5], dateEnd: [5, 7], recommend: "人民公园喝茶", recommendDetail: "竹影婆娑，茶香四溢", custom: "秤人，吃立夏饭", location: "人民公园", emoji: "🍵", image: "images/lx.jpg" },
-                { name: "小满", date: "5月20-22日", dateStart: [5, 20], dateEnd: [5, 22], recommend: "三圣乡赏荷", recommendDetail: "接天莲叶，映日荷花", custom: "祭车神，吃苦菜", location: "三圣乡", emoji: "🪷", image: "images/xm.jpg" },
-                { name: "芒种", date: "6月5-20日", dateStart: [6, 5], dateEnd: [6, 20], recommend: "彭州插秧体验", recommendDetail: "稻田青青，农事体验", custom: "送花神，煮梅", location: "彭州", emoji: "🌾", image: "images/mz.jpg" },
-                { name: "夏至", date: "6月21-22日", dateStart: [6, 21], dateEnd: [6, 22], recommend: "青城山避暑", recommendDetail: "清凉世界，道教圣地", custom: "吃凉面，祭地", location: "青城山", emoji: "☀️", image: "images/xz.jpg" },
-                { name: "小暑", date: "7月6-8日", dateStart: [7, 6], dateEnd: [7, 8], recommend: "洛带古镇戏水", recommendDetail: "古镇风情，清凉一夏", custom: "食新，晒伏", location: "洛带古镇", emoji: "💦", image: "images/xs.jpg" },
-                { name: "大暑", date: "7月22-24日", dateStart: [7, 22], dateEnd: [7, 24], recommend: "西岭雪山避暑", recommendDetail: "雪山之巅，凉爽宜人", custom: "喝伏茶，赏荷", location: "西岭雪山", emoji: "🏔️", image: "images/ds.jpg" }
+                { name: "立夏", date: "5月5-7日", dateStart: [5, 5], dateEnd: [5, 7], recommend: "人民公园喝茶", recommendDetail: "竹影婆娑，茶香四溢", custom: "秤人，吃立夏饭", location: "人民公园", emoji: "🍵", image: "lx.jpg" },
+                { name: "小满", date: "5月20-22日", dateStart: [5, 20], dateEnd: [5, 22], recommend: "三圣乡赏荷", recommendDetail: "接天莲叶，映日荷花", custom: "祭车神，吃苦菜", location: "三圣乡", emoji: "🪷", image: "xm.jpg" },
+                { name: "芒种", date: "6月5-20日", dateStart: [6, 5], dateEnd: [6, 20], recommend: "彭州插秧体验", recommendDetail: "稻田青青，农事体验", custom: "送花神，煮梅", location: "彭州", emoji: "🌾", image: "mz.jpg" },
+                { name: "夏至", date: "6月21-22日", dateStart: [6, 21], dateEnd: [6, 22], recommend: "青城山避暑", recommendDetail: "清凉世界，道教圣地", custom: "吃凉面，祭地", location: "青城山", emoji: "☀️", image: "xz.jpg" },
+                { name: "小暑", date: "7月6-8日", dateStart: [7, 6], dateEnd: [7, 8], recommend: "洛带古镇戏水", recommendDetail: "古镇风情，清凉一夏", custom: "食新，晒伏", location: "洛带古镇", emoji: "💦", image: "xs.jpg" },
+                { name: "大暑", date: "7月22-24日", dateStart: [7, 22], dateEnd: [7, 24], recommend: "西岭雪山避暑", recommendDetail: "雪山之巅，凉爽宜人", custom: "喝伏茶，赏荷", location: "西岭雪山", emoji: "🏔️", image: "ds.jpg" }
             ],
             autumn: [
-                { name: "立秋", date: "8月7-9日", dateStart: [8, 7], dateEnd: [8, 9], recommend: "新都桂湖赏桂", recommendDetail: "桂香满园，芬芳四溢", custom: "贴秋膘，啃秋", location: "新都", emoji: "🌰", image: "images/lq.jpg" },
-                { name: "处暑", date: "8月22-24日", dateStart: [8, 22], dateEnd: [8, 24], recommend: "青城山登高", recommendDetail: "秋高气爽，登高望远", custom: "出游迎秋", location: "青城山", emoji: "⛰️", image: "images/cs.jpg" },
-                { name: "白露", date: "9月7-9日", dateStart: [9, 7], dateEnd: [9, 9], recommend: "蒲江品猕猴桃", recommendDetail: "果香浓郁，营养丰富", custom: "饮白露茶", location: "蒲江", emoji: "🥝", image: "images/bl.jpg" },
-                { name: "秋分", date: "9月22-24日", dateStart: [9, 22], dateEnd: [9, 24], recommend: "龙泉山看日出", recommendDetail: "日出东方，云海翻腾", custom: "祭月，吃秋菜", location: "龙泉山", emoji: "🌅", image: "images/qf.jpg" },
-                { name: "寒露", date: "10月8-9日", dateStart: [10, 8], dateEnd: [10, 9], recommend: "什邡看红叶", recommendDetail: "层林尽染，美不胜收", custom: "赏菊，登高", location: "什邡", emoji: "🍁", image: "images/hl.jpg" },
-                { name: "霜降", date: "10月23-24日", dateStart: [10, 23], dateEnd: [10, 24], recommend: "金堂脐橙采摘", recommendDetail: "硕果累累，香甜可口", custom: "赏菊，进补", location: "金堂", emoji: "🍊", image: "images/sj.jpg" }
+                { name: "立秋", date: "8月7-9日", dateStart: [8, 7], dateEnd: [8, 9], recommend: "新都桂湖赏桂", recommendDetail: "桂香满园，芬芳四溢", custom: "贴秋膘，啃秋", location: "新都", emoji: "🌰", image: "lq.jpg" },
+                { name: "处暑", date: "8月22-24日", dateStart: [8, 22], dateEnd: [8, 24], recommend: "青城山登高", recommendDetail: "秋高气爽，登高望远", custom: "出游迎秋", location: "青城山", emoji: "⛰️", image: "cs.jpg" },
+                { name: "白露", date: "9月7-9日", dateStart: [9, 7], dateEnd: [9, 9], recommend: "蒲江品猕猴桃", recommendDetail: "果香浓郁，营养丰富", custom: "饮白露茶", location: "蒲江", emoji: "🥝", image: "bl.jpg" },
+                { name: "秋分", date: "9月22-24日", dateStart: [9, 22], dateEnd: [9, 24], recommend: "龙泉山看日出", recommendDetail: "日出东方，云海翻腾", custom: "祭月，吃秋菜", location: "龙泉山", emoji: "🌅", image: "qf.jpg" },
+                { name: "寒露", date: "10月8-9日", dateStart: [10, 8], dateEnd: [10, 9], recommend: "什邡看红叶", recommendDetail: "层林尽染，美不胜收", custom: "赏菊，登高", location: "什邡", emoji: "🍁", image: "hl.jpg" },
+                { name: "霜降", date: "10月23-24日", dateStart: [10, 23], dateEnd: [10, 24], recommend: "金堂脐橙采摘", recommendDetail: "硕果累累，香甜可口", custom: "赏菊，进补", location: "金堂", emoji: "🍊", image: "sj.jpg" }
             ],
             winter: [
-                { name: "立冬", date: "11月7-8日", dateStart: [11, 7], dateEnd: [11, 8], recommend: "品尝羊肉汤", recommendDetail: "冬日暖身，滋补佳品", custom: "冬泳，补冬", location: "全城", emoji: "🍲", image: "images/ld.jpg" },
-                { name: "小雪", date: "11月22-23日", dateStart: [11, 22], dateEnd: [11, 23], recommend: "西岭雪山初雪", recommendDetail: "银装素裹，童话世界", custom: "吃糍粑，腌菜", location: "西岭雪山", emoji: "❄️", image: "images/xx.jpg" },
-                { name: "大雪", date: "12月6-8日", dateStart: [12, 6], dateEnd: [12, 8], recommend: "逛宽窄巷子", recommendDetail: "古巷风情，冬日韵味", custom: "进补，赏雪", location: "宽窄巷子", emoji: "🏮", image: "images/dx.jpg" },
-                { name: "冬至", date: "12月21-23日", dateStart: [12, 21], dateEnd: [12, 23], recommend: "小关庙羊肉汤", recommendDetail: "百年老店，正宗美味", custom: "冬至大如年", location: "小关庙", emoji: "🥟", image: "images/dz.jpg" },
-                { name: "小寒", date: "1月5-7日", dateStart: [1, 5], dateEnd: [1, 7], recommend: "杜甫草堂寻梅", recommendDetail: "暗香浮动，诗意盎然", custom: "探梅，食补", location: "杜甫草堂", emoji: "🌺", image: "images/xh.jpg" },
-                { name: "大寒", date: "1月20-21日", dateStart: [1, 20], dateEnd: [1, 21], recommend: "武侯祠祈福", recommendDetail: "三国圣地，祈愿迎新", custom: "备年货，守岁", location: "武侯祠", emoji: "🎉", image: "images/dh.jpg" }
+                { name: "立冬", date: "11月7-8日", dateStart: [11, 7], dateEnd: [11, 8], recommend: "品尝羊肉汤", recommendDetail: "冬日暖身，滋补佳品", custom: "冬泳，补冬", location: "全城", emoji: "🍲", image: "ld.jpg" },
+                { name: "小雪", date: "11月22-23日", dateStart: [11, 22], dateEnd: [11, 23], recommend: "西岭雪山初雪", recommendDetail: "银装素裹，童话世界", custom: "吃糍粑，腌菜", location: "西岭雪山", emoji: "❄️", image: "xx.jpg" },
+                { name: "大雪", date: "12月6-8日", dateStart: [12, 6], dateEnd: [12, 8], recommend: "逛宽窄巷子", recommendDetail: "古巷风情，冬日韵味", custom: "进补，赏雪", location: "宽窄巷子", emoji: "🏮", image: "dx.jpg" },
+                { name: "冬至", date: "12月21-23日", dateStart: [12, 21], dateEnd: [12, 23], recommend: "小关庙羊肉汤", recommendDetail: "百年老店，正宗美味", custom: "冬至大如年", location: "小关庙", emoji: "🥟", image: "dz.jpg" },
+                { name: "小寒", date: "1月5-7日", dateStart: [1, 5], dateEnd: [1, 7], recommend: "杜甫草堂寻梅", recommendDetail: "暗香浮动，诗意盎然", custom: "探梅，食补", location: "杜甫草堂", emoji: "🌺", image: "xh.jpg" },
+                { name: "大寒", date: "1月20-21日", dateStart: [1, 20], dateEnd: [1, 21], recommend: "武侯祠祈福", recommendDetail: "三国圣地，祈愿迎新", custom: "备年货，守岁", location: "武侯祠", emoji: "🎉", image: "dh.jpg" }
             ]
         };
 
