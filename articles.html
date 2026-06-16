@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="成都,文化解码,历史,非遗,民俗">
+    <meta name="description" content="蓉城·慢行 - 深度解读成都历史文化">
+    <title>文化解码 - 蓉城·慢行</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #5A9E6E;
+            --primary-light: #7CB38E;
+            --primary-dark: #3D6B4C;
+            --background-color: #F6F7F5;
+            --card-bg: #FFFFFF;
+            --text-primary: #1F2E26;
+            --text-secondary: #5B6B5B;
+            --text-muted: #8A9A8A;
+            --border-color: rgba(90, 158, 110, 0.12);
+            
+            --color-history: #5A9E6E;
+            --color-ich: #FF9800;
+            --color-folk: #3B82F6;
+            --color-festival: #A855F7;
+            
+            --shadow-sm: 0 2px 8px rgba(90, 158, 110, 0.06);
+            --shadow-md: 0 4px 16px rgba(90, 158, 110, 0.08);
+            --shadow-lg: 0 12px 32px rgba(90, 158, 110, 0.15);
+            --shadow-hover: 0 16px 40px rgba(90, 158, 110, 0.2);
+            --radius-sm: 12px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 28px;
+            --radius-full: 50px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .header:hover {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 400;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+            border-radius: 2px;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            font-family: inherit;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: rgba(76, 175, 80, 0.08);
+        }
+
+        .btn-fill {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-fill:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .section {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 56px;
+            position: relative;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 200px;
+            background: radial-gradient(ellipse at center, rgba(90, 158, 110, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .page-title {
+            font-size: 2.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            letter-spacing: -1.5px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+            border-radius: 2px;
+        }
+
+        .page-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            max-width: 550px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .filter-bar {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 48px;
+        }
+
+        .filter-btn {
+            padding: 10px 28px;
+            border-radius: var(--radius-full);
+            font-size: 0.95rem;
+            font-weight: 500;
+            border: 2px solid transparent;
+            background: white;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 32px;
+        }
+
+        .article-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            border: 1px solid var(--border-color);
+        }
+
+        .article-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            transform-origin: left;
+        }
+
+        .article-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .article-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(90, 158, 110, 0.3);
+        }
+
+        .article-image-wrapper {
+            position: relative;
+            height: 194px;
+            overflow: hidden;
+        }
+
+        .article-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .article-card:hover .article-image {
+            transform: scale(1.05);
+        }
+
+        .article-tag {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .article-card:hover .article-tag {
+            transform: scale(1.05);
+        }
+
+        .article-tag.history {
+            background: linear-gradient(135deg, rgba(90, 158, 110, 0.95), rgba(61, 107, 76, 0.95));
+        }
+
+        .article-tag.ich {
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.95), rgba(234, 88, 12, 0.95));
+        }
+
+        .article-tag.folk {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.95), rgba(37, 99, 235, 0.95));
+        }
+
+        .article-tag.festival {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.95), rgba(139, 92, 246, 0.95));
+        }
+
+        .article-content {
+            padding: 24px;
+        }
+
+        .article-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .article-summary {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .article-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .article-date {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 24px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 80px;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        @media (max-width: 1024px) {
+            .articles-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                gap: 28px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+                height: 64px;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .btn {
+                padding: 8px 14px;
+                font-size: 0.85rem;
+            }
+
+            .section {
+                padding: 40px 16px;
+            }
+
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .page-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .filter-bar {
+                gap: 10px;
+                margin-bottom: 32px;
+            }
+
+            .filter-btn {
+                padding: 8px 20px;
+                font-size: 0.85rem;
+            }
+
+            .articles-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .article-image-wrapper {
+                height: 170px;
+            }
+
+            .article-content {
+                padding: 20px;
+            }
+
+            .article-title {
+                font-size: 1.15rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">蓉城·慢行</a>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="articles.html" class="active">文化解码</a></li>
+                <li><a href="travelogue.html">探访实录</a></li>
+                <li><a href="fengwu.html">风物档案</a></li>
+                <li><a href="map.html">互动地图</a></li>
+                <li><a href="solar-term.html">🌾 节气·成都</a></li>
+            </ul>
+            <div class="auth-buttons" id="authButtons">
+                <button class="btn btn-outline" id="loginBtn">登录</button>
+                <button class="btn btn-fill" id="registerBtn">注册</button>
+            </div>
+            <div class="user-info" id="userInfo" style="display: none;">
+                <span class="user-name" id="userName"></span>
+                <button class="btn btn-outline" id="logoutBtn">退出</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="page-header">
+            <h1 class="page-title">文化解码</h1>
+            <p class="page-subtitle">深度解读成都历史文化，探索古蜀文明的神秘面纱</p>
+        </div>
+
+        <div class="filter-bar" id="filterBar">
+            <button class="filter-btn active" data-type="全部">全部</button>
+            <button class="filter-btn" data-type="历史渊源">历史渊源</button>
+            <button class="filter-btn" data-type="非遗">非遗</button>
+            <button class="filter-btn" data-type="民俗">民俗</button>
+            <button class="filter-btn" data-type="特色节庆">特色节庆</button>
+        </div>
+
+        <div class="articles-grid" id="articlesGrid"></div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2024 蓉城·慢行 版权所有 | <a href="#" target="_blank">关于我们</a> | <a href="#" target="_blank">隐私政策</a></p>
+    </footer>
+
+    <script>
+        const articlesData = [
+            {
+                id: "history-1",
+                title: "三星堆与古蜀文明：神秘的古蜀王国",
+                type: "历史渊源",
+                typeClass: "history",
+                summary: "三星堆遗址揭示了3000多年前一个高度发达的古蜀文明，其青铜神树、纵目面具等文物至今仍是未解之谜。",
+                imageUrl: "images/sanxing.png",
+                knowledgePoints: [
+                    "三星堆遗址位于四川广汉，距今约4800-2600年，是古蜀文化的代表性遗址。",
+                    "出土的青铜神树高达3.96米，是世界上发现最大的单件青铜文物。",
+                    "纵目面具的眼球呈柱状突出，被认为是蜀王蚕丛“纵目”传说的物证。"
+                ],
+                source: "引自《三星堆：古蜀王国的圣地》，四川省文物考古研究院，2021年",
+                createdAt: "2025-01-01"
+            },
+            {
+                id: "history-2",
+                title: "都江堰：李冰父子的千年水利奇迹",
+                type: "历史渊源",
+                typeClass: "history",
+                summary: "建于公元前256年的都江堰，至今仍在灌溉成都平原，是世界水利史上的杰作。",
+                imageUrl: "images/dujiangyan.png",
+                knowledgePoints: [
+                    "都江堰由鱼嘴分水堤、飞沙堰溢洪道、宝瓶口引水口三大主体工程组成。",
+                    "“深淘滩，低作堰”的治水六字诀，至今仍是水利工程的重要准则。",
+                    "都江堰使成都平原成为“天府之国”，灌溉面积超过1000万亩。"
+                ],
+                source: "引自《都江堰：世界文化遗产保护报告》，都江堰管理局，2022年",
+                createdAt: "2025-01-02"
+            },
+            {
+                id: "ich-1",
+                title: "蜀锦：千年织锦，东方瑰宝",
+                type: "非遗",
+                typeClass: "ich",
+                summary: "蜀锦是中国四大名锦之一，以图案精美、色彩艳丽著称，已有2000多年历史。",
+                imageUrl: "images/shujin.png",
+                knowledgePoints: [
+                    "蜀锦采用独特的“通经断纬”织法，可实现复杂图案的一次成型。",
+                    "2006年，蜀锦织造技艺被列入第一批国家级非物质文化遗产名录。",
+                    "成都“锦江区”的名称正源于蜀锦，因古代设有锦官管理蜀锦生产。"
+                ],
+                source: "引自《蜀锦志》，成都市非物质文化遗产保护中心，2019年",
+                createdAt: "2025-01-03"
+            },
+            {
+                id: "ich-2",
+                title: "川剧变脸：瞬息万变的艺术",
+                type: "非遗",
+                typeClass: "ich",
+                summary: "川剧变脸是四川最具代表性的表演艺术之一，演员在瞬间变换多张脸谱，令人叹为观止。",
+                imageUrl: "images/bianlian.png",
+                knowledgePoints: [
+                    "变脸手法包括抹脸、吹脸、扯脸三种，其中“扯脸”最为复杂，可变换10多张脸谱。",
+                    "脸谱颜色代表不同人物性格：红色表忠勇、黑色表刚直、白色表奸诈。",
+                    "川剧变脸已被列为国家级非物质文化遗产，并成为成都文化的国际名片。"
+                ],
+                source: "引自《川剧艺术大观》，四川省川剧院，2020年",
+                createdAt: "2025-01-04"
+            },
+            {
+                id: "folk-1",
+                title: "成都茶馆文化：一壶茶，半日闲",
+                type: "民俗",
+                typeClass: "folk",
+                summary: "成都人爱喝茶，更爱“泡茶馆”。茶馆是社交场、议事厅，更是成都慢生活的缩影。",
+                imageUrl: "images/chaguan.png",
+                knowledgePoints: [
+                    "成都拥有超过10000家茶馆，是全国茶馆数量最多的城市。",
+                    "鹤鸣茶社始建于1923年，是成都现存最老的传统茶馆之一。",
+                    "“盖碗茶”是成都特色茶具，茶盖可用来刮茶沫、控制水温、作杯托。"
+                ],
+                source: "引自《成都茶馆：市井生活图景》，四川大学民俗学研究所，2021年",
+                createdAt: "2025-01-05"
+            },
+            {
+                id: "folk-2",
+                title: "掏耳朵：成都街头的非遗绝活",
+                type: "民俗",
+                typeClass: "folk",
+                summary: "在成都的公园和茶馆，随处可见“采耳师”，这是一项流传百年的民间技艺。",
+                imageUrl: "images/caier.png",
+                knowledgePoints: [
+                    "成都采耳技艺已被列入市级非物质文化遗产名录。",
+                    "全套采耳工具包括耳扒、鹅毛棒、镊子、云刀、震子等十余种。",
+                    "民间有“到成都不掏耳朵，等于没来”的说法。"
+                ],
+                source: "引自《成都采耳技艺传承人口述史》，成都市文化馆，2020年",
+                createdAt: "2025-01-06"
+            },
+            {
+                id: "festival-1",
+                title: "成都国际熊猫节：与国宝的年度约会",
+                type: "特色节庆",
+                typeClass: "festival",
+                summary: "每年9月，成都举办国际熊猫节，以大熊猫为主题的文化旅游盛事。",
+                imageUrl: "images/xiongmao.png",
+                knowledgePoints: [
+                    "首届熊猫节于2001年举办，至今已成功举办20余届。",
+                    "活动包括熊猫画展、熊猫玩偶设计大赛、大熊猫保护论坛等。",
+                    "2024年熊猫节吸引了超过50万游客参与。"
+                ],
+                source: "引自《成都文旅节庆活动年报》，成都文旅局，2024年",
+                createdAt: "2025-01-07"
+            },
+            {
+                id: "festival-2",
+                title: "都江堰放水节：传承千年的祭祀盛典",
+                type: "特色节庆",
+                typeClass: "festival",
+                summary: "每年清明节，都江堰举行盛大的放水节，再现两千多年前李冰“祀水”的古老仪式。",
+                imageUrl: "images/fangshui.png",
+                knowledgePoints: [
+                    "放水节始于公元978年，已延续1000多年，是国家级非物质文化遗产。",
+                    "仪式包括“砍杩槎放水”、“祭祀李冰”、“堰工技术表演”等环节。",
+                    "放水标志着成都平原春灌的开始，是川西农耕文化的重要象征。"
+                ],
+                source: "引自《都江堰放水节：从祭祀到旅游节庆》，四川大学，2019年",
+                createdAt: "2025-01-08"
+            }
+        ];
+
+        function getTypeClass(type) {
+            const typeMap = {
+                '历史渊源': 'history',
+                '非遗': 'ich',
+                '民俗': 'folk',
+                '特色节庆': 'festival'
+            };
+            return typeMap[type] || 'history';
+        }
+
+        function renderArticles(articles) {
+            const grid = document.getElementById('articlesGrid');
+            
+            grid.innerHTML = articles.map(article => `
+                <article class="article-card" onclick="goToDetail('${article.id}')">
+                    <div class="article-image-wrapper">
+                        <img src="${article.imageUrl}" alt="${article.title}" class="article-image" 
+                             onerror="this.src='https://picsum.photos/600/338?random=${article.id}'">
+                        <span class="article-tag ${article.typeClass || getTypeClass(article.type)}">${article.type}</span>
+                    </div>
+                    <div class="article-content">
+                        <h3 class="article-title">${article.title}</h3>
+                        <p class="article-summary">${article.summary}</p>
+                        <div class="article-footer">
+                            <span class="article-date">${formatDate(article.createdAt)}</span>
+                            <div class="article-meta">
+                                <span>📚</span>
+                                <span>${article.knowledgePoints.length}个知识点</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+        }
+
+        function goToDetail(id) {
+            window.location.href = `article-detail.html?id=${id}`;
+        }
+
+        function updateAuthUI() {
+            const authButtons = document.getElementById('authButtons');
+            const userInfo = document.getElementById('userInfo');
+            const userName = document.getElementById('userName');
+            try {
+                const user = JSON.parse(localStorage.getItem('currentUser'));
+                if (user) {
+                    authButtons.style.display = 'none';
+                    userInfo.style.display = 'flex';
+                    userName.textContent = user.account;
+                }
+            } catch (e) {}
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.reload();
+        }
+
+        function initAuthModal() {
+            const loginModal = document.getElementById('loginModal');
+            const registerModal = document.getElementById('registerModal');
+            const loginBtn = document.getElementById('loginBtn');
+            const registerBtn = document.getElementById('registerBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const loginModalClose = document.getElementById('loginModalClose');
+            const registerModalClose = document.getElementById('registerModalClose');
+            const goToRegister = document.getElementById('goToRegister');
+            const goToLogin = document.getElementById('goToLogin');
+            const doLogin = document.getElementById('doLogin');
+            const doRegister = document.getElementById('doRegister');
+            const loginError = document.getElementById('loginError');
+            const registerError = document.getElementById('registerError');
+
+            if (!localStorage.getItem('users')) {
+                const defaultUsers = [
+                    { account: 'admin', password: 'admin123', role: 'admin' },
+                    { account: 'user', password: '123456', role: 'user' }
+                ];
+                localStorage.setItem('users', JSON.stringify(defaultUsers));
+            }
+
+            loginBtn?.addEventListener('click', () => {
+                loginError.style.display = 'none';
+                loginModal.classList.add('active');
+            });
+
+            registerBtn?.addEventListener('click', () => {
+                registerError.style.display = 'none';
+                registerModal.classList.add('active');
+            });
+
+            loginModalClose?.addEventListener('click', () => {
+                loginModal.classList.remove('active');
+            });
+
+            registerModalClose?.addEventListener('click', () => {
+                registerModal.classList.remove('active');
+            });
+
+            loginModal?.addEventListener('click', (e) => {
+                if (e.target === loginModal) {
+                    loginModal.classList.remove('active');
+                }
+            });
+
+            registerModal?.addEventListener('click', (e) => {
+                if (e.target === registerModal) {
+                    registerModal.classList.remove('active');
+                }
+            });
+
+            goToRegister?.addEventListener('click', (e) => {
+                e.preventDefault();
+                loginModal.classList.remove('active');
+                registerModal.classList.add('active');
+            });
+
+            goToLogin?.addEventListener('click', (e) => {
+                e.preventDefault();
+                registerModal.classList.remove('active');
+                loginModal.classList.add('active');
+            });
+
+            doLogin?.addEventListener('click', () => {
+                const account = document.getElementById('loginAccount').value.trim();
+                const password = document.getElementById('loginPassword').value.trim();
+
+                if (!account || !password) {
+                    loginError.textContent = '请输入账号和密码';
+                    loginError.style.display = 'block';
+                    return;
+                }
+
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const user = users.find(u => u.account === account && u.password === password);
+
+                if (user) {
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    loginModal.classList.remove('active');
+                    window.location.reload();
+                } else {
+                    loginError.textContent = '账号或密码错误';
+                    loginError.style.display = 'block';
+                }
+            });
+
+            doRegister?.addEventListener('click', () => {
+                const account = document.getElementById('registerAccount').value.trim();
+                const password = document.getElementById('registerPassword').value.trim();
+                const confirmPassword = document.getElementById('registerConfirmPassword').value.trim();
+
+                if (!account || !password || !confirmPassword) {
+                    registerError.textContent = '请填写所有字段';
+                    registerError.style.display = 'block';
+                    return;
+                }
+
+                if (password !== confirmPassword) {
+                    registerError.textContent = '两次输入的密码不一致';
+                    registerError.style.display = 'block';
+                    return;
+                }
+
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const existingUser = users.find(u => u.account === account);
+
+                if (existingUser) {
+                    registerError.textContent = '该账号已存在';
+                    registerError.style.display = 'block';
+                    return;
+                }
+
+                users.push({ account, password, role: 'user' });
+                localStorage.setItem('users', JSON.stringify(users));
+                localStorage.setItem('currentUser', JSON.stringify({ account, role: 'user' }));
+                registerModal.classList.remove('active');
+                window.location.reload();
+            });
+
+            logoutBtn?.addEventListener('click', logout);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    loginModal.classList.remove('active');
+                    registerModal.classList.remove('active');
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateAuthUI();
+            initAuthModal();
+            renderArticles(articlesData);
+
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const type = this.dataset.type;
+                    const filtered = type === '全部' ? articlesData : articlesData.filter(a => a.type === type);
+                    renderArticles(filtered);
+                });
+            });
+        });
+    </script>
+
+    <!-- ========== 登录弹窗 ========== -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <button class="modal-close" id="loginModalClose">&times;</button>
+            <h2>欢迎回来</h2>
+            <p>登录你的账号，发现更多成都故事</p>
+            
+            <div class="login-error" id="loginError">账号或密码错误</div>
+            
+            <div class="form-group">
+                <label>账号</label>
+                <input type="text" id="loginAccount" placeholder="请输入账号">
+            </div>
+            
+            <div class="form-group">
+                <label>密码</label>
+                <input type="password" id="loginPassword" placeholder="请输入密码">
+            </div>
+            
+            <button class="btn-login" id="doLogin">登录</button>
+            
+            <div class="modal-switch">
+                还没有账号？<a href="#" id="goToRegister">立即注册</a>
+            </div>
+            
+            <div class="test-accounts">
+                <p>测试账号</p>
+                <span>管理员：admin / admin123</span>
+                <span>普通用户：user / 123456</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== 注册弹窗 ========== -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <button class="modal-close" id="registerModalClose">&times;</button>
+            <h2>注册账号</h2>
+            <p>创建你的账号，开启成都之旅</p>
+            
+            <div class="login-error" id="registerError">账号已存在或密码不一致</div>
+            
+            <div class="form-group">
+                <label>账号</label>
+                <input type="text" id="registerAccount" placeholder="请输入账号">
+            </div>
+            
+            <div class="form-group">
+                <label>密码</label>
+                <input type="password" id="registerPassword" placeholder="请输入密码">
+            </div>
+            
+            <div class="form-group">
+                <label>确认密码</label>
+                <input type="password" id="registerConfirmPassword" placeholder="请再次输入密码">
+            </div>
+            
+            <button class="btn-register" id="doRegister">注册</button>
+            
+            <div class="modal-switch">
+                已有账号？<a href="#" id="goToLogin">立即登录</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

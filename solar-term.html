@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>节气·成都 | 蓉城·慢行</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        :root {
+            --primary-color: #5A9E6E;
+            --primary-dark: #3D6B4C;
+            --background-color: #F5F7F5;
+            --card-bg: #FFFFFF;
+            --text-primary: #2D4A3E;
+            --text-secondary: #6B7B7D;
+            --text-muted: #9CAFA5;
+            --border-color: rgba(90, 158, 110, 0.1);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08);
+            --radius-sm: 12px;
+            --radius-md: 16px;
+            --radius-lg: 20px;
+            --radius-full: 40px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 400;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+            border-radius: 2px;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            font-family: inherit;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: rgba(90, 158, 110, 0.08);
+        }
+
+        .btn-fill {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(90, 158, 110, 0.3);
+        }
+
+        .btn-fill:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(90, 158, 110, 0.4);
+        }
+
+        /* 页面专属样式 */
+        .solar-page-header {
+            text-align: center;
+            padding: 60px 24px 60px;
+            background: linear-gradient(135deg, #E8F5E9 0%, #FAFBFC 100%);
+            margin-bottom: 40px;
+        }
+        
+        .solar-page-header h1 {
+            font-size: 3rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #2D4A3E, #5A9E6E);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 16px;
+        }
+        
+        .solar-page-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        
+        /* 季节筛选按钮 */
+        .season-filters {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 48px;
+            padding: 0 24px;
+        }
+        
+        .season-btn {
+            padding: 10px 28px;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .season-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .season-btn.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+        
+        /* 节气卡片网格 */
+        .solar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 28px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 60px;
+        }
+        
+        /* 节气卡片 */
+        .solar-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .solar-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .solar-card-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .solar-season-tag {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: white;
+        }
+        
+        .solar-card-content {
+            padding: 20px;
+        }
+        
+        .solar-name {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+        
+        .solar-date {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+        
+        .solar-recommend {
+            background: var(--primary-light);
+            padding: 12px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+        }
+        
+        .solar-recommend .label {
+            font-size: 0.7rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .solar-recommend .content {
+            font-size: 0.85rem;
+            color: var(--text-primary);
+        }
+        
+        .solar-custom {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        .solar-location {
+            margin-top: 12px;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        /* 节气详情弹窗 */
+        .solar-detail-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .solar-detail-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .solar-detail-content {
+            background: white;
+            border-radius: 28px;
+            width: 90%;
+            max-width: 400px;
+            padding: 24px;
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .solar-detail-modal.active .solar-detail-content {
+            transform: scale(1);
+        }
+
+        .solar-detail-image {
+            width: 100%;
+            height: 180px;
+            border-radius: 16px;
+            object-fit: cover;
+            margin-bottom: 16px;
+        }
+
+        .solar-detail-content h3 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.8rem;
+            color: #5A9E6E;
+            margin-bottom: 8px;
+        }
+
+        .solar-detail-date {
+            color: #999;
+            margin-bottom: 16px;
+            font-size: 0.9rem;
+        }
+
+        .solar-detail-recommend {
+            background: #E8F5E9;
+            padding: 14px;
+            border-radius: 16px;
+            margin: 12px 0;
+            text-align: left;
+        }
+
+        .solar-detail-recommend .label {
+            font-size: 0.75rem;
+            color: #5A9E6E;
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .solar-detail-recommend .content {
+            font-size: 0.9rem;
+            color: #2D4A3E;
+        }
+
+        .solar-detail-custom {
+            background: #FFF3E0;
+            padding: 14px;
+            border-radius: 16px;
+            margin: 12px 0;
+            text-align: left;
+        }
+
+        .solar-detail-custom .label {
+            font-size: 0.75rem;
+            color: #E07A5F;
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .solar-detail-custom .content {
+            font-size: 0.9rem;
+            color: #2D4A3E;
+        }
+
+        .solar-detail-location {
+            cursor: pointer;
+            color: #5A9E6E;
+            font-weight: 500;
+            margin-top: 12px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .solar-detail-location:hover {
+            text-decoration: underline;
+            transform: translateX(2px);
+        }
+
+        .solar-detail-location .arrow {
+            font-size: 0.8rem;
+        }
+
+        .solar-detail-close {
+            margin-top: 20px;
+            padding: 10px 28px;
+            background: #5A9E6E;
+            color: white;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .solar-detail-close:hover {
+            background: #3D6B4C;
+            transform: translateY(-1px);
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .solar-page-header {
+                padding: 40px 20px 40px;
+            }
+            
+            .solar-page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .solar-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .season-btn {
+                padding: 8px 20px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">蓉城·慢行</a>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="articles.html">文化解码</a></li>
+                <li><a href="travelogue.html">探访实录</a></li>
+                <li><a href="fengwu.html">风物档案</a></li>
+                <li><a href="map.html">互动地图</a></li>
+                <li><a href="solar-term.html" class="active">🌾 节气·成都</a></li>
+            </ul>
+            <div class="auth-buttons" id="authButtons">
+                <button class="btn btn-outline" id="loginBtn">登录</button>
+                <button class="btn btn-fill" id="registerBtn">注册</button>
+            </div>
+            <div class="user-info" id="userInfo" style="display: none;">
+                <span class="user-name" id="userName"></span>
+                <button class="btn btn-outline" id="logoutBtn">退出</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 页面头部 -->
+    <div class="solar-page-header">
+        <h1>🌾 节气·成都</h1>
+        <p>顺应天时，发现成都四季之美</p>
+    </div>
+
+    <!-- 季节筛选 -->
+    <div class="season-filters">
+        <button class="season-btn active" data-season="all">全部</button>
+        <button class="season-btn" data-season="spring">🌱 春</button>
+        <button class="season-btn" data-season="summer">☀️ 夏</button>
+        <button class="season-btn" data-season="autumn">🍂 秋</button>
+        <button class="season-btn" data-season="winter">❄️ 冬</button>
+    </div>
+
+    <!-- 节气卡片网格 -->
+    <div class="solar-grid" id="solarGrid"></div>
+
+    <!-- 登录弹窗 -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>登录</h3>
+                <button class="modal-close" id="loginClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="login-error" id="loginError"></div>
+                <div class="form-group">
+                    <label>账号</label>
+                    <input type="text" id="loginAccount" placeholder="请输入账号">
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" id="loginPassword" placeholder="请输入密码">
+                </div>
+                <button class="btn btn-fill" id="doLogin">登录</button>
+                <div class="modal-switch">
+                    还没有账号？<a href="#" id="goRegister">立即注册</a>
+                </div>
+                <div class="test-accounts">
+                    <p>测试账号：</p>
+                    <span>admin / admin123</span>
+                    <span>user / user123</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 节气详情弹窗 -->
+    <div class="solar-detail-modal" id="solarDetailModal">
+        <div class="solar-detail-content">
+            <img src="" alt="" class="solar-detail-image" id="detailImage">
+            <h3 id="detailName"></h3>
+            <div class="solar-detail-date" id="detailDate"></div>
+            <div class="solar-detail-recommend">
+                <div class="label">📍 推荐去处</div>
+                <div class="content" id="detailRecommend"></div>
+            </div>
+            <div class="solar-detail-custom">
+                <div class="label">🌾 民俗传统</div>
+                <div class="content" id="detailCustom"></div>
+            </div>
+            <div class="solar-detail-location" id="detailLocation"></div>
+            <button class="solar-detail-close" id="detailClose">关闭</button>
+        </div>
+    </div>
+
+    <!-- 注册弹窗 -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>注册</h3>
+                <button class="modal-close" id="registerClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="login-error" id="registerError"></div>
+                <div class="form-group">
+                    <label>账号</label>
+                    <input type="text" id="registerAccount" placeholder="请输入账号">
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" id="registerPassword" placeholder="请输入密码">
+                </div>
+                <div class="form-group">
+                    <label>确认密码</label>
+                    <input type="password" id="registerConfirmPassword" placeholder="请再次输入密码">
+                </div>
+                <button class="btn btn-fill" id="doRegister">注册</button>
+                <div class="modal-switch">
+                    已有账号？<a href="#" id="goLogin">立即登录</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-top">
+                <div class="footer-logo">
+                    <span class="footer-logo-icon">🌿</span>
+                    <span class="footer-logo-text">蓉城·慢行</span>
+                </div>
+                <p class="footer-desc">探索成都慢生活，品味天府文化。让每一次旅行都成为一段美好的记忆，在这座城市中找到属于自己的慢时光。</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">📱</a>
+                    <a href="#" class="social-link">📧</a>
+                    <a href="#" class="social-link">📷</a>
+                </div>
+                <div class="footer-links-group">
+                    <div>
+                        <h4 class="footer-title">探索成都</h4>
+                        <ul class="footer-links">
+                            <li><a href="articles.html">文化解码</a></li>
+                            <li><a href="travelogue.html">探访实录</a></li>
+                            <li><a href="fengwu.html">风物档案</a></li>
+                            <li><a href="map.html">互动地图</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="footer-title">关于我们</h4>
+                        <ul class="footer-links">
+                            <li><a href="#">关于蓉城慢行</a></li>
+                            <li><a href="#">联系我们</a></li>
+                            <li><a href="#">加入我们</a></li>
+                            <li><a href="#">合作伙伴</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="footer-title">帮助支持</h4>
+                        <ul class="footer-links">
+                            <li><a href="#">常见问题</a></li>
+                            <li><a href="#">隐私政策</a></li>
+                            <li><a href="#">服务条款</a></li>
+                            <li><a href="#">意见反馈</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 蓉城·慢行 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 节气数据
+        const solarTermsData = [
+            // 春季
+            { id: 1, name: "立春", season: "spring", date: "2月3-5日", recommend: "龙泉驿看桃花", custom: "咬春吃春饼，迎春祈福", location: "龙泉驿", image: "images/lc.jpg" },
+            { id: 2, name: "雨水", season: "spring", date: "2月18-20日", recommend: "都江堰放水节预热", custom: "回娘屋，拉保保", location: "都江堰", image: "images/ys.jpg" },
+            { id: 3, name: "惊蛰", season: "spring", date: "3月5-7日", recommend: "青城山采春茶", custom: "吃梨润肺，祭白虎", location: "青城山", image: "images/jz.jpg" },
+            { id: 4, name: "春分", season: "spring", date: "3月20-22日", recommend: "崇州油菜花海", custom: "竖蛋，吃春菜", location: "崇州", image: "images/cf.jpg" },
+            { id: 5, name: "清明", season: "spring", date: "4月4-6日", recommend: "都江堰放水节", custom: "祭祖扫墓，踏青", location: "都江堰", image: "images/qm.jpg" },
+            { id: 6, name: "谷雨", season: "spring", date: "4月19-21日", recommend: "蒲江采樱桃", custom: "喝谷雨茶，祭仓颉", location: "蒲江", image: "images/gy.jpg" },
+            // 夏季
+            { id: 7, name: "立夏", season: "summer", date: "5月5-7日", recommend: "人民公园喝盖碗茶", custom: "秤人，吃立夏饭", location: "人民公园", image: "images/lx.jpg" },
+            { id: 8, name: "小满", season: "summer", date: "5月20-22日", recommend: "三圣乡赏荷", custom: "祭车神，吃苦菜", location: "三圣乡", image: "images/xm.jpg" },
+            { id: 9, name: "芒种", season: "summer", date: "6月5-7日", recommend: "彭州插秧体验", custom: "送花神，煮梅", location: "彭州", image: "images/mz.jpg" },
+            { id: 10, name: "夏至", season: "summer", date: "6月21-22日", recommend: "青城山避暑", custom: "吃凉面，祭地", location: "青城山", image: "images/xz.jpg" },
+            { id: 11, name: "小暑", season: "summer", date: "7月6-8日", recommend: "洛带古镇戏水", custom: "食新，晒伏", location: "洛带古镇", image: "images/xs.jpg" },
+            { id: 12, name: "大暑", season: "summer", date: "7月22-24日", recommend: "西岭雪山避暑", custom: "喝伏茶，赏荷", location: "西岭雪山", image: "images/ds.jpg" },
+            // 秋季
+            { id: 13, name: "立秋", season: "autumn", date: "8月7-9日", recommend: "新都桂湖赏桂", custom: "贴秋膘，啃秋", location: "新都", image: "images/lq.jpg" },
+            { id: 14, name: "处暑", season: "autumn", date: "8月22-24日", recommend: "青城山登高", custom: "出游迎秋", location: "青城山", image: "images/cs.jpg" },
+            { id: 15, name: "白露", season: "autumn", date: "9月7-9日", recommend: "蒲江品猕猴桃", custom: "饮白露茶", location: "蒲江", image: "images/bl.jpg" },
+            { id: 16, name: "秋分", season: "autumn", date: "9月22-24日", recommend: "龙泉山看日出", custom: "祭月，吃秋菜", location: "龙泉山", image: "images/qf.jpg" },
+            { id: 17, name: "寒露", season: "autumn", date: "10月8-9日", recommend: "什邡看红叶", custom: "赏菊，登高", location: "什邡", image: "images/hl.jpg" },
+            { id: 18, name: "霜降", season: "autumn", date: "10月23-24日", recommend: "金堂脐橙采摘", custom: "赏菊，进补", location: "金堂", image: "images/sj.jpg" },
+            // 冬季
+            { id: 19, name: "立冬", season: "winter", date: "11月7-8日", recommend: "品尝羊肉汤", custom: "冬泳，补冬", location: "全城", image: "images/ld.jpg" },
+            { id: 20, name: "小雪", season: "winter", date: "11月22-23日", recommend: "西岭雪山初雪", custom: "吃糍粑，腌菜", location: "西岭雪山", image: "images/xx.jpg" },
+            { id: 21, name: "大雪", season: "winter", date: "12月6-8日", recommend: "逛宽窄巷子", custom: "进补，赏雪", location: "宽窄巷子", image: "images/dx.jpg" },
+            { id: 22, name: "冬至", season: "winter", date: "12月21-23日", recommend: "吃羊肉汤", custom: "冬至大如年", location: "全城", image: "images/dz.jpg" },
+            { id: 23, name: "小寒", season: "winter", date: "1月5-7日", recommend: "杜甫草堂寻梅", custom: "探梅，食补", location: "杜甫草堂", image: "images/xh.jpg" },
+            { id: 24, name: "大寒", season: "winter", date: "1月20-21日", recommend: "武侯祠祈福", custom: "备年货，守岁", location: "武侯祠", image: "images/dh.jpg" }
+        ];
+
+        // 季节名称映射
+        const seasonNames = {
+            spring: '春季',
+            summer: '夏季',
+            autumn: '秋季',
+            winter: '冬季'
+        };
+
+        // 初始化节气板块
+        function initSolarTerms() {
+            const solarGrid = document.getElementById('solarGrid');
+            const seasonBtns = document.querySelectorAll('.season-btn');
+
+            // 渲染卡片
+            function renderCards(filteredData) {
+                solarGrid.innerHTML = filteredData.map(item => `
+                    <div class="solar-card" data-id="${item.id}">
+                        <div class="solar-card-image" style="background-image: url('${item.image}');">
+                            <div class="solar-season-tag">${seasonNames[item.season]}</div>
+                        </div>
+                        <div class="solar-card-content">
+                            <div class="solar-name">${item.name}</div>
+                            <div class="solar-date">${item.date}</div>
+                            <div class="solar-recommend">
+                                <div class="label">📍 推荐去处</div>
+                                <div class="content">${item.recommend}</div>
+                            </div>
+                            <div class="solar-custom">🌾 ${item.custom}</div>
+                            <div class="solar-location">
+                                <span>🗺️</span>
+                                <span>${item.location}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                // 添加卡片点击事件
+                addCardClickEvents();
+            }
+
+            // 显示详情弹窗
+            function showSolarDetail(item) {
+                document.getElementById('detailImage').src = item.image;
+                document.getElementById('detailName').textContent = item.name;
+                document.getElementById('detailDate').textContent = item.date;
+                document.getElementById('detailRecommend').textContent = item.recommend;
+                document.getElementById('detailCustom').textContent = item.custom;
+                document.getElementById('detailLocation').innerHTML = `📍 ${item.location} <span class="arrow">→</span>`;
+                document.getElementById('detailLocation').onclick = () => gotoMap(item.location);
+                document.getElementById('solarDetailModal').classList.add('active');
+            }
+
+            // 跳转地图页面
+            function gotoMap(locationName) {
+                window.location.href = `map.html?location=${encodeURIComponent(locationName)}`;
+            }
+
+            // 添加卡片点击事件
+            function addCardClickEvents() {
+                document.querySelectorAll('.solar-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        const id = parseInt(card.dataset.id);
+                        const item = solarTermsData.find(t => t.id === id);
+                        if (item) {
+                            showSolarDetail(item);
+                        }
+                    });
+                });
+            }
+
+            // 初始渲染所有节气
+            renderCards(solarTermsData);
+
+            // 季节筛选事件
+            seasonBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    seasonBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const season = btn.dataset.season;
+                    if (season === 'all') {
+                        renderCards(solarTermsData);
+                    } else {
+                        const filtered = solarTermsData.filter(item => item.season === season);
+                        renderCards(filtered);
+                    }
+                });
+            });
+        }
+
+        // 更新认证UI
+        function updateAuthUI() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+            const authButtons = document.getElementById('authButtons');
+            const userInfo = document.getElementById('userInfo');
+            const userName = document.getElementById('userName');
+
+            if (currentUser) {
+                authButtons.style.display = 'none';
+                userInfo.style.display = 'flex';
+                userName.textContent = currentUser.account;
+            } else {
+                authButtons.style.display = 'flex';
+                userInfo.style.display = 'none';
+            }
+        }
+
+        // 初始化认证弹窗
+        function initAuthModal() {
+            const loginBtn = document.getElementById('loginBtn');
+            const registerBtn = document.getElementById('registerBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const loginModal = document.getElementById('loginModal');
+            const registerModal = document.getElementById('registerModal');
+            const loginClose = document.getElementById('loginClose');
+            const registerClose = document.getElementById('registerClose');
+            const goRegister = document.getElementById('goRegister');
+            const goLogin = document.getElementById('goLogin');
+            const doLogin = document.getElementById('doLogin');
+            const doRegister = document.getElementById('doRegister');
+            const loginError = document.getElementById('loginError');
+            const registerError = document.getElementById('registerError');
+
+            // 打开登录弹窗
+            loginBtn?.addEventListener('click', () => {
+                loginModal.classList.add('active');
+            });
+
+            // 打开注册弹窗
+            registerBtn?.addEventListener('click', () => {
+                registerModal.classList.add('active');
+            });
+
+            // 关闭弹窗
+            loginClose?.addEventListener('click', () => {
+                loginModal.classList.remove('active');
+            });
+
+            registerClose?.addEventListener('click', () => {
+                registerModal.classList.remove('active');
+            });
+
+            // 切换弹窗
+            goRegister?.addEventListener('click', (e) => {
+                e.preventDefault();
+                loginModal.classList.remove('active');
+                registerModal.classList.add('active');
+            });
+
+            goLogin?.addEventListener('click', (e) => {
+                e.preventDefault();
+                registerModal.classList.remove('active');
+                loginModal.classList.add('active');
+            });
+
+            // 登录逻辑
+            doLogin?.addEventListener('click', () => {
+                const account = document.getElementById('loginAccount').value.trim();
+                const password = document.getElementById('loginPassword').value.trim();
+
+                if (!account || !password) {
+                    loginError.textContent = '请填写账号和密码';
+                    loginError.style.display = 'block';
+                    return;
+                }
+
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const user = users.find(u => u.account === account && u.password === password);
+
+                if (user) {
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    loginModal.classList.remove('active');
+                    window.location.reload();
+                } else {
+                    loginError.textContent = '账号或密码错误';
+                    loginError.style.display = 'block';
+                }
+            });
+
+            // 注册逻辑
+            doRegister?.addEventListener('click', () => {
+                const account = document.getElementById('registerAccount').value.trim();
+                const password = document.getElementById('registerPassword').value.trim();
+                const confirmPassword = document.getElementById('registerConfirmPassword').value.trim();
+
+                if (!account || !password || !confirmPassword) {
+                    registerError.textContent = '请填写所有字段';
+                    registerError.style.display = 'block';
+                    return;
+                }
+
+                if (password !== confirmPassword) {
+                    registerError.textContent = '两次输入的密码不一致';
+                    registerError.style.display = 'block';
+                    return;
+                }
+
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const existingUser = users.find(u => u.account === account);
+
+                if (existingUser) {
+                    registerError.textContent = '该账号已存在';
+                    registerError.style.display = 'block';
+                    return;
+                }
+
+                users.push({ account, password, role: 'user' });
+                localStorage.setItem('users', JSON.stringify(users));
+                localStorage.setItem('currentUser', JSON.stringify({ account, role: 'user' }));
+                registerModal.classList.remove('active');
+                window.location.reload();
+            });
+
+            // 退出登录
+            logoutBtn?.addEventListener('click', () => {
+                localStorage.removeItem('currentUser');
+                window.location.reload();
+            });
+
+            // ESC键关闭弹窗
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    loginModal.classList.remove('active');
+                    registerModal.classList.remove('active');
+                    document.getElementById('solarDetailModal')?.classList.remove('active');
+                }
+            });
+        }
+
+        // 初始化节气详情弹窗
+        function initSolarDetailModal() {
+            const modal = document.getElementById('solarDetailModal');
+            const closeBtn = document.getElementById('detailClose');
+
+            // 点击关闭按钮
+            closeBtn?.addEventListener('click', () => {
+                modal.classList.remove('active');
+            });
+
+            // 点击弹窗外部关闭
+            modal?.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        }
+
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            initSolarTerms();
+            updateAuthUI();
+            initAuthModal();
+            initSolarDetailModal();
+        });
+    </script>
+</body>
+</html>

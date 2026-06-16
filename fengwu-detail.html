@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="风物档案,成都美食,非遗手艺,景点特产">
+    <meta name="description" content="蓉城·慢行 - 风物档案详情">
+    <title>风物档案详情 - 蓉城·慢行</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        :root {
+            --primary-color: #5A9E6E;
+            --primary-dark: #3D6B4C;
+            --background-color: #F8F9FA;
+            --card-bg: #FFFFFF;
+            --text-primary: #2D4A3E;
+            --text-secondary: #6B7B7D;
+            --text-muted: #9CAFA5;
+            --border-color: rgba(90, 158, 110, 0.1);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08);
+            --radius-sm: 12px;
+            --radius-md: 16px;
+            --radius-lg: 20px;
+            --radius-full: 40px;
+            
+            --category-food-bg: #FFF3E0;
+            --category-food-color: #E07A5F;
+            --category-craft-bg: #E8F5E9;
+            --category-craft-color: #5A9E6E;
+            --category-scenic-bg: #E3F2FD;
+            --category-scenic-color: #42A5F5;
+            --category-product-bg: #FCE4EC;
+            --category-product-color: #EC407A;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 400;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            font-family: inherit;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-fill {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(90, 158, 110, 0.3);
+        }
+
+        .section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+            transition: color 0.25s ease;
+        }
+
+        .back-link:hover {
+            color: var(--primary-color);
+        }
+
+        .detail-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .detail-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #F0F4F0 0%, #E8F0E8 100%);
+        }
+
+        .detail-header {
+            padding: 32px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .category-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border-radius: var(--radius-full);
+            margin-bottom: 16px;
+        }
+
+        .category-tag.food {
+            background: var(--category-food-bg);
+            color: var(--category-food-color);
+        }
+
+        .category-tag.craft {
+            background: var(--category-craft-bg);
+            color: var(--category-craft-color);
+        }
+
+        .category-tag.scenic {
+            background: var(--category-scenic-bg);
+            color: var(--category-scenic-color);
+        }
+
+        .category-tag.product {
+            background: var(--category-product-bg);
+            color: var(--category-product-color);
+        }
+
+        .detail-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .detail-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+            margin-top: 16px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .meta-item svg {
+            width: 16px;
+            height: 16px;
+            color: var(--primary-color);
+        }
+
+        .rating {
+            color: #FFB347;
+            font-weight: 600;
+        }
+
+        .price {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .detail-body {
+            padding: 32px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .section-title svg {
+            width: 20px;
+            height: 20px;
+            color: var(--primary-color);
+        }
+
+        .detail-intro {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 32px;
+        }
+
+        .info-section {
+            background: var(--background-color);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .info-item {
+            background: white;
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .info-item-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .info-item-value {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .nav-section {
+            text-align: center;
+        }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 12px 32px;
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(90, 158, 110, 0.3);
+            transition: all 0.25s ease;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(90, 158, 110, 0.4);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 24px;
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 16px;
+            opacity: 0.6;
+        }
+
+        .empty-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .empty-desc {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 32px 24px;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 60px;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+                height: 64px;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .btn {
+                padding: 8px 14px;
+                font-size: 0.85rem;
+            }
+
+            .section {
+                padding: 32px 16px;
+            }
+
+            .detail-image {
+                height: 280px;
+            }
+
+            .detail-header, .detail-body {
+                padding: 20px;
+            }
+
+            .detail-title {
+                font-size: 1.5rem;
+            }
+
+            .detail-intro {
+                font-size: 0.95rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">蓉城·慢行</a>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="articles.html">文化解码</a></li>
+                <li><a href="travelogue.html">探访实录</a></li>
+                <li><a href="fengwu.html" class="active">风物档案</a></li>
+                <li><a href="map.html">互动地图</a></li>
+                <li><a href="solar-term.html">🌾 节气·成都</a></li>
+            </ul>
+            <div class="auth-buttons" id="authButtons">
+                <button class="btn btn-outline" id="loginBtn">登录</button>
+                <button class="btn btn-fill" id="registerBtn">注册</button>
+            </div>
+            <div class="user-info" id="userInfo" style="display: none;">
+                <span class="user-name" id="userName"></span>
+                <button class="btn btn-outline" id="logoutBtn">退出</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="section">
+        <a href="fengwu.html" class="back-link">
+            ← 返回风物档案
+        </a>
+
+        <div class="detail-card" id="detailCard">
+            <img src="" alt="" class="detail-image" id="detailImage">
+            
+            <div class="detail-header">
+                <span class="category-tag" id="categoryTag"></span>
+                <h1 class="detail-title" id="detailTitle"></h1>
+                <div class="detail-meta" id="detailMeta"></div>
+            </div>
+
+            <div class="detail-body">
+                <div class="section-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    <span>详细介绍</span>
+                </div>
+                <p class="detail-intro" id="detailIntro"></p>
+
+                <div class="info-section">
+                    <div class="section-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        <span>实用信息</span>
+                    </div>
+                    <div class="info-grid" id="infoGrid"></div>
+                </div>
+
+                <div class="nav-section">
+                    <a href="#" class="nav-btn" id="navBtn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+                            <line x1="8" y1="2" x2="8" y2="18"></line>
+                            <line x1="16" y1="6" x2="16" y2="22"></line>
+                        </svg>
+                        <span>导航前往</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <div class="empty-icon">📭</div>
+            <h3 class="empty-title">未找到该风物</h3>
+            <p class="empty-desc">该风物档案不存在或已被删除</p>
+            <a href="fengwu.html" class="btn btn-fill">返回风物档案</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2024 蓉城·慢行 版权所有 | <a href="#" target="_blank">关于我们</a> | <a href="#" target="_blank">隐私政策</a></p>
+    </footer>
+
+    <script>
+        const fengwuData = [
+            { 
+                id: 1, 
+                name: "成都火锅", 
+                category: "美食", 
+                intro: "成都火锅起源于明末清初，以牛油、辣椒、花椒熬制锅底。必点菜品：毛肚、鸭肠、黄喉、嫩牛肉。推荐店铺：飘香火锅、巴蜀大宅门、电台巷。人均消费80-120元。",
+                image: "images/huoguo.png",
+                rating: 4.8,
+                price: "人均80-120元",
+                location: "全城",
+                info: [
+                    { label: "特色菜品", value: "毛肚、鸭肠、黄喉、嫩牛肉" },
+                    { label: "推荐店铺", value: "飘香火锅、巴蜀大宅门、电台巷" },
+                    { label: "人均消费", value: "80-120元" },
+                    { label: "营业时间", value: "11:00-02:00" }
+                ]
+            },
+            { 
+                id: 2, 
+                name: "蜀绣", 
+                category: "手艺", 
+                intro: "蜀绣距今已有3000多年历史，以针法严谨、片线光亮著称。代表作品：熊猫、芙蓉鲤鱼。2006年列入国家级非遗。推荐参观：蜀锦织绣博物馆。",
+                image: "images/shuxiu.png",
+                rating: 4.7,
+                price: "参考价",
+                location: "锦江区",
+                info: [
+                    { label: "非遗级别", value: "国家级" },
+                    { label: "代表作品", value: "熊猫、芙蓉鲤鱼" },
+                    { label: "推荐参观", value: "蜀锦织绣博物馆" },
+                    { label: "历史渊源", value: "3000多年" }
+                ]
+            },
+            { 
+                id: 3, 
+                name: "杜甫草堂", 
+                category: "景点", 
+                intro: "杜甫草堂是杜甫流寓成都时的故居，占地300亩。主要景点：大廨、诗史堂、柴门、工部祠。红墙夹道、竹林掩映是拍照打卡点。开放时间8:00-18:00，门票50元。",
+                image: "images/dufu.png",
+                rating: 4.6,
+                price: "门票50元",
+                location: "青羊区",
+                info: [
+                    { label: "地址", value: "成都市青羊区青华路37号" },
+                    { label: "开放时间", value: "8:00-18:00" },
+                    { label: "门票价格", value: "50元" },
+                    { label: "主要景点", value: "大廨、诗史堂、柴门、工部祠" }
+                ]
+            },
+            { 
+                id: 4, 
+                name: "郫县豆瓣", 
+                category: "特产", 
+                intro: "郫县豆瓣距今300多年历史，选用二荆条辣椒和蚕豆发酵而成。2008年列入国家级非遗。推荐购买：鹃城牌、绍丰和。价格15-50元/斤。",
+                image: "images/douban.png",
+                rating: 4.5,
+                price: "15-50元/斤",
+                location: "郫都区",
+                info: [
+                    { label: "产地", value: "四川郫县" },
+                    { label: "历史", value: "300多年" },
+                    { label: "推荐品牌", value: "鹃城牌、绍丰和" },
+                    { label: "价格", value: "15-50元/斤" }
+                ]
+            },
+            { 
+                id: 5, 
+                name: "锦里古街", 
+                category: "景点", 
+                intro: "锦里紧邻武侯祠，全长550米。汇集三大炮、蛋烘糕等小吃，还有变脸表演、手工艺品店。免费开放，建议游玩2-3小时。",
+                image: "images/jinli.png",
+                rating: 4.5,
+                price: "免费",
+                location: "武侯区",
+                info: [
+                    { label: "地址", value: "成都市武侯区武侯祠大街231号" },
+                    { label: "开放时间", value: "全天" },
+                    { label: "门票价格", value: "免费" },
+                    { label: "建议游玩", value: "2-3小时" },
+                    { label: "特色小吃", value: "三大炮、蛋烘糕" }
+                ]
+            }
+        ];
+
+        const categoryColors = {
+            "美食": "food",
+            "手艺": "craft",
+            "景点": "scenic",
+            "特产": "product"
+        };
+
+        function getUrlParam(name) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(name);
+        }
+
+        function renderDetail() {
+            const id = parseInt(getUrlParam('id'));
+            const item = fengwuData.find(f => f.id === id);
+
+            if (!item) {
+                document.getElementById('detailCard').style.display = 'none';
+                document.getElementById('emptyState').style.display = 'block';
+                return;
+            }
+
+            document.getElementById('detailCard').style.display = 'block';
+            document.getElementById('emptyState').style.display = 'none';
+
+            document.getElementById('detailImage').src = item.image;
+            document.getElementById('detailImage').alt = item.name;
+            document.getElementById('detailImage').onerror = function() {
+                this.src = `https://picsum.photos/800/400?random=${item.id}`;
+            };
+
+            document.getElementById('categoryTag').textContent = item.category;
+            document.getElementById('categoryTag').className = `category-tag ${categoryColors[item.category]}`;
+            document.getElementById('detailTitle').textContent = item.name;
+            document.getElementById('detailIntro').textContent = item.intro;
+
+            document.getElementById('detailMeta').innerHTML = `
+                <div class="meta-item rating">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                    <span>${item.rating}</span>
+                </div>
+                <div class="meta-item price">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="1" x2="12" y2="23"></line>
+                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                    </svg>
+                    <span>${item.price}</span>
+                </div>
+                <div class="meta-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    <span>${item.location}</span>
+                </div>
+            `;
+
+            const infoGrid = document.getElementById('infoGrid');
+            infoGrid.innerHTML = item.info.map(i => `
+                <div class="info-item">
+                    <div class="info-item-label">${i.label}</div>
+                    <div class="info-item-value">${i.value}</div>
+                </div>
+            `).join('');
+        }
+
+        function updateAuthUI() {
+            const authButtons = document.getElementById('authButtons');
+            const userInfo = document.getElementById('userInfo');
+            const userName = document.getElementById('userName');
+            if (authButtons && userInfo && userName) {
+                try {
+                    const user = JSON.parse(localStorage.getItem('currentUser'));
+                    if (user) {
+                        authButtons.style.display = 'none';
+                        userInfo.style.display = 'flex';
+                        userName.textContent = user.account;
+                    } else {
+                        authButtons.style.display = 'flex';
+                        userInfo.style.display = 'none';
+                    }
+                } catch (e) {
+                    console.error('Error updating auth UI:', e);
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateAuthUI();
+            renderDetail();
+        });
+    </script>
+
+    <!-- ========== 登录弹窗 ========== -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <button class="modal-close" id="loginModalClose">&times;</button>
+            <h2>欢迎回来</h2>
+            <p>登录你的账号，发现更多成都故事</p>
+            
+            <div class="login-error" id="loginError">账号或密码错误</div>
+            
+            <div class="form-group">
+                <label>账号</label>
+                <input type="text" id="loginAccount" placeholder="请输入账号">
+            </div>
+            
+            <div class="form-group">
+                <label>密码</label>
+                <input type="password" id="loginPassword" placeholder="请输入密码">
+            </div>
+            
+            <button class="btn-login" id="doLogin">登录</button>
+            
+            <div class="modal-switch">
+                还没有账号？<a href="#" id="goToRegister">立即注册</a>
+            </div>
+            
+            <div class="test-accounts">
+                <p>测试账号</p>
+                <span>管理员：admin / admin123</span>
+                <span>普通用户：user / 123456</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== 注册弹窗 ========== -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <button class="modal-close" id="registerModalClose">&times;</button>
+            <h2>注册账号</h2>
+            <p>创建你的账号，开启成都之旅</p>
+            
+            <div class="login-error" id="registerError">账号已存在或密码不一致</div>
+            
+            <div class="form-group">
+                <label>账号</label>
+                <input type="text" id="registerAccount" placeholder="请输入账号">
+            </div>
+            
+            <div class="form-group">
+                <label>密码</label>
+                <input type="password" id="registerPassword" placeholder="请输入密码">
+            </div>
+            
+            <div class="form-group">
+                <label>确认密码</label>
+                <input type="password" id="registerConfirmPassword" placeholder="请再次输入密码">
+            </div>
+            
+            <button class="btn-register" id="doRegister">注册</button>
+            
+            <div class="modal-switch">
+                已有账号？<a href="#" id="goToLogin">立即登录</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== 登录弹窗 JavaScript ========== -->
+    <script>
+        if (!localStorage.getItem('users')) {
+            const defaultUsers = [
+                { account: 'admin', password: 'admin123', role: 'admin' },
+                { account: 'user', password: '123456', role: 'user' }
+            ];
+            localStorage.setItem('users', JSON.stringify(defaultUsers));
+        }
+
+        function updateAuthUI() {
+            const authButtons = document.getElementById('authButtons');
+            const userInfo = document.getElementById('userInfo');
+            const userName = document.getElementById('userName');
+            if (authButtons && userInfo && userName) {
+                try {
+                    const user = JSON.parse(localStorage.getItem('currentUser'));
+                    if (user) {
+                        authButtons.style.display = 'none';
+                        userInfo.style.display = 'flex';
+                        userName.textContent = user.account;
+                    } else {
+                        authButtons.style.display = 'flex';
+                        userInfo.style.display = 'none';
+                    }
+                } catch (e) {
+                    console.error('Error updating auth UI:', e);
+                }
+            }
+        }
+
+        updateAuthUI();
+
+        const loginModal = document.getElementById('loginModal');
+        const registerModal = document.getElementById('registerModal');
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const loginModalClose = document.getElementById('loginModalClose');
+        const registerModalClose = document.getElementById('registerModalClose');
+        const goToRegister = document.getElementById('goToRegister');
+        const goToLogin = document.getElementById('goToLogin');
+        const loginError = document.getElementById('loginError');
+        const registerError = document.getElementById('registerError');
+
+        loginBtn?.addEventListener('click', () => {
+            loginError.style.display = 'none';
+            registerError.style.display = 'none';
+            loginModal.classList.add('active');
+        });
+
+        registerBtn?.addEventListener('click', () => {
+            loginError.style.display = 'none';
+            registerError.style.display = 'none';
+            registerModal.classList.add('active');
+        });
+
+        loginModalClose?.addEventListener('click', () => {
+            loginModal.classList.remove('active');
+        });
+
+        registerModalClose?.addEventListener('click', () => {
+            registerModal.classList.remove('active');
+        });
+
+        loginModal?.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.classList.remove('active');
+            }
+        });
+
+        registerModal?.addEventListener('click', (e) => {
+            if (e.target === registerModal) {
+                registerModal.classList.remove('active');
+            }
+        });
+
+        goToRegister?.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.classList.remove('active');
+            registerModal.classList.add('active');
+        });
+
+        goToLogin?.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerModal.classList.remove('active');
+            loginModal.classList.add('active');
+        });
+
+        document.getElementById('doLogin')?.addEventListener('click', () => {
+            const account = document.getElementById('loginAccount').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            
+            if (!account || !password) {
+                loginError.textContent = '请输入账号和密码';
+                loginError.style.display = 'block';
+                return;
+            }
+            
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.account === account && u.password === password);
+            
+            if (user) {
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                loginModal.classList.remove('active');
+                window.location.reload();
+            } else {
+                loginError.textContent = '账号或密码错误';
+                loginError.style.display = 'block';
+            }
+        });
+
+        document.getElementById('doRegister')?.addEventListener('click', () => {
+            const account = document.getElementById('registerAccount').value.trim();
+            const password = document.getElementById('registerPassword').value.trim();
+            const confirmPassword = document.getElementById('registerConfirmPassword').value.trim();
+            
+            if (!account || !password || !confirmPassword) {
+                registerError.textContent = '请填写所有字段';
+                registerError.style.display = 'block';
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                registerError.textContent = '两次输入的密码不一致';
+                registerError.style.display = 'block';
+                return;
+            }
+            
+            if (password.length < 6) {
+                registerError.textContent = '密码长度至少6位';
+                registerError.style.display = 'block';
+                return;
+            }
+            
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            
+            if (users.find(u => u.account === account)) {
+                registerError.textContent = '账号已存在';
+                registerError.style.display = 'block';
+                return;
+            }
+            
+            const newUser = { account, password, role: 'user' };
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            localStorage.setItem('currentUser', JSON.stringify(newUser));
+            registerModal.classList.remove('active');
+            window.location.reload();
+        });
+
+        document.getElementById('logoutBtn')?.addEventListener('click', () => {
+            localStorage.removeItem('currentUser');
+            window.location.reload();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                loginModal?.classList.remove('active');
+                registerModal?.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

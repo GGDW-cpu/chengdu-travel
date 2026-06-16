@@ -1,0 +1,2655 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="探访实录,旅行游记,成都旅游">
+    <meta name="description" content="蓉城·慢行 - 探访实录，记录旅途中的美好时光">
+    <title>探访实录 - 蓉城·慢行</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        :root {
+            --primary-color: #5A9E6E;
+            --primary-dark: #3D6B4C;
+            --background-color: #F5F7F5;
+            --card-bg: #FFFFFF;
+            --text-primary: #2D4A3E;
+            --text-secondary: #6B7B7D;
+            --text-muted: #9CAFA5;
+            --border-color: rgba(90, 158, 110, 0.1);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08);
+            --radius-sm: 12px;
+            --radius-md: 16px;
+            --radius-lg: 20px;
+            --radius-full: 40px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 400;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+            border-radius: 2px;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            font-family: inherit;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: rgba(90, 158, 110, 0.08);
+        }
+
+        .btn-fill {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(90, 158, 110, 0.3);
+        }
+
+        .btn-fill:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(90, 158, 110, 0.4);
+        }
+
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .page-title {
+            font-size: 2.2rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .page-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .travelogue-list {
+            display: flex;
+            flex-direction: column;
+            gap: 56px;
+        }
+
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(8px);
+        }
+
+        .lightbox-overlay.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90vw;
+            max-height: 80vh;
+            position: relative;
+        }
+
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 70vh;
+            border-radius: var(--radius-md);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .lightbox-caption {
+            color: white;
+            text-align: center;
+            margin-top: 20px;
+            max-width: 600px;
+        }
+
+        .lightbox-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .lightbox-summary {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            padding: 12px 16px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .lightbox-prev {
+            left: -50px;
+        }
+
+        .lightbox-next {
+            right: -50px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lightbox-close:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .lightbox-indicator {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.875rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 32px 24px;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 80px;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ========== 美化后的样式 ========== */
+        
+        /* 页面头部 */
+        .travelogue-header {
+            text-align: center;
+            padding: 60px 24px 40px;
+            background: linear-gradient(135deg, rgba(45, 74, 62, 0.4) 0%, rgba(90, 158, 110, 0.3) 100%), 
+                        url('images/tffm.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .travelogue-header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .travelogue-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .submit-travelogue-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 60px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(90, 158, 110, 0.3);
+        }
+
+        .submit-travelogue-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(90, 158, 110, 0.4);
+            background: #4A8A5E;
+        }
+
+        /* 排序栏 */
+        .sort-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto 32px;
+            padding: 0 24px;
+        }
+
+        .sort-options {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .sort-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .sort-btn, .view-btn {
+            padding: 8px 20px;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 40px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .sort-btn:hover, .view-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .sort-btn.active, .view-btn.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        /* 网格布局 */
+        .travelogue-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 28px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 60px;
+        }
+
+        /* 卡片样式 */
+        .travelogue-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .travelogue-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* 封面图 */
+        .card-image {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .travelogue-card:hover .card-image img {
+            transform: scale(1.05);
+        }
+
+        /* 地点标签 */
+        .card-location {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: white;
+        }
+
+        /* 用户信息行 */
+        .card-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 16px 8px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .user-time {
+            font-size: 0.7rem;
+            color: var(--text-light);
+        }
+
+        /* 内容区 */
+        .card-content {
+            padding: 0 16px 12px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .card-summary {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .card-stats {
+            display: flex;
+            gap: 16px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 10px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* 列表视图 */
+        .travelogue-grid.list-view {
+            grid-template-columns: 1fr;
+        }
+
+        .travelogue-grid.list-view .travelogue-card {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .travelogue-grid.list-view .card-image {
+            width: 300px;
+            height: auto;
+            flex-shrink: 0;
+        }
+
+        .travelogue-grid.list-view .card-content {
+            flex: 1;
+            padding: 16px 20px;
+        }
+
+        /* 详情弹窗 */
+        .detail-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .detail-modal.active {
+            display: flex;
+        }
+
+        .detail-modal-content {
+            width: 1000px;
+            height: 650px;
+            max-width: none;
+            max-height: none;
+            border-radius: 24px;
+            background: white;
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+
+        .detail-close {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            width: 28px;
+            height: 28px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 16px;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .detail-image-wrapper {
+            width: 55%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+            background: #f0f0f0;
+        }
+
+        .detail-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: #f0f0f0;
+        }
+
+        .image-counter {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: white;
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            opacity: 0;
+        }
+
+        .detail-image-wrapper:hover .nav-btn {
+            opacity: 1;
+        }
+
+        .nav-btn:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .nav-prev {
+            left: 10px;
+        }
+
+        .nav-next {
+            right: 10px;
+        }
+
+        .detail-body {
+            width: 45%;
+            height: 100%;
+            overflow-y: auto;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            background: white;
+        }
+
+        .detail-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .detail-avatar {
+            width: 48px;
+            height: 48px;
+            background: #E8F5E9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .detail-author-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-nickname {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .detail-meta {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .detail-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 16px 0 12px;
+            line-height: 1.4;
+        }
+
+        .detail-content {
+            font-size: 15px;
+            line-height: 1.65;
+            color: #333;
+            margin-bottom: 16px;
+        }
+
+        .expand-btn {
+            color: #5A9E6E;
+            font-size: 13px;
+            margin-bottom: 12px;
+            cursor: pointer;
+        }
+
+        .detail-stats {
+            display: flex;
+            gap: 28px;
+            padding: 14px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            margin: 16px 0;
+        }
+
+        .stat-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            color: #666;
+            padding: 0;
+        }
+
+        .stat-btn:hover {
+            opacity: 0.8;
+        }
+
+        .stat-icon {
+            font-size: 16px;
+        }
+
+        .stat-count {
+            font-weight: 500;
+        }
+
+        .like-btn.liked .stat-icon {
+            animation: likeAnimation 0.3s ease;
+        }
+
+        @keyframes likeAnimation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        .comments-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin-top: 12px;
+            overflow: hidden;
+        }
+
+        .comments-title {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .comments-list {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 12px;
+            max-height: 180px;
+        }
+
+        .comment-item {
+            display: flex;
+            gap: 10px;
+            padding: 12px 0;
+        }
+
+        .comment-item:last-child {
+            border-bottom: none;
+        }
+
+        .comment-avatar {
+            width: 36px;
+            height: 36px;
+            background: #E8F5E9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .comment-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2px;
+        }
+
+        .comment-author {
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .comment-text {
+            font-size: 14px;
+            margin: 2px 0;
+            word-break: break-all;
+        }
+
+        .comment-time {
+            font-size: 10px;
+            color: #999;
+        }
+
+        .comment-delete {
+            background: none;
+            border: none;
+            color: #9CA3AF;
+            font-size: 0.75rem;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .comment-delete:hover {
+            background: #F3F4F6;
+            color: #E53935;
+        }
+
+        .comment-input-wrapper {
+            display: flex;
+            gap: 10px;
+            padding-top: 12px;
+            border-top: 1px solid #eee;
+        }
+
+        .comment-input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid #eee;
+            border-radius: 24px;
+            font-size: 13px;
+            background: #f8f8f8;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .comment-input:focus {
+            border-color: #5A9E6E;
+        }
+
+        .comment-submit {
+            background: #5A9E6E;
+            color: white;
+            border: none;
+            padding: 0 18px;
+            border-radius: 24px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .comment-submit:hover {
+            opacity: 0.9;
+        }
+
+        .comment-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .no-comments {
+            text-align: center;
+            color: #9CA3AF;
+            font-size: 0.85rem;
+            padding: 20px;
+        }
+
+        /* 多图上传区域 */
+        .image-upload-area {
+            margin-top: 8px;
+        }
+
+        .image-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .image-preview {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid #E5EDE8;
+        }
+
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-preview.empty {
+            border-style: dashed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9CA3AF;
+            font-size: 1.5rem;
+        }
+
+        .remove-image {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            transition: background 0.2s;
+        }
+
+        .remove-image:hover {
+            background: rgba(229, 57, 53, 0.8);
+        }
+
+        .add-image-btn {
+            background: #F3F4F6;
+            color: var(--primary-color);
+            border: 1px dashed var(--primary-color);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .add-image-btn:hover {
+            background: rgba(90, 158, 110, 0.1);
+            border-style: solid;
+        }
+
+        /* 卡片图片角标 */
+        .image-badge {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 11px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* 悬浮投稿按钮 */
+        .submit-float-btn {
+            position: fixed;
+            right: 32px;
+            bottom: 48px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 60px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(90, 158, 110, 0.4);
+            transition: all 0.3s;
+            z-index: 500;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .submit-float-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(90, 158, 110, 0.5);
+        }
+
+        .submit-float-btn.show {
+            display: flex;
+        }
+
+        /* 投稿弹窗 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 32px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: var(--text-primary);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: all 0.2s;
+            background: var(--background-color);
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(90, 158, 110, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-hint {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 8px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(90, 158, 110, 0.4);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .error-message {
+            color: #E53935;
+            font-size: 0.8rem;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* 删除按钮 */
+        .card-delete-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(229, 57, 53, 0.9);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .travelogue-card:hover .card-delete-btn {
+            opacity: 1;
+        }
+
+        .card-delete-btn:hover {
+            background: #E53935;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .travelogue-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .travelogue-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .travelogue-grid.list-view .travelogue-card {
+                flex-direction: column;
+            }
+
+            .travelogue-grid.list-view .card-image {
+                width: 100%;
+                height: 200px;
+            }
+
+            .sort-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .sort-options, .view-toggle {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .submit-float-btn {
+                right: 16px;
+                bottom: 32px;
+                padding: 14px 20px;
+                font-size: 0.9rem;
+            }
+
+            .modal-content {
+                padding: 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+                height: 64px;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .btn {
+                padding: 8px 14px;
+                font-size: 0.85rem;
+            }
+
+            .section {
+                padding: 32px 16px;
+            }
+
+            .page-title {
+                font-size: 1.6rem;
+            }
+
+            .page-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .travelogue-list {
+                gap: 40px;
+            }
+
+            .lightbox-nav {
+                padding: 10px 14px;
+                font-size: 1.2rem;
+            }
+
+            .lightbox-prev {
+                left: -40px;
+            }
+
+            .lightbox-next {
+                right: -40px;
+            }
+        }
+
+        /* 响应式适配 - 移动端 */
+        @media (max-width: 1050px) {
+            .detail-modal-content {
+                width: 95vw;
+                height: 85vh;
+                border-radius: 24px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .detail-modal-content {
+                flex-direction: column;
+            }
+
+            .detail-image-wrapper {
+                width: 100%;
+                height: 45%;
+            }
+
+            .detail-body {
+                width: 100%;
+                height: 55%;
+                padding: 16px;
+            }
+
+            .detail-close {
+                left: 12px;
+                top: 12px;
+            }
+
+            .detail-avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+
+            .detail-nickname {
+                font-size: 14px;
+            }
+
+            .detail-meta {
+                font-size: 11px;
+            }
+
+            .detail-title {
+                font-size: 16px;
+            }
+
+            .detail-content {
+                font-size: 13px;
+            }
+
+            .comments-list {
+                max-height: 120px;
+            }
+
+            .comment-avatar {
+                width: 28px;
+                height: 28px;
+                font-size: 12px;
+            }
+
+            .comment-author {
+                font-size: 11px;
+            }
+
+            .comment-text {
+                font-size: 12px;
+            }
+
+            .comment-input {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+
+            .comment-submit {
+                padding: 0 14px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">蓉城·慢行</a>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="articles.html">文化解码</a></li>
+                <li><a href="travelogue.html">探访实录</a></li>
+                <li><a href="fengwu.html">风物档案</a></li>
+                <li><a href="map.html">互动地图</a></li>
+                <li><a href="solar-term.html">🌾 节气·成都</a></li>
+            </ul>
+            <div class="auth-buttons" id="authButtons">
+                <button class="btn btn-outline" id="loginBtn">登录</button>
+                <button class="btn btn-fill" id="registerBtn">注册</button>
+            </div>
+            <div class="user-info" id="userInfo" style="display: none;">
+                <span class="user-name" id="userName"></span>
+                <button class="btn btn-outline" id="logoutBtn">退出</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="travelogue-header">
+            <h1>📸 探访实录</h1>
+            <p>用镜头和文字，记录真实的成都烟火气</p>
+            <button class="submit-travelogue-btn" id="openSubmitBtn">
+                ✨ 分享我的探访
+            </button>
+        </div>
+
+        <div class="sort-bar">
+            <div class="sort-options">
+                <span class="sort-label">排序：</span>
+                <button class="sort-btn active" data-sort="latest">📅 最新发布</button>
+                <button class="sort-btn" data-sort="popular">❤️ 最受欢迎</button>
+                <button class="sort-btn" data-sort="nearby">📍 附近</button>
+            </div>
+            <div class="view-toggle">
+                <button class="view-btn active" data-view="grid">▦ 网格</button>
+                <button class="view-btn" data-view="list">☰ 列表</button>
+            </div>
+        </div>
+
+        <div class="travelogue-grid" id="travelogueList">
+            <article class="travelogue-card" data-id="1" onclick="openDetailModal(0)">
+                <div class="card-image">
+                    <img 
+                        src="images/kz1.png" 
+                        alt="宽窄巷子" 
+                        loading="lazy"
+                    >
+                    <div class="card-location">📍 宽窄巷子</div>
+                    <div class="image-badge">📷 3</div>
+                </div>
+                <div class="card-user">
+                    <div class="user-avatar">👤</div>
+                    <div class="user-info">
+                        <div class="user-name">旅行者</div>
+                        <div class="user-time">2025年5月20日</div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">清晨的宽窄巷子，感受老成都的慢生活</h3>
+                    <p class="card-summary">青石板路上还留着昨夜细雨的湿润，两旁的青砖黛瓦在薄雾中若隐若现。老师傅正在门口手工制作糖画...</p>
+                    <div class="card-stats">
+                        <span class="stat-item">❤️ 128</span>
+                        <span class="stat-item">💬 24</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="travelogue-card" data-id="2" onclick="openDetailModal(1)">
+                <div class="card-image">
+                    <img 
+                        src="images/wh1.png" 
+                        alt="武侯祠" 
+                        loading="lazy"
+                    >
+                    <div class="card-location">📍 武侯祠</div>
+                    <div class="image-badge">📷 3</div>
+                </div>
+                <div class="card-user">
+                    <div class="user-avatar">👤</div>
+                    <div class="user-info">
+                        <div class="user-name">历史爱好者</div>
+                        <div class="user-time">2025年5月21日</div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">武侯祠，感受三国文化的厚重历史</h3>
+                    <p class="card-summary">红墙夹道，翠竹森森，仿佛穿越千年时光。"攻心联"道尽治国理政的精髓...</p>
+                    <div class="card-stats">
+                        <span class="stat-item">❤️ 256</span>
+                        <span class="stat-item">💬 42</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="travelogue-card" data-id="3" onclick="openDetailModal(2)">
+                <div class="card-image">
+                    <img 
+                        src="images/df1.png" 
+                        alt="杜甫草堂" 
+                        loading="lazy"
+                    >
+                    <div class="card-location">📍 杜甫草堂</div>
+                    <div class="image-badge">📷 3</div>
+                </div>
+                <div class="card-user">
+                    <div class="user-avatar">👤</div>
+                    <div class="user-info">
+                        <div class="user-name">文艺青年</div>
+                        <div class="user-time">2025年5月22日</div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">杜甫草堂，感受诗圣的忧国忧民情怀</h3>
+                    <p class="card-summary">竹林掩映，溪流潺潺，古朴的茅屋在绿树丛中若隐若现。感受诗圣的家国情怀...</p>
+                    <div class="card-stats">
+                        <span class="stat-item">❤️ 189</span>
+                        <span class="stat-item">💬 31</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="travelogue-card" data-id="4" onclick="openDetailModal(3)">
+                <div class="card-image">
+                    <img 
+                        src="images/rm1.png" 
+                        alt="人民公园" 
+                        loading="lazy"
+                    >
+                    <div class="card-location">📍 人民公园</div>
+                    <div class="image-badge">📷 2</div>
+                </div>
+                <div class="card-user">
+                    <div class="user-avatar">👤</div>
+                    <div class="user-info">
+                        <div class="user-name">城市探索者</div>
+                        <div class="user-time">2025年5月23日</div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">人民公园，成都人生活的缩影</h3>
+                    <p class="card-summary">露天茶馆、川剧票友、垂钓写生，真正体会到了什么是"巴适"生活...</p>
+                    <div class="card-stats">
+                        <span class="stat-item">❤️ 312</span>
+                        <span class="stat-item">💬 56</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="travelogue-card" data-id="5" onclick="openDetailModal(4)">
+                <div class="card-image">
+                    <img 
+                        src="images/jl1.png" 
+                        alt="锦里古街" 
+                        loading="lazy"
+                    >
+                    <div class="card-location">📍 锦里古街</div>
+                    <div class="image-badge">📷 3</div>
+                </div>
+                <div class="card-user">
+                    <div class="user-avatar">👤</div>
+                    <div class="user-info">
+                        <div class="user-name">美食达人</div>
+                        <div class="user-time">2025年5月24日</div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">锦里古街夜景，传统与现代的完美融合</h3>
+                    <p class="card-summary">红灯笼挂满了整条街道，各种小吃摊散发出诱人的香气...</p>
+                    <div class="card-stats">
+                        <span class="stat-item">❤️ 425</span>
+                        <span class="stat-item">💬 78</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2024 蓉城·慢行 版权所有 | <a href="#" target="_blank">关于我们</a> | <a href="#" target="_blank">隐私政策</a></p>
+    </footer>
+
+    <!-- 悬浮投稿按钮 -->
+    <button class="submit-float-btn" id="submitFloatBtn">
+        ✏️ 写游记
+    </button>
+
+    <!-- 投稿弹窗 -->
+    <div class="modal-overlay" id="submitModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeSubmitModal()">✕</button>
+            <h2 class="modal-title">✏️ 分享我的探访</h2>
+            
+            <form id="travelogueForm">
+                <div class="form-group">
+                    <label class="form-label">标题 <span style="color: #E53935;">*</span></label>
+                    <input type="text" class="form-input" id="formTitle" placeholder="请输入游记标题">
+                    <div class="error-message" id="errorTitle">请输入标题</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">地点 <span style="color: #E53935;">*</span></label>
+                    <input type="text" class="form-input" id="formLocation" placeholder="如：宽窄巷子">
+                    <div class="error-message" id="errorLocation">请输入地点</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">图片（最多9张）</label>
+                    <div class="image-upload-area">
+                        <div class="image-list" id="imageList"></div>
+                        <button type="button" id="addImageBtn" class="add-image-btn">+ 添加图片URL</button>
+                    </div>
+                    <div class="form-hint">支持 jpg、png、webp 格式，最多上传9张图片</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">游记内容 <span style="color: #E53935;">*</span></label>
+                    <textarea class="form-textarea" id="formContent" placeholder="分享你的探访经历，不少于20字..."></textarea>
+                    <div class="error-message" id="errorContent">内容不少于20字</div>
+                </div>
+
+                <button type="submit" class="btn-submit">发布游记</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 详情弹窗 -->
+    <div class="detail-modal" id="detailModal" onclick="closeDetailModal()">
+        <div class="detail-modal-content" onclick="event.stopPropagation()">
+            <button class="detail-close" onclick="closeDetailModal()">✕</button>
+            
+            <div class="detail-image-wrapper">
+                <img src="" alt="" class="detail-image" id="detailImage">
+                <div class="image-counter" id="imageCounter">1/1</div>
+                <button class="nav-btn nav-prev" id="navPrev" onclick="prevImage()">‹</button>
+                <button class="nav-btn nav-next" id="navNext" onclick="nextImage()">›</button>
+            </div>
+            
+            <div class="detail-body">
+                <div class="detail-author">
+                    <span class="detail-avatar" id="detailAvatar">👤</span>
+                    <div class="detail-author-info">
+                        <span class="detail-nickname" id="detailNickname"></span>
+                        <span class="detail-meta" id="detailMeta"></span>
+                    </div>
+                </div>
+                
+                <h2 class="detail-title" id="detailTitle"></h2>
+                <p class="detail-content" id="detailContent"></p>
+                
+                <div class="detail-stats">
+                    <button class="stat-btn like-btn" id="likeBtn" onclick="toggleLike()">
+                        <span class="stat-icon">❤️</span>
+                        <span class="stat-count" id="likeCount">0</span>
+                    </button>
+                    <button class="stat-btn comment-btn" id="commentBtn">
+                        <span class="stat-icon">💬</span>
+                        <span class="stat-count" id="commentCount">0</span>
+                    </button>
+                </div>
+                
+                <div class="comments-section">
+                    <h4 class="comments-title">💬 评论</h4>
+                    <div class="comments-list" id="commentsList"></div>
+                    
+                    <div class="comment-input-wrapper">
+                        <input type="text" class="comment-input" id="commentInput" placeholder="写下你的评论...">
+                        <button class="comment-submit" id="commentSubmit" onclick="submitComment()">发送</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 获取存储的游记数据，若无则使用默认数据
+        function getTravelogues() {
+            const stored = localStorage.getItem('travelogues');
+            if (stored) {
+                return JSON.parse(stored);
+            }
+            // 默认数据
+            return [
+                {
+                    id: '1',
+                    title: '宽窄巷子：老成都的时光印记',
+                    location: '宽窄巷子',
+                    content: '清晨的宽窄巷子，青石板路上还留着昨夜细雨的湿润，两旁的青砖黛瓦在薄雾中若隐若现。老字号茶馆里坐满了悠闲的茶客，盖碗茶的清香随风飘来。',
+                    images: [
+                        'images/kz1.png',
+                        'images/kz2.png',
+                        'images/kz3.png'
+                    ],
+                    author: { nickname: '旅行者', avatar: '👤', email: 'traveler@example.com' },
+                    likes: 128,
+                    comments: 24,
+                    createdAt: '2025-05-20'
+                },
+                {
+                    id: '2',
+                    title: '武侯祠：三国文化的精神家园',
+                    location: '武侯祠',
+                    content: '走进武侯祠，红墙夹道，翠竹森森，仿佛穿越千年时光。刘备殿、诸葛亮殿、三义庙，一座座古朴的建筑诉说着三国风云。',
+                    images: [
+                        'images/wh1.png',
+                        'images/wh2.png',
+                        'images/wh3.png'
+                    ],
+                    author: { nickname: '历史爱好者', avatar: '📚', email: 'history@example.com' },
+                    likes: 256,
+                    comments: 42,
+                    createdAt: '2025-05-21'
+                },
+                {
+                    id: '3',
+                    title: '杜甫草堂：诗圣的成都记忆',
+                    location: '杜甫草堂',
+                    content: '杜甫草堂，竹林掩映，溪流潺潺，古朴的茅屋在绿树丛中若隐若现。在这里感受诗圣当年"安得广厦千万间"的忧国忧民情怀。',
+                    images: [
+                        'images/df1.png',
+                        'images/df2.png',
+                        'images/df3.png'
+                    ],
+                    author: { nickname: '文艺青年', avatar: '🎨', email: 'art@example.com' },
+                    likes: 189,
+                    comments: 31,
+                    createdAt: '2025-05-22'
+                },
+                {
+                    id: '4',
+                    title: '人民公园：成都人的悠闲时光',
+                    location: '人民公园',
+                    content: '人民公园是成都人生活的缩影。大爷大妈们打太极、跳广场舞，露天茶馆里坐满了悠闲的茶客，充满了生活气息。',
+                    images: [
+                        'images/rm1.png',
+                        'images/rm2.png'
+                    ],
+                    author: { nickname: '城市探索者', avatar: '🔍', email: 'explorer@example.com' },
+                    likes: 312,
+                    comments: 56,
+                    createdAt: '2025-05-23'
+                },
+                {
+                    id: '5',
+                    title: '锦里古街：灯火辉煌不夜城',
+                    location: '锦里古街',
+                    content: '夜幕降临，锦里古街华灯初上，红灯笼挂满了整条街道，映照着青石板路，各种小吃摊散发出诱人的香气。',
+                    images: [
+                        'images/jl1.png',
+                        'images/jl2.png',
+                        'images/jl3.png'
+                    ],
+                    author: { nickname: '美食达人', avatar: '🍜', email: 'food@example.com' },
+                    likes: 425,
+                    comments: 78,
+                    createdAt: '2025-05-24'
+                }
+            ];
+        }
+
+        // 保存游记数据
+        function saveTravelogues(data) {
+            localStorage.setItem('travelogues', JSON.stringify(data));
+        }
+
+        // 获取当前登录用户
+        function getCurrentUser() {
+            try {
+                return JSON.parse(localStorage.getItem('currentUser'));
+            } catch (e) {
+                return null;
+            }
+        }
+
+        // 获取所有游记数据
+        let travelogues = getTravelogues();
+
+        // 当前打开的游记ID
+        let currentTravelogueId = null;
+        // 当前图片索引
+        let currentImageIndex = 0;
+        
+        // 获取评论数据
+        function getComments() {
+            try {
+                return JSON.parse(localStorage.getItem('travelogueComments') || '[]');
+            } catch (e) {
+                return [];
+            }
+        }
+
+        // 保存评论数据
+        function saveComments(comments) {
+            localStorage.setItem('travelogueComments', JSON.stringify(comments));
+        }
+
+        // 打开详情弹窗
+        function openDetailModal(index) {
+            const travelogue = travelogues[index];
+            if (!travelogue) return;
+            
+            currentTravelogueId = travelogue.id;
+            currentImageIndex = 0;
+            
+            // 获取图片数组（兼容旧数据）
+            const images = travelogue.images || (travelogue.imageUrl ? [travelogue.imageUrl] : []);
+            
+            // 更新弹窗内容
+            showImage(0, images);
+            document.getElementById('detailAvatar').textContent = travelogue.author.avatar || '👤';
+            document.getElementById('detailNickname').textContent = travelogue.author.nickname;
+            document.getElementById('detailMeta').textContent = `📍 ${travelogue.location} · 📅 ${travelogue.createdAt}`;
+            document.getElementById('detailTitle').textContent = travelogue.title;
+            document.getElementById('detailContent').textContent = travelogue.content;
+            
+            // 更新点赞状态
+            updateLikeStatus(travelogue);
+            
+            // 更新评论列表
+            renderComments();
+            
+            // 显示弹窗
+            document.getElementById('detailModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // 显示指定图片
+        function showImage(index, images = null) {
+            if (!images) {
+                const travelogue = travelogues.find(t => t.id === currentTravelogueId);
+                if (!travelogue) return;
+                images = travelogue.images || (travelogue.imageUrl ? [travelogue.imageUrl] : []);
+            }
+            
+            const img = document.getElementById('detailImage');
+            const counter = document.getElementById('imageCounter');
+            
+            if (images.length === 0) {
+                img.src = 'https://picsum.photos/800/600?random=1';
+                counter.textContent = '1/1';
+            } else {
+                img.src = images[index];
+                counter.textContent = `${index + 1}/${images.length}`;
+            }
+            
+            currentImageIndex = index;
+        }
+        
+        // 上一张图片
+        function prevImage() {
+            const travelogue = travelogues.find(t => t.id === currentTravelogueId);
+            if (!travelogue) return;
+            
+            const images = travelogue.images || (travelogue.imageUrl ? [travelogue.imageUrl] : []);
+            if (images.length <= 1) return;
+            
+            currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+            showImage(currentImageIndex, images);
+        }
+        
+        // 下一张图片
+        function nextImage() {
+            const travelogue = travelogues.find(t => t.id === currentTravelogueId);
+            if (!travelogue) return;
+            
+            const images = travelogue.images || (travelogue.imageUrl ? [travelogue.imageUrl] : []);
+            if (images.length <= 1) return;
+            
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            showImage(currentImageIndex, images);
+        }
+
+        // 关闭详情弹窗
+        function closeDetailModal() {
+            document.getElementById('detailModal').classList.remove('active');
+            document.body.style.overflow = '';
+            currentTravelogueId = null;
+            document.getElementById('commentInput').value = '';
+        }
+
+        // 更新点赞状态
+        function updateLikeStatus(travelogue) {
+            const user = getCurrentUser();
+            const likeBtn = document.getElementById('likeBtn');
+            const likeCount = document.getElementById('likeCount');
+            
+            likeCount.textContent = travelogue.likes || 0;
+            
+            if (user && travelogue.likedBy && travelogue.likedBy.includes(user.account)) {
+                likeBtn.classList.add('liked');
+            } else {
+                likeBtn.classList.remove('liked');
+            }
+        }
+
+        // 切换点赞
+        function toggleLike() {
+            const user = getCurrentUser();
+            if (!user || !currentTravelogueId) return;
+            
+            const travelogue = travelogues.find(t => t.id === currentTravelogueId);
+            if (!travelogue) return;
+            
+            // 初始化likedBy数组
+            if (!travelogue.likedBy) {
+                travelogue.likedBy = [];
+            }
+            
+            const userIndex = travelogue.likedBy.indexOf(user.account);
+            
+            if (userIndex > -1) {
+                // 取消点赞
+                travelogue.likedBy.splice(userIndex, 1);
+                travelogue.likes = Math.max(0, (travelogue.likes || 0) - 1);
+                document.getElementById('likeBtn').classList.remove('liked');
+            } else {
+                // 添加点赞
+                travelogue.likedBy.push(user.account);
+                travelogue.likes = (travelogue.likes || 0) + 1;
+                document.getElementById('likeBtn').classList.add('liked');
+            }
+            
+            // 保存数据
+            saveTravelogues(travelogues);
+            
+            // 更新显示
+            document.getElementById('likeCount').textContent = travelogue.likes;
+            
+            // 更新卡片上的点赞数
+            const card = document.querySelector(`.travelogue-card[data-id="${currentTravelogueId}"]`);
+            if (card) {
+                const statItem = card.querySelector('.stat-item');
+                if (statItem) {
+                    statItem.textContent = `❤️ ${travelogue.likes}`;
+                }
+            }
+        }
+
+        // 渲染评论列表
+        function renderComments() {
+            const commentsList = document.getElementById('commentsList');
+            const comments = getComments().filter(c => c.travelogueId === currentTravelogueId);
+            
+            // 按时间倒序排序
+            comments.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            
+            if (comments.length === 0) {
+                commentsList.innerHTML = '<div class="no-comments">暂无评论，快来发表第一条评论吧~</div>';
+                return;
+            }
+            
+            const user = getCurrentUser();
+            
+            commentsList.innerHTML = comments.map(comment => {
+                const canDelete = user && comment.authorEmail === user.account;
+                return `
+                    <div class="comment-item">
+                        <div class="comment-avatar">${getAvatar(comment.author)}</div>
+                        <div class="comment-content">
+                            <div class="comment-header">
+                                <span class="comment-author">${comment.author}</span>
+                                ${canDelete ? `<button class="comment-delete" onclick="deleteComment('${comment.id}')">删除</button>` : ''}
+                            </div>
+                            <p class="comment-text">${comment.content}</p>
+                            <span class="comment-time">${formatDate(comment.createdAt)}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            // 更新评论计数
+            document.getElementById('commentCount').textContent = comments.length;
+        }
+
+        // 获取头像
+        function getAvatar(nickname) {
+            const avatars = ['👤', '👩', '👨', '👧', '👦', '🧑', '👱', '👸', '🤴', '🧔'];
+            let hash = 0;
+            for (let i = 0; i < nickname.length; i++) {
+                hash = nickname.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            return avatars[Math.abs(hash) % avatars.length];
+        }
+
+        // 提交评论
+        function submitComment() {
+            const user = getCurrentUser();
+            if (!user) {
+                alert('请先登录后再发表评论');
+                return;
+            }
+            
+            const content = document.getElementById('commentInput').value.trim();
+            if (!content) {
+                alert('请输入评论内容');
+                return;
+            }
+            
+            const newComment = {
+                id: Date.now().toString(),
+                travelogueId: currentTravelogueId,
+                author: user.nickname,
+                authorEmail: user.account,
+                content: content,
+                createdAt: new Date().toISOString().split('T')[0]
+            };
+            
+            const comments = getComments();
+            comments.push(newComment);
+            saveComments(comments);
+            
+            // 更新游记的评论数
+            const travelogue = travelogues.find(t => t.id === currentTravelogueId);
+            if (travelogue) {
+                travelogue.comments = (travelogue.comments || 0) + 1;
+                saveTravelogues(travelogues);
+                
+                // 更新卡片上的评论数
+                const card = document.querySelector(`.travelogue-card[data-id="${currentTravelogueId}"]`);
+                if (card) {
+                    const statItems = card.querySelectorAll('.stat-item');
+                    if (statItems[1]) {
+                        statItems[1].textContent = `💬 ${travelogue.comments}`;
+                    }
+                }
+            }
+            
+            // 清空输入框
+            document.getElementById('commentInput').value = '';
+            
+            // 重新渲染评论列表
+            renderComments();
+        }
+
+        // 删除评论
+        function deleteComment(commentId) {
+            const user = getCurrentUser();
+            if (!user) return;
+            
+            const comments = getComments();
+            const comment = comments.find(c => c.id === commentId);
+            
+            if (!comment || comment.authorEmail !== user.account) {
+                alert('只能删除自己的评论');
+                return;
+            }
+            
+            if (!confirm('确定要删除这条评论吗？')) return;
+            
+            const updatedComments = comments.filter(c => c.id !== commentId);
+            saveComments(updatedComments);
+            
+            // 更新游记的评论数
+            const travelogue = travelogues.find(t => t.id === currentTravelogueId);
+            if (travelogue) {
+                travelogue.comments = Math.max(0, (travelogue.comments || 0) - 1);
+                saveTravelogues(travelogues);
+                
+                // 更新卡片上的评论数
+                const card = document.querySelector(`.travelogue-card[data-id="${currentTravelogueId}"]`);
+                if (card) {
+                    const statItems = card.querySelectorAll('.stat-item');
+                    if (statItems[1]) {
+                        statItems[1].textContent = `💬 ${travelogue.comments}`;
+                    }
+                }
+            }
+            
+            renderComments();
+        }
+
+        // 键盘事件
+        document.addEventListener('keydown', function(e) {
+            const modal = document.getElementById('detailModal');
+            if (!modal.classList.contains('active')) return;
+            
+            if (e.key === 'Escape') {
+                closeDetailModal();
+            }
+        });
+
+        function updateAuthUI() {
+            const authButtons = document.getElementById('authButtons');
+            const submitBtn = document.getElementById('submitFloatBtn');
+            const headerSubmitBtn = document.getElementById('openSubmitBtn');
+            try {
+                const user = JSON.parse(localStorage.getItem('currentUser'));
+                if (user) {
+                    authButtons.innerHTML = `
+                        <span style="color: var(--text-primary); margin-right: 1rem; font-weight: 500;">${user.nickname}</span>
+                        ${user.isAdmin ? '<a href="admin.html" class="btn btn-outline" style="margin-right: 0.5rem;">管理后台</a>' : ''}
+                        <button class="btn btn-fill" onclick="logout()">退出</button>
+                    `;
+                    // 显示投稿按钮
+                    if (submitBtn) submitBtn.classList.add('show');
+                    if (headerSubmitBtn) headerSubmitBtn.style.display = 'inline-flex';
+                } else {
+                    // 隐藏投稿按钮
+                    if (submitBtn) submitBtn.classList.remove('show');
+                    if (headerSubmitBtn) headerSubmitBtn.style.display = 'none';
+                }
+            } catch (e) {
+                if (submitBtn) submitBtn.classList.remove('show');
+                if (headerSubmitBtn) headerSubmitBtn.style.display = 'none';
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.reload();
+        }
+
+        // ========== 投稿功能 ==========
+        const submitModal = document.getElementById('submitModal');
+        const submitFloatBtn = document.getElementById('submitFloatBtn');
+        const openSubmitBtn = document.getElementById('openSubmitBtn');
+        const travelogueForm = document.getElementById('travelogueForm');
+
+        function openSubmitModal() {
+            const user = getCurrentUser();
+            if (!user) {
+                alert('请先登录后再发布游记');
+                return;
+            }
+            submitModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSubmitModal() {
+            submitModal.classList.remove('active');
+            document.body.style.overflow = '';
+            travelogueForm.reset();
+            // 清空图片数组
+            uploadedImages = [];
+            document.getElementById('imageList').innerHTML = '';
+            // 清除错误提示
+            document.querySelectorAll('.error-message').forEach(el => el.classList.remove('show'));
+        }
+
+        // 打开投稿弹窗事件
+        if (submitFloatBtn) {
+            submitFloatBtn.addEventListener('click', openSubmitModal);
+        }
+        if (openSubmitBtn) {
+            openSubmitBtn.addEventListener('click', openSubmitModal);
+        }
+
+        // 关闭弹窗事件
+        submitModal.addEventListener('click', function(e) {
+            if (e.target === submitModal) {
+                closeSubmitModal();
+            }
+        });
+
+        // 图片数组
+        let uploadedImages = [];
+        
+        // 添加图片
+        function addImage() {
+            if (uploadedImages.length >= 9) {
+                alert('最多只能上传9张图片');
+                return;
+            }
+            
+            const url = prompt('请输入图片URL：');
+            if (!url) return;
+            
+            uploadedImages.push(url);
+            renderImageList();
+        }
+        
+        // 删除图片
+        function removeImage(index) {
+            uploadedImages.splice(index, 1);
+            renderImageList();
+        }
+        
+        // 渲染图片列表
+        function renderImageList() {
+            const imageList = document.getElementById('imageList');
+            imageList.innerHTML = uploadedImages.map((url, index) => `
+                <div class="image-preview">
+                    <img src="${url}" alt="图片${index + 1}" onload="this.style.display='block'" onerror="this.src='https://picsum.photos/80/80?random=${index}'; this.style.display='block'">
+                    <span class="remove-image" onclick="removeImage(${index})">×</span>
+                </div>
+            `).join('');
+        }
+        
+        // 绑定添加图片按钮
+        document.getElementById('addImageBtn').addEventListener('click', addImage);
+        
+        // 表单提交
+        travelogueForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('formTitle').value.trim();
+            const location = document.getElementById('formLocation').value.trim();
+            const content = document.getElementById('formContent').value.trim();
+            
+            let isValid = true;
+            
+            // 验证
+            if (!title) {
+                document.getElementById('errorTitle').classList.add('show');
+                isValid = false;
+            } else {
+                document.getElementById('errorTitle').classList.remove('show');
+            }
+            
+            if (!location) {
+                document.getElementById('errorLocation').classList.add('show');
+                isValid = false;
+            } else {
+                document.getElementById('errorLocation').classList.remove('show');
+            }
+            
+            if (content.length < 20) {
+                document.getElementById('errorContent').classList.add('show');
+                isValid = false;
+            } else {
+                document.getElementById('errorContent').classList.remove('show');
+            }
+            
+            if (!isValid) return;
+            
+            // 创建新游记
+            const user = getCurrentUser();
+            const newTravelogue = {
+                id: Date.now().toString(),
+                title: title,
+                location: location,
+                content: content,
+                images: uploadedImages.length > 0 ? uploadedImages : [`https://picsum.photos/800/600?random=${Date.now()}`],
+                author: {
+                    nickname: user.nickname,
+                    avatar: user.avatar || '👤',
+                    email: user.account
+                },
+                likes: 0,
+                comments: 0,
+                createdAt: new Date().toISOString().split('T')[0]
+            };
+            
+            // 添加到数组开头（最新发布）
+            travelogues.unshift(newTravelogue);
+            saveTravelogues(travelogues);
+            
+            // 关闭弹窗
+            closeSubmitModal();
+            
+            // 重新渲染列表
+            renderTravelogueList();
+            
+            alert('游记发布成功！');
+        });
+
+        // ========== 删除功能 ==========
+        function deleteTravelogue(id) {
+            const user = getCurrentUser();
+            if (!user) return;
+            
+            const travelogue = travelogues.find(t => t.id === id);
+            if (!travelogue) return;
+            
+            // 检查是否为自己发布的
+            if (travelogue.author.email !== user.account) {
+                alert('只能删除自己发布的游记');
+                return;
+            }
+            
+            if (!confirm('确定要删除这篇游记吗？')) return;
+            
+            travelogues = travelogues.filter(t => t.id !== id);
+            saveTravelogues(travelogues);
+            renderTravelogueList();
+        }
+
+        // ========== 渲染游记列表 ==========
+        function renderTravelogueList() {
+            const listContainer = document.getElementById('travelogueList');
+            if (!listContainer) return;
+            
+            const user = getCurrentUser();
+            
+            listContainer.innerHTML = travelogues.map((item, index) => {
+                const canDelete = user && item.author.email === user.account;
+                const dateStr = formatDate(item.createdAt);
+                // 获取图片数组（兼容旧数据）
+                const images = item.images || (item.imageUrl ? [item.imageUrl] : []);
+                const firstImage = images[0] || `https://picsum.photos/800/600?random=${item.id}`;
+                const imageCount = images.length;
+                
+                return `
+                    <article class="travelogue-card" data-id="${item.id}" onclick="openDetailModal(${index})">
+                        ${canDelete ? `<button class="card-delete-btn" onclick="event.stopPropagation(); deleteTravelogue('${item.id}')">删除</button>` : ''}
+                        <div class="card-image">
+                            <img src="${firstImage}" alt="${item.title}" loading="lazy">
+                            <div class="card-location">📍 ${item.location}</div>
+                            ${imageCount > 1 ? `<div class="image-badge">📷 ${imageCount}</div>` : ''}
+                        </div>
+                        <div class="card-user">
+                            <div class="user-avatar">${item.author.avatar || '👤'}</div>
+                            <div class="user-info">
+                                <div class="user-name">${item.author.nickname}</div>
+                                <div class="user-time">${dateStr}</div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">${item.title}</h3>
+                            <p class="card-summary">${item.content}</p>
+                            <div class="card-stats">
+                                <span class="stat-item">❤️ ${item.likes}</span>
+                                <span class="stat-item">💬 ${item.comments}</span>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+        }
+
+        // 格式化日期
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            return `${year}年${month}月${day}日`;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // 清除旧的缓存数据，让新的默认数据生效
+            localStorage.removeItem('travelogues');
+            updateAuthUI();
+            renderTravelogueList();
+            
+            const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+            lazyImages.forEach(img => {
+                img.addEventListener('load', function() {
+                    this.classList.remove('loading');
+                });
+                
+                img.addEventListener('error', function() {
+                    this.src = `https://picsum.photos/600/400?random=${Math.random()}`;
+                    this.classList.remove('loading');
+                });
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationDelay = `${Math.random() * 0.2}s`;
+                        entry.target.style.opacity = '1';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            setTimeout(() => {
+                document.querySelectorAll('.travelogue-card').forEach(item => {
+                    observer.observe(item);
+                });
+            }, 100);
+        });
+
+        // ========== 排序和视图切换功能 ==========
+        
+        // 视图切换
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const grid = document.getElementById('travelogueList');
+                if (btn.dataset.view === 'list') {
+                    grid.classList.add('list-view');
+                } else {
+                    grid.classList.remove('list-view');
+                }
+            });
+        });
+
+        // 排序功能
+        document.querySelectorAll('.sort-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const sortType = btn.dataset.sort;
+                const grid = document.getElementById('travelogueList');
+                const cards = Array.from(grid.querySelectorAll('.travelogue-card'));
+                
+                if (sortType === 'popular') {
+                    // 按受欢迎程度排序（点赞数）
+                    cards.sort((a, b) => {
+                        const likesA = parseInt(a.querySelector('.stat-item').textContent.replace(/[^\d]/g, ''));
+                        const likesB = parseInt(b.querySelector('.stat-item').textContent.replace(/[^\d]/g, ''));
+                        return likesB - likesA;
+                    });
+                } else if (sortType === 'latest') {
+                    // 按发布时间排序（最新的在前）
+                    cards.sort((a, b) => {
+                        const dateA = a.querySelector('.user-time').textContent;
+                        const dateB = b.querySelector('.user-time').textContent;
+                        return new Date(dateB.replace('年', '-').replace('月', '-').replace('日', '')) - 
+                               new Date(dateA.replace('年', '-').replace('月', '-').replace('日', ''));
+                    });
+                } else if (sortType === 'nearby') {
+                    // 附近（示例：随机排序）
+                    cards.sort(() => Math.random() - 0.5);
+                }
+                
+                // 重新添加到 DOM
+                cards.forEach(card => grid.appendChild(card));
+            });
+        });
+    </script>
+<!-- ========== 登录弹窗 ========== -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <button class="modal-close" id="loginModalClose">&times;</button>
+            <h2>欢迎回来</h2>
+            <p>登录你的账号，发现更多成都故事</p>
+            
+            <div class="login-error" id="loginError">账号或密码错误</div>
+            
+            <div class="form-group">
+                <label>账号</label>
+                <input type="text" id="loginAccount" placeholder="请输入账号">
+            </div>
+            
+            <div class="form-group">
+                <label>密码</label>
+                <input type="password" id="loginPassword" placeholder="请输入密码">
+            </div>
+            
+            <button class="btn-login" id="doLogin">登录</button>
+            
+            <div class="modal-switch">
+                还没有账号？<a href="#" id="goToRegister">立即注册</a>
+            </div>
+            
+            <div class="test-accounts">
+                <p>测试账号</p>
+                <span>管理员：admin / admin123</span>
+                <span>普通用户：user / 123456</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== 注册弹窗 ========== -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <button class="modal-close" id="registerModalClose">&times;</button>
+            <h2>注册账号</h2>
+            <p>创建你的账号，开启成都之旅</p>
+            
+            <div class="login-error" id="registerError">账号已存在或密码不一致</div>
+            
+            <div class="form-group">
+                <label>账号</label>
+                <input type="text" id="registerAccount" placeholder="请输入账号">
+            </div>
+            
+            <div class="form-group">
+                <label>密码</label>
+                <input type="password" id="registerPassword" placeholder="请输入密码">
+            </div>
+            
+            <div class="form-group">
+                <label>确认密码</label>
+                <input type="password" id="registerConfirmPassword" placeholder="请再次输入密码">
+            </div>
+            
+            <button class="btn-register" id="doRegister">注册</button>
+            
+            <div class="modal-switch">
+                已有账号？<a href="#" id="goToLogin">立即登录</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== 登录弹窗 JavaScript ========== -->
+    <script>
+        // 初始化用户数据
+        if (!localStorage.getItem('users')) {
+            const defaultUsers = [
+                { account: 'admin', password: 'admin123', role: 'admin' },
+                { account: 'user', password: '123456', role: 'user' }
+            ];
+            localStorage.setItem('users', JSON.stringify(defaultUsers));
+        }
+
+        // 更新用户界面
+        function updateAuthUI() {
+            const authButtons = document.getElementById('authButtons');
+            const userInfo = document.getElementById('userInfo');
+            const userName = document.getElementById('userName');
+            if (authButtons && userInfo && userName) {
+                try {
+                    const user = JSON.parse(localStorage.getItem('currentUser'));
+                    if (user) {
+                        authButtons.style.display = 'none';
+                        userInfo.style.display = 'flex';
+                        userName.textContent = user.account;
+                    } else {
+                        authButtons.style.display = 'flex';
+                        userInfo.style.display = 'none';
+                    }
+                } catch (e) {
+                    console.error('Error updating auth UI:', e);
+                }
+            }
+        }
+
+        // 页面加载时更新UI
+        updateAuthUI();
+
+        // 弹窗元素
+        const loginModal = document.getElementById('loginModal');
+        const registerModal = document.getElementById('registerModal');
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const loginModalClose = document.getElementById('loginModalClose');
+        const registerModalClose = document.getElementById('registerModalClose');
+        const goToRegister = document.getElementById('goToRegister');
+        const goToLogin = document.getElementById('goToLogin');
+        const loginError = document.getElementById('loginError');
+        const registerError = document.getElementById('registerError');
+
+        // 打开登录弹窗
+        loginBtn?.addEventListener('click', () => {
+            loginError.style.display = 'none';
+            registerError.style.display = 'none';
+            loginModal.classList.add('active');
+        });
+
+        // 打开注册弹窗
+        registerBtn?.addEventListener('click', () => {
+            loginError.style.display = 'none';
+            registerError.style.display = 'none';
+            registerModal.classList.add('active');
+        });
+
+        // 关闭登录弹窗
+        loginModalClose?.addEventListener('click', () => {
+            loginModal.classList.remove('active');
+        });
+
+        // 关闭注册弹窗
+        registerModalClose?.addEventListener('click', () => {
+            registerModal.classList.remove('active');
+        });
+
+        // 点击弹窗外部关闭
+        loginModal?.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.classList.remove('active');
+            }
+        });
+
+        registerModal?.addEventListener('click', (e) => {
+            if (e.target === registerModal) {
+                registerModal.classList.remove('active');
+            }
+        });
+
+        // 切换到注册
+        goToRegister?.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.classList.remove('active');
+            registerModal.classList.add('active');
+        });
+
+        // 切换到登录
+        goToLogin?.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerModal.classList.remove('active');
+            loginModal.classList.add('active');
+        });
+
+        // 登录逻辑
+        document.getElementById('doLogin')?.addEventListener('click', () => {
+            const account = document.getElementById('loginAccount').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            
+            if (!account || !password) {
+                loginError.textContent = '请输入账号和密码';
+                loginError.style.display = 'block';
+                return;
+            }
+            
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.account === account && u.password === password);
+            
+            if (user) {
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                loginModal.classList.remove('active');
+                window.location.reload();
+            } else {
+                loginError.textContent = '账号或密码错误';
+                loginError.style.display = 'block';
+            }
+        });
+
+        // 注册逻辑
+        document.getElementById('doRegister')?.addEventListener('click', () => {
+            const account = document.getElementById('registerAccount').value.trim();
+            const password = document.getElementById('registerPassword').value.trim();
+            const confirmPassword = document.getElementById('registerConfirmPassword').value.trim();
+            
+            if (!account || !password || !confirmPassword) {
+                registerError.textContent = '请填写所有字段';
+                registerError.style.display = 'block';
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                registerError.textContent = '两次输入的密码不一致';
+                registerError.style.display = 'block';
+                return;
+            }
+            
+            if (password.length < 6) {
+                registerError.textContent = '密码长度至少6位';
+                registerError.style.display = 'block';
+                return;
+            }
+            
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            
+            if (users.find(u => u.account === account)) {
+                registerError.textContent = '账号已存在';
+                registerError.style.display = 'block';
+                return;
+            }
+            
+            const newUser = { account, password, role: 'user' };
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            localStorage.setItem('currentUser', JSON.stringify(newUser));
+            registerModal.classList.remove('active');
+            window.location.reload();
+        });
+
+        // 退出登录
+        document.getElementById('logoutBtn')?.addEventListener('click', () => {
+            localStorage.removeItem('currentUser');
+            window.location.reload();
+        });
+
+        // ESC键关闭弹窗
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                loginModal?.classList.remove('active');
+                registerModal?.classList.remove('active');
+            }
+        });
+    </script>
+
+</body>
+</html>

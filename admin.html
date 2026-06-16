@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理后台 - 蓉城·慢行</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">蓉城·慢行</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="articles.html">文化解码</a></li>
+                    <li><a href="travelogue.html">探访实录</a></li>
+                    <li><a href="fengwu.html">风物档案</a></li>
+                    <li><a href="map.html">互动地图</a></li>
+                    <li><a href="solar-term.html">节气·成都</a></li>
+                </ul>
+                <div class="auth-buttons" id="authButtons">
+                    <a href="login.html" class="btn btn-secondary">登录</a>
+                    <a href="login.html" class="btn btn-primary">注册</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div class="admin-panel">
+                <div class="admin-header">
+                    <h1>管理后台</h1>
+                    <button class="btn btn-primary" onclick="showAddArticleModal()">+ 添加文章</button>
+                </div>
+
+                <div class="admin-tabs">
+                    <button class="admin-tab active" data-tab="articles">📜 文化解码管理</button>
+                    <button class="admin-tab" data-tab="fengwu">🎨 风物档案管理</button>
+                    <button class="admin-tab" data-tab="locations">📍 地点管理</button>
+                    <button class="admin-tab" data-tab="solar">🌾 节气管理</button>
+                    <button class="admin-tab" data-tab="pending">📝 投稿审核</button>
+                </div>
+
+                <div id="articlesTab" class="admin-content active">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>标题</th>
+                                <th>类型</th>
+                                <th>创建时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="articlesTableBody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="fengwuTab" class="admin-content">
+                    <button class="btn btn-primary" onclick="showAddFengwuModal()" style="margin-bottom: 1rem;">+ 添加风物</button>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>名称</th>
+                                <th>类型</th>
+                                <th>创建时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="fengwuTableBody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="locationsTab" class="admin-content">
+                    <button class="btn btn-primary" onclick="showAddLocationModal()" style="margin-bottom: 1rem;">+ 添加地点</button>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>名称</th>
+                                <th>坐标</th>
+                                <th>关联内容</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="locationsTableBody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="solarTab" class="admin-content">
+                    <button class="btn btn-primary" onclick="showAddSolarModal()" style="margin-bottom: 1rem;">+ 添加节气</button>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>节气名称</th>
+                                <th>季节</th>
+                                <th>推荐地点</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="solarTableBody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="pendingTab" class="admin-content">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>标题</th>
+                                <th>作者</th>
+                                <th>地点</th>
+                                <th>提交时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pendingTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="addArticleModal" class="modal">
+        <div class="modal-content" style="max-width: 700px;">
+            <div class="modal-header">
+                <h2 id="articleModalTitle">添加文章</h2>
+                <button class="close-btn" onclick="closeAddArticleModal()">&times;</button>
+            </div>
+            <form id="articleForm">
+                <input type="hidden" id="articleId">
+                <div class="form-group">
+                    <label>标题 *</label>
+                    <input type="text" id="articleTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>类型 *</label>
+                    <select id="articleType" required>
+                        <option value="历史渊源">历史渊源</option>
+                        <option value="非遗">非遗</option>
+                        <option value="民俗">民俗</option>
+                        <option value="特色节庆">特色节庆</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>正文 *</label>
+                    <textarea id="articleContent" required style="min-height: 200px;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>知识点（每行一个，至少3个）*</label>
+                    <textarea id="articleKnowledge" required placeholder="知识点1&#10;知识点2&#10;知识点3" style="min-height: 100px;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>引用来源（每行一个）*</label>
+                    <textarea id="articleSources" required placeholder="来源1&#10;来源2" style="min-height: 100px;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>头图链接</label>
+                    <input type="url" id="articleCover" placeholder="https://example.com/image.jpg">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%">保存</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="addFengwuModal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2 id="fengwuModalTitle">添加风物</h2>
+                <button class="close-btn" onclick="closeAddFengwuModal()">&times;</button>
+            </div>
+            <form id="fengwuForm">
+                <input type="hidden" id="fengwuId">
+                <div class="form-group">
+                    <label>名称 *</label>
+                    <input type="text" id="fengwuName" required>
+                </div>
+                <div class="form-group">
+                    <label>类型 *</label>
+                    <select id="fengwuType" required>
+                        <option value="美食">美食</option>
+                        <option value="手艺">手艺</option>
+                        <option value="景点">景点</option>
+                        <option value="特产">特产</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>简介</label>
+                    <textarea id="fengwuDesc"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>图片链接</label>
+                    <input type="url" id="fengwuImage" placeholder="https://example.com/image.jpg">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%">保存</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="addLocationModal" class="modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h2 id="locationModalTitle">添加地点</h2>
+                <button class="close-btn" onclick="closeAddLocationModal()">&times;</button>
+            </div>
+            <form id="locationForm">
+                <input type="hidden" id="locationId">
+                <div class="form-group">
+                    <label>地点名称 *</label>
+                    <input type="text" id="locationName" required>
+                </div>
+                <div class="form-group">
+                    <label>纬度 *</label>
+                    <input type="number" id="locationLat" step="0.0001" required>
+                </div>
+                <div class="form-group">
+                    <label>经度 *</label>
+                    <input type="number" id="locationLng" step="0.0001" required>
+                </div>
+                <div class="form-group">
+                    <label>简介</label>
+                    <textarea id="locationDesc"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>关联文章ID（逗号分隔）</label>
+                    <input type="text" id="locationArticles" placeholder="article_1,article_2">
+                </div>
+                <div class="form-group">
+                    <label>关联风物ID（逗号分隔）</label>
+                    <input type="text" id="locationFengwu" placeholder="fengwu_1,fengwu_2">
+                </div>
+                <div class="form-group">
+                    <label>关联探访实录ID（逗号分隔）</label>
+                    <input type="text" id="locationVisits" placeholder="travelogue_1">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%">保存</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="addSolarModal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2 id="solarModalTitle">添加节气</h2>
+                <button class="close-btn" onclick="closeAddSolarModal()">&times;</button>
+            </div>
+            <form id="solarForm">
+                <input type="hidden" id="solarId">
+                <div class="form-group">
+                    <label>节气名称 *</label>
+                    <input type="text" id="solarName" required>
+                </div>
+                <div class="form-group">
+                    <label>季节 *</label>
+                    <select id="solarSeason" required>
+                        <option value="春">春</option>
+                        <option value="夏">夏</option>
+                        <option value="秋">秋</option>
+                        <option value="冬">冬</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>推荐内容 *</label>
+                    <textarea id="solarRecommend" required placeholder="如：吃春饼、去龙泉驿看桃花"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>民俗说明 *</label>
+                    <textarea id="solarCustom" required placeholder="如：打春牛、咬春"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>氛围图链接</label>
+                    <input type="url" id="solarImage" placeholder="https://example.com/image.jpg">
+                </div>
+                <div class="form-group">
+                    <label>推荐地点</label>
+                    <select id="solarLocation">
+                        <option value="">请选择地点</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%">保存</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = getCurrentUser();
+            if (!user || !user.isAdmin) {
+                window.location.href = 'login.html';
+                return;
+            }
+            updateAuthUI();
+            loadArticlesTable();
+            loadFengwuTable();
+            loadLocationsTable();
+            loadSolarTable();
+            loadPendingTable();
+            setupAdminTabs();
+            setupArticleForm();
+            setupFengwuForm();
+            setupLocationForm();
+            setupSolarForm();
+            populateLocationSelect();
+        });
+
+        function setupAdminTabs() {
+            const tabs = document.querySelectorAll('.admin-tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    const tabName = this.dataset.tab;
+                    document.querySelectorAll('.admin-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    document.getElementById(tabName + 'Tab').classList.add('active');
+                });
+            });
+        }
+
+        function loadArticlesTable() {
+            const articles = getStorage(STORAGE_KEYS.ARTICLES);
+            const tbody = document.getElementById('articlesTableBody');
+            tbody.innerHTML = articles.map(article => `
+                <tr>
+                    <td>${article.title}</td>
+                    <td><span class="card-type">${article.type}</span></td>
+                    <td>${formatDate(article.createdAt)}</td>
+                    <td>
+                        <button class="action-btn edit-btn" onclick="editArticle('${article.id}')">编辑</button>
+                        <button class="action-btn delete-btn" onclick="deleteArticle('${article.id}')">删除</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function loadFengwuTable() {
+            const fengwu = getStorage(STORAGE_KEYS.FENGWU);
+            const tbody = document.getElementById('fengwuTableBody');
+            tbody.innerHTML = fengwu.map(item => `
+                <tr>
+                    <td>${item.name}</td>
+                    <td><span class="card-type">${item.type}</span></td>
+                    <td>${formatDate(item.createdAt)}</td>
+                    <td>
+                        <button class="action-btn edit-btn" onclick="editFengwu('${item.id}')">编辑</button>
+                        <button class="action-btn delete-btn" onclick="deleteFengwu('${item.id}')">删除</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function loadLocationsTable() {
+            const locations = getStorage(STORAGE_KEYS.LOCATIONS);
+            const tbody = document.getElementById('locationsTableBody');
+            tbody.innerHTML = locations.map(location => `
+                <tr>
+                    <td>${location.name}</td>
+                    <td>${location.latitude}, ${location.longitude}</td>
+                    <td>文章(${location.relatedArticles?.length || 0}) 风物(${location.relatedFengwu?.length || 0}) 实录(${location.relatedTravelogues?.length || 0})</td>
+                    <td>
+                        <button class="action-btn edit-btn" onclick="editLocation('${location.id}')">编辑</button>
+                        <button class="action-btn delete-btn" onclick="deleteLocation('${location.id}')">删除</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function loadPendingTable() {
+            const pending = getStorage(STORAGE_KEYS.PENDING_POSTS);
+            const tbody = document.getElementById('pendingTableBody');
+            if (pending.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">暂无待审核投稿</td></tr>';
+                return;
+            }
+            tbody.innerHTML = pending.map(post => `
+                <tr>
+                    <td>${post.title}</td>
+                    <td>${post.authorNickname || '匿名'}</td>
+                    <td>${post.location}</td>
+                    <td>${formatDate(post.createdAt)}</td>
+                    <td>
+                        <button class="action-btn approve-btn" onclick="approvePost('${post.id}')">通过</button>
+                        <button class="action-btn delete-btn" onclick="rejectPost('${post.id}')">拒绝</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function showAddArticleModal() {
+            document.getElementById('articleModalTitle').textContent = '添加文章';
+            document.getElementById('articleForm').reset();
+            document.getElementById('articleId').value = '';
+            document.getElementById('addArticleModal').classList.add('active');
+        }
+
+        function closeAddArticleModal() {
+            document.getElementById('addArticleModal').classList.remove('active');
+        }
+
+        function editArticle(id) {
+            const articles = getStorage(STORAGE_KEYS.ARTICLES);
+            const article = articles.find(a => a.id === id);
+            if (!article) return;
+            
+            document.getElementById('articleModalTitle').textContent = '编辑文章';
+            document.getElementById('articleId').value = article.id;
+            document.getElementById('articleTitle').value = article.title;
+            document.getElementById('articleType').value = article.type;
+            document.getElementById('articleContent').value = article.content;
+            document.getElementById('articleKnowledge').value = article.knowledgePoints.join('\n');
+            document.getElementById('articleSources').value = article.sources.join('\n');
+            document.getElementById('articleCover').value = article.coverImage || '';
+            document.getElementById('addArticleModal').classList.add('active');
+        }
+
+        function deleteArticle(id) {
+            if (!confirm('确定要删除这篇文章吗？')) return;
+            const articles = getStorage(STORAGE_KEYS.ARTICLES).filter(a => a.id !== id);
+            setStorage(STORAGE_KEYS.ARTICLES, articles);
+            loadArticlesTable();
+            showNotification('删除成功');
+        }
+
+        function setupArticleForm() {
+            const form = document.getElementById('articleForm');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const knowledgePoints = document.getElementById('articleKnowledge').value.split('\n').filter(p => p.trim());
+                const sources = document.getElementById('articleSources').value.split('\n').filter(s => s.trim());
+                
+                if (knowledgePoints.length < 3) {
+                    showNotification('知识点至少需要3个', 'error');
+                    return;
+                }
+                if (sources.length === 0) {
+                    showNotification('引用来源不能为空', 'error');
+                    return;
+                }
+
+                const articleId = document.getElementById('articleId').value;
+                const articles = getStorage(STORAGE_KEYS.ARTICLES);
+                
+                if (articleId) {
+                    const index = articles.findIndex(a => a.id === articleId);
+                    if (index !== -1) {
+                        articles[index] = {
+                            ...articles[index],
+                            title: document.getElementById('articleTitle').value,
+                            type: document.getElementById('articleType').value,
+                            content: document.getElementById('articleContent').value,
+                            knowledgePoints: knowledgePoints,
+                            sources: sources,
+                            coverImage: document.getElementById('articleCover').value
+                        };
+                    }
+                } else {
+                    articles.push({
+                        id: generateId(),
+                        title: document.getElementById('articleTitle').value,
+                        type: document.getElementById('articleType').value,
+                        content: document.getElementById('articleContent').value,
+                        knowledgePoints: knowledgePoints,
+                        sources: sources,
+                        coverImage: document.getElementById('articleCover').value,
+                        createdAt: new Date().toISOString()
+                    });
+                }
+                
+                setStorage(STORAGE_KEYS.ARTICLES, articles);
+                loadArticlesTable();
+                closeAddArticleModal();
+                showNotification('保存成功');
+            });
+        }
+
+        function showAddFengwuModal() {
+            document.getElementById('fengwuModalTitle').textContent = '添加风物';
+            document.getElementById('fengwuForm').reset();
+            document.getElementById('fengwuId').value = '';
+            document.getElementById('addFengwuModal').classList.add('active');
+        }
+
+        function closeAddFengwuModal() {
+            document.getElementById('addFengwuModal').classList.remove('active');
+        }
+
+        function editFengwu(id) {
+            const fengwu = getStorage(STORAGE_KEYS.FENGWU);
+            const item = fengwu.find(f => f.id === id);
+            if (!item) return;
+            
+            document.getElementById('fengwuModalTitle').textContent = '编辑风物';
+            document.getElementById('fengwuId').value = item.id;
+            document.getElementById('fengwuName').value = item.name;
+            document.getElementById('fengwuType').value = item.type;
+            document.getElementById('fengwuDesc').value = item.description || '';
+            document.getElementById('fengwuImage').value = item.image || '';
+            document.getElementById('addFengwuModal').classList.add('active');
+        }
+
+        function deleteFengwu(id) {
+            if (!confirm('确定要删除这个风物吗？')) return;
+            const fengwu = getStorage(STORAGE_KEYS.FENGWU).filter(f => f.id !== id);
+            setStorage(STORAGE_KEYS.FENGWU, fengwu);
+            loadFengwuTable();
+            showNotification('删除成功');
+        }
+
+        function setupFengwuForm() {
+            const form = document.getElementById('fengwuForm');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const fengwuId = document.getElementById('fengwuId').value;
+                const fengwu = getStorage(STORAGE_KEYS.FENGWU);
+                
+                if (fengwuId) {
+                    const index = fengwu.findIndex(f => f.id === fengwuId);
+                    if (index !== -1) {
+                        fengwu[index] = {
+                            ...fengwu[index],
+                            name: document.getElementById('fengwuName').value,
+                            type: document.getElementById('fengwuType').value,
+                            description: document.getElementById('fengwuDesc').value,
+                            image: document.getElementById('fengwuImage').value
+                        };
+                    }
+                } else {
+                    fengwu.push({
+                        id: generateId(),
+                        name: document.getElementById('fengwuName').value,
+                        type: document.getElementById('fengwuType').value,
+                        description: document.getElementById('fengwuDesc').value,
+                        image: document.getElementById('fengwuImage').value,
+                        createdAt: new Date().toISOString()
+                    });
+                }
+                
+                setStorage(STORAGE_KEYS.FENGWU, fengwu);
+                loadFengwuTable();
+                closeAddFengwuModal();
+                showNotification('保存成功');
+            });
+        }
+
+        function showAddLocationModal() {
+            document.getElementById('locationModalTitle').textContent = '添加地点';
+            document.getElementById('locationForm').reset();
+            document.getElementById('locationId').value = '';
+            document.getElementById('addLocationModal').classList.add('active');
+        }
+
+        function closeAddLocationModal() {
+            document.getElementById('addLocationModal').classList.remove('active');
+        }
+
+        function editLocation(id) {
+            const locations = getStorage(STORAGE_KEYS.LOCATIONS);
+            const location = locations.find(l => l.id === id);
+            if (!location) return;
+            
+            document.getElementById('locationModalTitle').textContent = '编辑地点';
+            document.getElementById('locationId').value = location.id;
+            document.getElementById('locationName').value = location.name;
+            document.getElementById('locationLat').value = location.latitude;
+            document.getElementById('locationLng').value = location.longitude;
+            document.getElementById('locationDesc').value = location.description || '';
+            document.getElementById('locationArticles').value = (location.relatedArticles || []).join(',');
+            document.getElementById('locationFengwu').value = (location.relatedFengwu || []).join(',');
+            document.getElementById('locationVisits').value = (location.relatedTravelogues || []).join(',');
+            document.getElementById('addLocationModal').classList.add('active');
+        }
+
+        function deleteLocation(id) {
+            if (!confirm('确定要删除这个地点吗？')) return;
+            const locations = getStorage(STORAGE_KEYS.LOCATIONS).filter(l => l.id !== id);
+            setStorage(STORAGE_KEYS.LOCATIONS, locations);
+            loadLocationsTable();
+            showNotification('删除成功');
+        }
+
+        function setupLocationForm() {
+            const form = document.getElementById('locationForm');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const locationId = document.getElementById('locationId').value;
+                const locations = getStorage(STORAGE_KEYS.LOCATIONS);
+                
+                const relatedArticles = document.getElementById('locationArticles').value
+                    .split(',').filter(id => id.trim());
+                const relatedFengwu = document.getElementById('locationFengwu').value
+                    .split(',').filter(id => id.trim());
+                const relatedVisits = document.getElementById('locationVisits').value
+                    .split(',').filter(id => id.trim());
+                
+                if (locationId) {
+                    const index = locations.findIndex(l => l.id === locationId);
+                    if (index !== -1) {
+                        locations[index] = {
+                            ...locations[index],
+                            name: document.getElementById('locationName').value,
+                            latitude: parseFloat(document.getElementById('locationLat').value),
+                            longitude: parseFloat(document.getElementById('locationLng').value),
+                            description: document.getElementById('locationDesc').value,
+                            relatedArticles: relatedArticles,
+                            relatedFengwu: relatedFengwu,
+                            relatedTravelogues: relatedVisits
+                        };
+                    }
+                } else {
+                    locations.push({
+                        id: generateId(),
+                        name: document.getElementById('locationName').value,
+                        latitude: parseFloat(document.getElementById('locationLat').value),
+                        longitude: parseFloat(document.getElementById('locationLng').value),
+                        description: document.getElementById('locationDesc').value,
+                        relatedArticles: relatedArticles,
+                        relatedFengwu: relatedFengwu,
+                        relatedTravelogues: relatedVisits
+                    });
+                }
+                
+                setStorage(STORAGE_KEYS.LOCATIONS, locations);
+                loadLocationsTable();
+                closeAddLocationModal();
+                showNotification('保存成功');
+            });
+        }
+
+        function approvePost(id) {
+            const pendingPosts = getStorage(STORAGE_KEYS.PENDING_POSTS);
+            const travelogues = getStorage(STORAGE_KEYS.TRAVELOGUES);
+            
+            const postIndex = pendingPosts.findIndex(p => p.id === id);
+            if (postIndex === -1) return;
+            
+            const post = pendingPosts[postIndex];
+            post.status = 'approved';
+            travelogues.push(post);
+            
+            pendingPosts.splice(postIndex, 1);
+            setStorage(STORAGE_KEYS.PENDING_POSTS, pendingPosts);
+            setStorage(STORAGE_KEYS.TRAVELOGUES, travelogues);
+            
+            loadPendingTable();
+            showNotification('已通过审核');
+        }
+
+        function rejectPost(id) {
+            if (!confirm('确定要拒绝这个投稿吗？')) return;
+            const pendingPosts = getStorage(STORAGE_KEYS.PENDING_POSTS).filter(p => p.id !== id);
+            setStorage(STORAGE_KEYS.PENDING_POSTS, pendingPosts);
+            loadPendingTable();
+            showNotification('已拒绝投稿');
+        }
+
+        function updateAuthUI() {
+            const authButtons = document.getElementById('authButtons');
+            if (!authButtons) return;
+            
+            const user = getCurrentUser();
+            if (user) {
+                authButtons.innerHTML = `
+                    <span style="color: var(--primary-color); margin-right: 1rem;">欢迎, ${user.nickname}</span>
+                    <button class="btn btn-primary" onclick="logout()">退出</button>
+                `;
+            }
+        }
+
+        function logout() {
+            clearCurrentUser();
+            showNotification('已退出登录');
+            window.location.href = 'index.html';
+        }
+
+        function loadSolarTable() {
+            const solarTerms = getStorage('solarTerms') || [];
+            const tbody = document.getElementById('solarTableBody');
+            if (solarTerms.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align: center;">暂无节气内容</td></tr>';
+                return;
+            }
+            tbody.innerHTML = solarTerms.map(term => `
+                <tr>
+                    <td>${term.name}</td>
+                    <td><span class="card-type">${term.season}</span></td>
+                    <td>${term.locationName || '-'}</td>
+                    <td>
+                        <button class="action-btn edit-btn" onclick="editSolar('${term.id}')">编辑</button>
+                        <button class="action-btn delete-btn" onclick="deleteSolar('${term.id}')">删除</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function showAddSolarModal() {
+            document.getElementById('solarModalTitle').textContent = '添加节气';
+            document.getElementById('solarForm').reset();
+            document.getElementById('solarId').value = '';
+            populateLocationSelect();
+            document.getElementById('addSolarModal').classList.add('active');
+        }
+
+        function closeAddSolarModal() {
+            document.getElementById('addSolarModal').classList.remove('active');
+        }
+
+        function editSolar(id) {
+            const solarTerms = getStorage('solarTerms') || [];
+            const term = solarTerms.find(t => t.id === id);
+            if (!term) return;
+            
+            document.getElementById('solarModalTitle').textContent = '编辑节气';
+            document.getElementById('solarId').value = term.id;
+            document.getElementById('solarName').value = term.name;
+            document.getElementById('solarSeason').value = term.season;
+            document.getElementById('solarRecommend').value = term.recommend;
+            document.getElementById('solarCustom').value = term.custom;
+            document.getElementById('solarImage').value = term.image || '';
+            populateLocationSelect(term.locationId);
+            document.getElementById('addSolarModal').classList.add('active');
+        }
+
+        function deleteSolar(id) {
+            if (!confirm('确定要删除这个节气吗？')) return;
+            const solarTerms = (getStorage('solarTerms') || []).filter(t => t.id !== id);
+            setStorage('solarTerms', solarTerms);
+            loadSolarTable();
+            showNotification('删除成功');
+        }
+
+        function setupSolarForm() {
+            const form = document.getElementById('solarForm');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const solarId = document.getElementById('solarId').value;
+                const solarTerms = getStorage('solarTerms') || [];
+                const locations = getStorage(STORAGE_KEYS.LOCATIONS) || [];
+                
+                const locationSelect = document.getElementById('solarLocation');
+                const selectedLocationId = locationSelect.value;
+                const selectedLocation = locations.find(l => l.id === selectedLocationId);
+                
+                if (solarId) {
+                    const index = solarTerms.findIndex(t => t.id === solarId);
+                    if (index !== -1) {
+                        solarTerms[index] = {
+                            ...solarTerms[index],
+                            name: document.getElementById('solarName').value,
+                            season: document.getElementById('solarSeason').value,
+                            recommend: document.getElementById('solarRecommend').value,
+                            custom: document.getElementById('solarCustom').value,
+                            image: document.getElementById('solarImage').value,
+                            locationId: selectedLocationId,
+                            locationName: selectedLocation?.name || ''
+                        };
+                    }
+                } else {
+                    solarTerms.push({
+                        id: 'st-' + Date.now(),
+                        name: document.getElementById('solarName').value,
+                        season: document.getElementById('solarSeason').value,
+                        recommend: document.getElementById('solarRecommend').value,
+                        custom: document.getElementById('solarCustom').value,
+                        image: document.getElementById('solarImage').value,
+                        locationId: selectedLocationId,
+                        locationName: selectedLocation?.name || '',
+                        createdAt: new Date().toISOString()
+                    });
+                }
+                
+                setStorage('solarTerms', solarTerms);
+                loadSolarTable();
+                closeAddSolarModal();
+                showNotification('保存成功');
+            });
+        }
+
+        function populateLocationSelect(selectedId = '') {
+            const locations = getStorage(STORAGE_KEYS.LOCATIONS) || [];
+            const select = document.getElementById('solarLocation');
+            
+            let html = '<option value="">请选择地点</option>';
+            locations.forEach(location => {
+                html += `<option value="${location.id}" ${location.id === selectedId ? 'selected' : ''}>${location.name}</option>`;
+            });
+            
+            select.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

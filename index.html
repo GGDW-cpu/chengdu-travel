@@ -1,0 +1,2710 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="成都旅游,蓉城慢行,成都文旅,成都攻略">
+    <meta name="description" content="蓉城·慢行 - 探索成都慢生活，品味天府文化">
+    <title>蓉城·慢行 - 慢一点，才成都</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --primary-dark: #388E3C;
+            --accent-color: #FF9800;
+            --background-color: #FFFDF5;
+            --card-bg: #FFFFFF;
+            --text-primary: #1F2E26;
+            --text-secondary: #5B6B5B;
+            --text-muted: #8A9A8A;
+            --border-color: rgba(76, 175, 80, 0.1);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.12);
+            --radius-sm: 12px;
+            --radius-md: 16px;
+            --radius-lg: 20px;
+            --radius-xl: 24px;
+            --radius-full: 40px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            border-bottom: none;
+            transition: all 0.3s ease;
+        }
+        
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 84px;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #FFFFFF;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .header.scrolled .logo {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-icon {
+            font-size: 1.5rem;
+            color: #FFFFFF;
+            transition: color 0.3s ease;
+            -webkit-text-fill-color: #FFFFFF;
+        }
+
+        .header.scrolled .logo-icon {
+            color: var(--primary-color);
+            -webkit-text-fill-color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 48px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #FFFFFF;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .nav-links a.active {
+            color: #FFFFFF;
+            font-weight: 600;
+        }
+
+        .header.scrolled .nav-links a {
+            color: var(--text-secondary);
+        }
+
+        .header.scrolled .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .header.scrolled .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 10px 28px;
+            border-radius: var(--radius-full);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            font-family: inherit;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid rgba(255, 255, 255, 0.8);
+            color: #FFFFFF;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .btn-fill {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header.scrolled .btn-outline {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .header.scrolled .btn-outline:hover {
+            background: rgba(76, 175, 80, 0.08);
+        }
+
+        .header.scrolled .btn-fill {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 16px rgba(76, 175, 80, 0.3);
+            border: none;
+        }
+
+        .btn-fill:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(76, 175, 80, 0.4);
+        }
+
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            min-height: 720px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('images/ifs-chengdu.png') center/cover no-repeat;
+            filter: brightness(0.75);
+            animation: zoomPan 25s ease-in-out infinite;
+        }
+
+        .hero-bg-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(31, 46, 38, 0.2) 0%, rgba(31, 46, 38, 0.4) 50%, rgba(31, 46, 38, 0.6) 100%);
+        }
+
+        .hero-noise {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        @keyframes zoomPan {
+            0%, 100% {
+                transform: scale(1) translate(0, 0);
+            }
+            50% {
+                transform: scale(1.08) translate(-1%, -2%);
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1100px;
+            padding: 0 32px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 300;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            opacity: 0.9;
+        }
+
+        .hero-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 4.5rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            line-height: 1.05;
+            letter-spacing: -2px;
+        }
+
+        .hero-desc {
+            font-size: 1.25rem;
+            font-weight: 400;
+            margin-bottom: 48px;
+            opacity: 0.9;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-divider {
+            width: 60px;
+            height: 2px;
+            background: var(--primary-color);
+            margin: 0 auto 48px;
+            border-radius: 1px;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            margin: 40px 0 60px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-lg);
+            padding: 16px 14px;
+            min-width: 100px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-4px);
+        }
+
+        .stat-icon {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            font-family: 'Inter', sans-serif;
+            color: #4CAF50;
+            display: block;
+            line-height: 1.2;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.85;
+            letter-spacing: 1px;
+        }
+
+        .hero-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            max-width: 720px;
+            margin: 32px auto 0;
+        }
+        
+        .hero-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 18px 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            min-width: 140px;
+            max-width: 160px;
+            justify-self: center;
+        }
+
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid transparent;
+            border-radius: var(--radius-xl);
+            transition: all 0.4s ease;
+        }
+
+        .hero-card:hover {
+            background: rgba(255, 255, 255, 0.22);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-card:hover::before {
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .hero-card-icon {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .hero-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            font-family: 'Noto Serif SC', serif;
+        }
+        
+        .hero-card-desc {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.3;
+        }
+        
+        .hero-card-arrow {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            font-size: 12px;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+
+        .hero-card:hover .hero-card-arrow {
+            opacity: 1;
+            transform: translateX(4px);
+        }
+
+        .section {
+            padding: 80px 32px;
+            position: relative;
+        }
+
+        /* 英雄区下方的板块不需要额外的padding-top */
+        .hero-section + .section {
+            padding-top: 20px;
+        }
+
+        /* 相邻板块之间的视觉分隔线 */
+        .section + .section::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+            border-radius: 3px;
+            z-index: 1;
+        }
+
+        .section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle at 20% 50%, rgba(76, 175, 80, 0.03) 0%, transparent 50%),
+                            radial-gradient(circle at 80% 80%, rgba(255, 152, 0, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 2.8rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+
+        .section-divider {
+            width: 60px;
+            height: 3px;
+            background: var(--primary-color);
+            margin: 0 auto 16px;
+            border-radius: 2px;
+        }
+
+        .section-desc {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .core-values {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-bottom: 56px;
+        }
+
+        .value-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-xl);
+            padding: 40px 32px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(76, 175, 80, 0.03) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .value-card:hover::before {
+            opacity: 1;
+        }
+
+        .value-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 4px 8px rgba(76, 175, 80, 0.2));
+        }
+
+        .value-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .value-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .value-stat {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .featured-video-wrapper {
+            width: 100%;
+            height: 420px;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            margin-top: 24px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+
+        .featured-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1);
+            pointer-events: none;
+        }
+
+        /* 发现成都区域 */
+        .discover-section {
+            padding: 80px 24px;
+            background: linear-gradient(135deg, #F8FAF8 0%, #FFFFFF 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 装饰背景元素 */
+        .discover-section::before {
+            content: "🐼";
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 120px;
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        .discover-section::after {
+            content: "🎋 🎋 🎋";
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 80px;
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        .discover-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .discover-title::before {
+            content: "🌿";
+            font-size: 2rem;
+            margin-right: 12px;
+        }
+
+        .discover-subtitle {
+            max-width: 700px;
+            margin: 0 auto 48px;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        /* 三个特色卡片 */
+        .features-grid {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px 16px;
+            width: 220px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #E5EDE8;
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            display: inline-block;
+            background: #E8F5E9;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            border-radius: 50%;
+        }
+
+        .feature-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 10px 0 6px;
+            color: #2D4A3E;
+        }
+
+        .feature-card p {
+            font-size: 0.75rem;
+            color: #7A8E85;
+            line-height: 1.4;
+        }
+
+        /* 悬浮效果 */
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px -10px rgba(0,0,0,0.1);
+        }
+
+        /* 数据统计区域 */
+        .stats-grid {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+            padding: 40px 0;
+            background: var(--card-bg);
+            border-radius: 48px;
+            max-width: 900px;
+            margin: 0 auto 48px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-item {
+            text-align: center;
+            min-width: 140px;
+            position: relative;
+        }
+
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -24px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 40px;
+            background: var(--border-color);
+        }
+
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #5A9E6E, #4A8A5E);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: block;
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            letter-spacing: 1px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .discover-section {
+                padding: 60px 20px;
+            }
+            
+            .discover-title {
+                font-size: 1.8rem;
+            }
+            
+            .features-grid {
+                gap: 20px;
+            }
+            
+            .feature-card {
+                width: 100%;
+                max-width: 280px;
+                padding: 24px 20px;
+            }
+            
+            .feature-icon {
+                font-size: 44px;
+            }
+            
+            .feature-card h3 {
+                font-size: 1.2rem;
+            }
+            
+            .stats-grid {
+                gap: 24px;
+                padding: 28px 16px;
+                border-radius: 32px;
+            }
+            
+            .stat-item {
+                min-width: 100px;
+            }
+            
+            .stat-item:not(:last-child)::after {
+                right: -12px;
+                height: 30px;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .stat-label {
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .stat-item:not(:last-child)::after {
+                display: none;
+            }
+        }
+
+        .explore-section {
+            background: var(--card-bg);
+        }
+
+        .explore-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .explore-card {
+            position: relative;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            aspect-ratio: 3/4;
+        }
+
+        .explore-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .explore-card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .explore-card:hover .explore-card-image {
+            transform: scale(1.15);
+        }
+
+        .explore-card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.7) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 28px;
+        }
+
+        .explore-card-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(4px);
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            color: white;
+            margin-bottom: 12px;
+            width: fit-content;
+        }
+
+        .explore-card-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .explore-card-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.5;
+        }
+
+        /* ========== 节气·成都板块 ========== */
+        .home-solar-section {
+            padding: 80px 0;
+            background: #F6F7F5;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .home-solar-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle at 20% 80%, rgba(107, 158, 107, 0.08) 0%, transparent 50%),
+                            radial-gradient(circle at 80% 20%, rgba(255, 152, 0, 0.05) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        /* 当前节气大卡片 */
+        .current-solar-banner {
+            background: linear-gradient(135deg, #E8F0E8 0%, #F8F5E6 100%);
+            border-radius: 32px;
+            padding: 48px;
+            margin-bottom: 64px;
+            position: relative;
+            overflow: hidden;
+            color: #1F2E26;
+            border: 1px solid rgba(107, 158, 107, 0.15);
+            box-shadow: 0 4px 24px rgba(107, 158, 107, 0.08);
+        }
+
+        .current-solar-banner .banner-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .current-solar-banner::before {
+            content: "";
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(107, 158, 107, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .current-solar-banner::after {
+            content: "";
+            position: absolute;
+            bottom: -50px;
+            left: -30px;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(255, 152, 0, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .current-solar-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .current-solar-left {
+            text-align: left;
+        }
+
+        .current-solar-badge {
+            display: inline-block;
+            background: rgba(107, 158, 107, 0.12);
+            backdrop-filter: blur(4px);
+            padding: 6px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #6B9E6B;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .current-solar-name {
+            font-size: 4rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-family: 'Noto Serif SC', serif;
+            letter-spacing: 8px;
+            color: #1F2E26;
+        }
+
+        .current-solar-date {
+            font-size: 1.1rem;
+            color: #5B6B5B;
+            margin-bottom: 24px;
+        }
+
+        .current-solar-desc {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            margin-bottom: 32px;
+            color: #5B6B5B;
+        }
+
+        .current-solar-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .current-solar-tag {
+            background: rgba(107, 158, 107, 0.1);
+            padding: 8px 20px;
+            border-radius: 24px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #6B9E6B;
+            font-weight: 500;
+        }
+
+        .current-solar-right {
+            background: white;
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 32px;
+            border: 1px solid rgba(107, 158, 107, 0.1);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+        }
+
+        .current-solar-right h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #6B9E6B;
+        }
+
+        .current-solar-right p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            color: #1F2E26;
+        }
+
+        .current-solar-custom {
+            padding-top: 20px;
+            border-top: 1px solid rgba(107, 158, 107, 0.1);
+        }
+
+        .current-solar-custom h5 {
+            font-size: 0.85rem;
+            color: #8A9A8A;
+            margin-bottom: 8px;
+        }
+
+        .current-solar-custom p {
+            font-size: 0.95rem;
+            color: #5B6B5B;
+        }
+
+        /* 季节筛选器 */
+        .season-filters {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .season-filter-btn {
+            padding: 10px 28px;
+            border-radius: 30px;
+            border: 2px solid transparent;
+            background: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .season-filter-btn:hover {
+            border-color: rgba(107, 158, 107, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .season-filter-btn.active {
+            background: #6B9E6B;
+            color: white;
+            border-color: #6B9E6B;
+            box-shadow: 0 4px 16px rgba(107, 158, 107, 0.3);
+        }
+
+        /* 夏季板块标题 */
+        .summer-section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .summer-section-header h3 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #1F2E26;
+            margin-bottom: 12px;
+        }
+
+        .summer-section-header p {
+            font-size: 1rem;
+            color: #5B6B5B;
+        }
+
+        /* 节气卡片网格 */
+        .home-solar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 28px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* 节气卡片 */
+        .home-solar-card {
+            background: white;
+            border-radius: 24px;
+            padding: 28px;
+            transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(107, 158, 107, 0.08);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        /* 节气卡片背景图片 */
+        .home-solar-card .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            z-index: 0;
+        }
+
+        .home-solar-card .solar-card-header,
+        .home-solar-card .solar-image-wrapper,
+        .home-solar-card .solar-recommend,
+        .home-solar-card .solar-custom,
+        .home-solar-card .solar-location {
+            position: relative;
+            z-index: 1;
+        }
+
+        .home-solar-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #6B9E6B, #FFB347);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            transform-origin: left;
+        }
+
+        .home-solar-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .home-solar-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(107, 158, 107, 0.15);
+            border-color: transparent;
+        }
+
+        .solar-card-header {
+            margin-bottom: 20px;
+        }
+
+        .solar-name {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #1F2E26;
+            margin-bottom: 6px;
+            font-family: 'Noto Serif SC', serif;
+        }
+
+        .solar-date {
+            font-size: 0.85rem;
+            color: #8A9A8A;
+        }
+
+        .solar-image-wrapper {
+            width: 100%;
+            height: 120px;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .solar-image-placeholder {
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #E8F0E8 0%, #F8F5E6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .solar-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+
+        .solar-recommend {
+            margin-bottom: 16px;
+        }
+
+        .solar-recommend-title {
+            font-size: 0.75rem;
+            color: #6B9E6B;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .solar-recommend-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1F2E26;
+            margin-bottom: 4px;
+        }
+
+        .solar-recommend-desc {
+            font-size: 0.85rem;
+            color: #5B6B5B;
+            line-height: 1.5;
+        }
+
+        .solar-custom {
+            padding-top: 16px;
+            border-top: 1px solid rgba(107, 158, 107, 0.1);
+            margin-bottom: 16px;
+        }
+
+        .solar-custom-title {
+            font-size: 0.7rem;
+            color: #8A9A8A;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+
+        .solar-custom-content {
+            font-size: 0.85rem;
+            color: #5B6B5B;
+            line-height: 1.5;
+        }
+
+        .solar-location {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(107, 158, 107, 0.08);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: #6B9E6B;
+            font-weight: 500;
+        }
+
+        /* 查看全部链接 */
+        .view-more-wrapper {
+            text-align: center;
+            margin-top: 56px;
+        }
+
+        .view-more-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 40px;
+            background: white;
+            border: 2px solid #6B9E6B;
+            border-radius: 40px;
+            color: #6B9E6B;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .view-more-link:hover {
+            background: #6B9E6B;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(107, 158, 107, 0.35);
+        }
+
+        /* 响应式 */
+        @media (max-width: 900px) {
+            .current-solar-content {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .current-solar-name {
+                font-size: 3rem;
+            }
+
+            .current-solar-banner {
+                padding: 32px 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .home-solar-section {
+                padding: 56px 0;
+            }
+
+            .home-solar-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 0 20px;
+            }
+
+            .current-solar-name {
+                font-size: 2.5rem;
+            }
+
+            .current-solar-desc {
+                font-size: 1.1rem;
+            }
+
+            .season-filter-btn {
+                padding: 8px 20px;
+                font-size: 0.85rem;
+            }
+
+            .summer-section-header h3 {
+                font-size: 1.6rem;
+            }
+
+            .solar-name {
+                font-size: 1.5rem;
+            }
+        }
+
+        .footer {
+            background: linear-gradient(180deg, #1F2E26 0%, #152019 100%);
+            color: white;
+            padding: 80px 32px 32px;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(76, 175, 80, 0.3), transparent);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 56px;
+            margin-bottom: 56px;
+        }
+
+        .footer-logo {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-logo-icon {
+            font-size: 1.5rem;
+        }
+
+        .footer-desc {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 28px;
+            line-height: 1.7;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-link {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-link:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .footer-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 4px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 28px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .panda-bot {
+            position: fixed;
+            right: 32px;
+            bottom: 32px;
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.7rem;
+            cursor: pointer;
+            box-shadow: 0 6px 24px rgba(76, 175, 80, 0.4);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .panda-bot:hover {
+            transform: scale(1.15);
+            box-shadow: 0 8px 32px rgba(76, 175, 80, 0.5);
+        }
+
+        .panda-chat {
+            position: fixed;
+            right: 32px;
+            bottom: 110px;
+            background: var(--card-bg);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            width: 340px;
+            padding: 28px;
+            display: none;
+            z-index: 998;
+        }
+
+        .panda-chat.active {
+            display: block;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .panda-chat-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .panda-chat-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+
+        .panda-chat-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .panda-chat-message {
+            background: rgba(76, 175, 80, 0.06);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        @media (max-width: 1200px) {
+            .explore-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .explore-card {
+                aspect-ratio: 16/10;
+            }
+
+            .solar-container {
+                flex-direction: column;
+            }
+
+            .solar-image {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+
+            .core-values {
+                grid-template-columns: repeat(1, 1fr);
+            }
+
+            .footer-top {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 16px;
+                height: 72px;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .btn {
+                padding: 8px 20px;
+                font-size: 0.85rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+                letter-spacing: -1px;
+            }
+
+            .hero-desc {
+                font-size: 1rem;
+            }
+
+            .hero-stats {
+                gap: 16px;
+            }
+
+            .stat-card {
+                min-width: 120px;
+                padding: 20px 16px;
+            }
+
+            .stat-number {
+                font-size: 22px;
+            }
+            
+            .stat-label {
+                font-size: 10px;
+            }
+            
+            .hero-stats {
+                gap: 24px;
+                margin: 30px 0 40px;
+            }
+
+            .hero-cards {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+                max-width: 100%;
+            }
+            
+            .hero-card {
+                padding: 14px 10px;
+                min-width: 120px;
+                max-width: 140px;
+            }
+            
+            .hero-card-icon {
+                font-size: 24px;
+                margin-bottom: 8px;
+            }
+            
+            .hero-card-title {
+                font-size: 13px;
+            }
+            
+            .hero-card-desc {
+                font-size: 10px;
+            }
+
+            .section {
+                padding: 60px 16px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .featured-image {
+                height: 280px;
+            }
+
+            .explore-grid {
+                grid-template-columns: repeat(1, 1fr);
+            }
+
+            .solar-title {
+                font-size: 1.8rem;
+            }
+
+            .footer-top {
+                grid-template-columns: repeat(1, 1fr);
+                gap: 32px;
+            }
+
+            .panda-bot {
+                right: 16px;
+                bottom: 16px;
+                width: 56px;
+                height: 56px;
+            }
+
+            .panda-chat {
+                right: 16px;
+                width: calc(100vw - 32px);
+            }
+        }
+
+        /* ========== 登录弹窗样式 ========== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 28px;
+            padding: 24px;
+            width: 90%;
+            max-width: 320px;
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #F5F7F5;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #7A8E85;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+        
+        .modal-close:hover {
+            background: #E5EDE8;
+            color: #2D4A3E;
+        }
+        
+        .modal-content h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2D4A3E;
+            margin-bottom: 8px;
+            font-family: 'Noto Serif SC', serif;
+        }
+        
+        .modal-content p {
+            font-size: 13px;
+            color: #7A8E85;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #2D4A3E;
+            font-size: 13px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #E5EDE8;
+            border-radius: 40px;
+            font-size: 13px;
+            transition: border-color 0.2s;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+        
+        .form-group input::placeholder {
+            color: #9CA3AF;
+        }
+        
+        .btn-login, .btn-register {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+            border: none;
+            border-radius: 40px;
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            margin-bottom: 12px;
+            margin-top: 8px;
+        }
+
+        .btn-login:hover, .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(76, 175, 80, 0.4);
+        }
+
+        .test-accounts {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 1px solid #E5EDE8;
+            font-size: 12px;
+            color: #7A8E85;
+            text-align: center;
+        }
+        
+        .test-accounts p {
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        
+        .test-accounts span {
+            display: inline-block;
+            margin: 3px 6px;
+            padding: 4px 10px;
+            background: #F5F7F5;
+            border-radius: 16px;
+            font-size: 11px;
+        }
+        
+        .modal-switch {
+            text-align: center;
+            font-size: 12px;
+            color: #7A8E85;
+        }
+
+        .modal-switch a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .modal-switch a:hover {
+            text-decoration: underline;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-name {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .header.scrolled .user-name {
+            color: var(--text-primary);
+        }
+
+        .header:not(.scrolled) .user-name {
+            color: #FFFFFF;
+        }
+
+        .login-error {
+            color: #E07A5F;
+            font-size: 0.85rem;
+            text-align: center;
+            margin-bottom: 16px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header class="header" id="header">
+        <nav class="nav-container">
+            <a href="#" class="logo">
+                <span class="logo-icon">🌿</span>
+                蓉城·慢行
+            </a>
+            <ul class="nav-links">
+                <li><a href="#discover" class="active">首页</a></li>
+                <li><a href="articles.html">文化解码</a></li>
+                <li><a href="travelogue.html">探访实录</a></li>
+                <li><a href="fengwu.html">风物档案</a></li>
+                <li><a href="map.html">互动地图</a></li>
+                <li><a href="solar-term.html">🌾 节气·成都</a></li>
+            </ul>
+            <div class="auth-buttons" id="authButtons">
+                <button class="btn btn-outline" id="loginBtn">登录</button>
+                <button class="btn btn-fill" id="registerBtn">注册</button>
+            </div>
+            <div class="user-info" id="userInfo" style="display: none;">
+                <span class="user-name" id="userName"></span>
+                <button class="btn btn-outline" id="logoutBtn">退出</button>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero-section">
+        <div class="hero-image"></div>
+        <div class="hero-bg-overlay"></div>
+        <div class="hero-noise"></div>
+        <div class="hero-content">
+            <p class="hero-subtitle">Chengdu Slow Living</p>
+            <h1 class="hero-title">慢一点，才成都</h1>
+            <div class="hero-divider"></div>
+            <p class="hero-desc">在2300年的时光里，品味天府之国的悠然与繁华，感受慢生活的美好</p>
+            
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">🏛️</div>
+                    <div class="stat-number">2300+</div>
+                    <div class="stat-label">年建城史</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🏺</div>
+                    <div class="stat-number">120+</div>
+                    <div class="stat-label">博物馆</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🎭</div>
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">非遗项目</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🌳</div>
+                    <div class="stat-number">40%</div>
+                    <div class="stat-label">绿地覆盖率</div>
+                </div>
+            </div>
+
+            <div class="hero-cards">
+                <div class="hero-card" onclick="window.location.href='articles.html'">
+                    <div class="hero-card-arrow">→</div>
+                    <div class="hero-card-icon">📚</div>
+                    <div class="hero-card-title">文化解码</div>
+                    <div class="hero-card-desc">穿越三千年，解码天府文化</div>
+                </div>
+                <div class="hero-card" onclick="window.location.href='travelogue.html'">
+                    <div class="hero-card-arrow">→</div>
+                    <div class="hero-card-icon">📝</div>
+                    <div class="hero-card-title">探访实录</div>
+                    <div class="hero-card-desc">跟随在地视角，记录真实烟火</div>
+                </div>
+                <div class="hero-card" onclick="window.location.href='fengwu.html'">
+                    <div class="hero-card-arrow">→</div>
+                    <div class="hero-card-icon">🎁</div>
+                    <div class="hero-card-title">风物档案</div>
+                    <div class="hero-card-desc">风物好物指南，带走成都记忆</div>
+                </div>
+                <div class="hero-card" onclick="window.location.href='map.html'">
+                    <div class="hero-card-arrow">→</div>
+                    <div class="hero-card-icon">🗺️</div>
+                    <div class="hero-card-title">互动地图</div>
+                    <div class="hero-card-desc">按图索骥，打卡文化地标</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="discover-section">
+        <div class="container">
+            <h2 class="discover-title">发现成都</h2>
+            <p class="discover-subtitle">
+                三千年历史沉淀，一座来了就不想走的城市，<br>
+                在慢时光中感受成都的独特魅力
+            </p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🐼</div>
+                    <h3>熊猫故乡</h3>
+                    <p>全球最大的熊猫保护研究基地，近距离感受国宝萌态，与可爱的大熊猫亲密接触</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🍜</div>
+                    <h3>美食之都</h3>
+                    <p>麻辣鲜香的火锅、串串、川菜，舌尖上的天府盛宴，满足您的味蕾享受</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">�</div>
+                    <h3>公园城市</h3>
+                    <p>推窗见绿、出门见园，人与自然和谐共生的典范，城市中的世外桃源</p>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number">180+</span>
+                    <span class="stat-label">大熊猫数量</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">特色美食</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">1500+</span>
+                    <span class="stat-label">公园绿地</span>
+                </div>
+            </div>
+
+            <div class="featured-video-wrapper">
+                <video 
+                    class="featured-video"
+                    autoplay 
+                    muted 
+                    loop 
+                    playsinline
+                    poster="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=1400"
+                >
+                    <source src="images/sy.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 节气·成都 板块 -->
+    <section class="home-solar-section">
+        <div class="container">
+            <!-- 当前节气大卡片 -->
+            <div class="current-solar-banner" id="currentSolarBanner">
+                <img src="" alt="" class="banner-bg-image" id="bannerBgImage">
+                <div class="current-solar-content">
+                    <div class="current-solar-left">
+                        <div class="current-solar-badge" id="currentSolarBadge">当前节气</div>
+                        <div class="current-solar-name" id="currentSolarName">芒种</div>
+                        <div class="current-solar-date" id="currentSolarDate">6月5-7日</div>
+                        <div class="current-solar-desc" id="currentSolarDesc">稻田青青，农事体验</div>
+                        <div class="current-solar-tags">
+                            <span class="current-solar-tag">📍 彭州</span>
+                            <span class="current-solar-tag">🌾 送花神，煮梅</span>
+                        </div>
+                    </div>
+                    <div class="current-solar-right">
+                        <h4>🌸 今日推荐</h4>
+                        <p id="currentSolarRecommend">彭州插秧体验</p>
+                        <div class="current-solar-custom">
+                            <h5>📜 民俗活动</h5>
+                            <p id="currentSolarCustom">送花神，煮梅</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="view-more-wrapper">
+                <a href="solar-term.html" class="view-more-link">
+                    查看全部节气 <span>→</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section explore-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">漫游成都</h2>
+                <div class="section-divider"></div>
+                <p class="section-desc">打开成都的N种方式，发现属于你的天府故事</p>
+            </div>
+
+            <div class="explore-grid">
+                <div class="explore-card" onclick="window.location.href='articles.html'">
+                    <img 
+                        src="images/shuxiu.png" 
+                        alt="文化解码" 
+                        class="explore-card-image"
+                        onerror="this.src='https://picsum.photos/600/800?random=2'"
+                    >
+                    <div class="explore-card-overlay">
+                        <span class="explore-card-tag">探索</span>
+                        <h3 class="explore-card-title">文化解码</h3>
+                        <p class="explore-card-desc">穿越三千年，解码天府文化，探寻成都的历史底蕴</p>
+                    </div>
+                </div>
+
+                <div class="explore-card" onclick="window.location.href='travelogue.html'">
+                    <img 
+                        src="images/df2.png" 
+                        alt="探访实录" 
+                        class="explore-card-image"
+                        onerror="this.src='https://picsum.photos/600/800?random=3'"
+                    >
+                    <div class="explore-card-overlay">
+                        <span class="explore-card-tag">记录</span>
+                        <h3 class="explore-card-title">探访实录</h3>
+                        <p class="explore-card-desc">跟随在地视角，记录真实烟火，感受市井生活</p>
+                    </div>
+                </div>
+
+                <div class="explore-card" onclick="window.location.href='fengwu.html'">
+                    <img 
+                        src="images/huoguo.png" 
+                        alt="风物档案" 
+                        class="explore-card-image"
+                        onerror="this.src='https://picsum.photos/600/800?random=4'"
+                    >
+                    <div class="explore-card-overlay">
+                        <span class="explore-card-tag">好物</span>
+                        <h3 class="explore-card-title">风物档案</h3>
+                        <p class="explore-card-desc">风物好物指南，带走成都记忆，品味在地文化</p>
+                    </div>
+                </div>
+
+                <div class="explore-card" onclick="window.location.href='map.html'">
+                    <img 
+                        src="images/sl.png" 
+                        alt="互动地图" 
+                        class="explore-card-image"
+                        onerror="this.src='https://picsum.photos/600/800?random=5'"
+                    >
+                    <div class="explore-card-overlay">
+                        <span class="explore-card-tag">导航</span>
+                        <h3 class="explore-card-title">互动地图</h3>
+                        <p class="explore-card-desc">按图索骥，打卡文化地标，规划您的成都之旅</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-top">
+                <div>
+                    <div class="footer-logo">
+                        <span class="footer-logo-icon">🌿</span>
+                        蓉城·慢行
+                    </div>
+                    <p class="footer-desc">探索成都慢生活，品味天府文化。让每一次旅行都成为一段美好的记忆，在这座城市中找到属于自己的慢时光。</p>
+                    <div class="social-links">
+                        <div class="social-link">📱</div>
+                        <div class="social-link">💬</div>
+                        <div class="social-link">📧</div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">探索成都</h4>
+                    <ul class="footer-links">
+                        <li><a href="articles.html">📚 文化解码</a></li>
+                        <li><a href="travelogue.html">📝 探访实录</a></li>
+                        <li><a href="fengwu.html">🎁 风物档案</a></li>
+                        <li><a href="map.html">🗺️ 互动地图</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">关于我们</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">关于蓉城慢行</a></li>
+                        <li><a href="#">联系我们</a></li>
+                        <li><a href="#">加入我们</a></li>
+                        <li><a href="#">合作伙伴</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">帮助支持</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">常见问题</a></li>
+                        <li><a href="#">隐私政策</a></li>
+                        <li><a href="#">服务条款</a></li>
+                        <li><a href="#">网站地图</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 蓉城·慢行 版权所有 | 成都市文化广电旅游局指导 | 蜀ICP备12345678号</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="panda-bot" id="pandaBot">🐼</div>
+    <div class="panda-chat" id="pandaChat">
+        <div class="panda-chat-header">
+            <div class="panda-chat-icon">🐼</div>
+            <span class="panda-chat-title">熊猫小助手</span>
+        </div>
+        <div class="panda-chat-message">
+            您好呀！我是熊猫小助手，欢迎来到蓉城·慢行！请问有什么可以帮您的？😊
+        </div>
+    </div>
+
+    <!-- ========== 登录弹窗 ========== -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <button class="modal-close" id="loginModalClose">&times;</button>
+            <h2>欢迎回来</h2>
+            <p>登录你的账号，发现更多成都故事</p>
+            
+            <div class="login-error" id="loginError">账号或密码错误</div>
+            
+            <div class="form-group">
+                <label>账号</label>
+                <input type="text" id="loginAccount" placeholder="请输入账号">
+            </div>
+            
+            <div class="form-group">
+                <label>密码</label>
+                <input type="password" id="loginPassword" placeholder="请输入密码">
+            </div>
+            
+            <button class="btn-login" id="doLogin">登录</button>
+            
+            <div class="modal-switch">
+                还没有账号？<a href="#" id="goToRegister">立即注册</a>
+            </div>
+            
+            <div class="test-accounts">
+                <p>测试账号</p>
+                <span>管理员：admin / admin123</span>
+                <span>普通用户：user / 123456</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== 注册弹窗 ========== -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <button class="modal-close" id="registerModalClose">&times;</button>
+            <h2>注册账号</h2>
+            <p>创建你的账号，开启成都之旅</p>
+            
+            <div class="login-error" id="registerError">账号已存在或密码不一致</div>
+            
+            <div class="form-group">
+                <label>账号</label>
+                <input type="text" id="registerAccount" placeholder="请输入账号">
+            </div>
+            
+            <div class="form-group">
+                <label>密码</label>
+                <input type="password" id="registerPassword" placeholder="请输入密码">
+            </div>
+            
+            <div class="form-group">
+                <label>确认密码</label>
+                <input type="password" id="registerConfirmPassword" placeholder="请再次输入密码">
+            </div>
+            
+            <button class="btn-register" id="doRegister">注册</button>
+            
+            <div class="modal-switch">
+                已有账号？<a href="#" id="goToLogin">立即登录</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const header = document.getElementById('header');
+        const pandaBot = document.getElementById('pandaBot');
+        const pandaChat = document.getElementById('pandaChat');
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        pandaBot.addEventListener('click', function() {
+            pandaChat.classList.toggle('active');
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!pandaBot.contains(e.target) && !pandaChat.contains(e.target)) {
+                pandaChat.classList.remove('active');
+            }
+        });
+
+        function animateNumbers() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const number = entry.target;
+                        const target = parseInt(number.textContent.replace(/[^0-9]/g, ''));
+                        const duration = 2000;
+                        const steps = 60;
+                        const increment = target / steps;
+                        let current = 0;
+                        
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                number.textContent = target + (number.textContent.includes('+') ? '+' : '') + (number.textContent.includes('%') ? '%' : '');
+                                clearInterval(timer);
+                            } else {
+                                number.textContent = Math.floor(current) + (number.textContent.includes('+') ? '+' : '') + (number.textContent.includes('%') ? '%' : '');
+                            }
+                        }, duration / steps);
+                        
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            statNumbers.forEach(num => observer.observe(num));
+        }
+
+        function updateAuthUI() {
+            const authButtons = document.getElementById('authButtons');
+            const userInfo = document.getElementById('userInfo');
+            const userName = document.getElementById('userName');
+            try {
+                const user = JSON.parse(localStorage.getItem('currentUser'));
+                if (user) {
+                    authButtons.style.display = 'none';
+                    userInfo.style.display = 'flex';
+                    userName.textContent = user.account;
+                }
+            } catch (e) {}
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.reload();
+        }
+
+        // ========== 登录弹窗逻辑 ==========
+        function initAuthModal() {
+            const loginModal = document.getElementById('loginModal');
+            const registerModal = document.getElementById('registerModal');
+            const loginBtn = document.getElementById('loginBtn');
+            const registerBtn = document.getElementById('registerBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const loginModalClose = document.getElementById('loginModalClose');
+            const registerModalClose = document.getElementById('registerModalClose');
+            const goToRegister = document.getElementById('goToRegister');
+            const goToLogin = document.getElementById('goToLogin');
+            const doLogin = document.getElementById('doLogin');
+            const doRegister = document.getElementById('doRegister');
+            const loginError = document.getElementById('loginError');
+            const registerError = document.getElementById('registerError');
+
+            // 初始化用户数据
+            if (!localStorage.getItem('users')) {
+                const defaultUsers = [
+                    { account: 'admin', password: 'admin123', role: 'admin' },
+                    { account: 'user', password: '123456', role: 'user' }
+                ];
+                localStorage.setItem('users', JSON.stringify(defaultUsers));
+            }
+
+            // 打开登录弹窗
+            loginBtn?.addEventListener('click', () => {
+                loginError.style.display = 'none';
+                loginModal.classList.add('active');
+            });
+
+            // 打开注册弹窗
+            registerBtn?.addEventListener('click', () => {
+                registerError.style.display = 'none';
+                registerModal.classList.add('active');
+            });
+
+            // 关闭登录弹窗
+            loginModalClose?.addEventListener('click', () => {
+                loginModal.classList.remove('active');
+            });
+
+            // 关闭注册弹窗
+            registerModalClose?.addEventListener('click', () => {
+                registerModal.classList.remove('active');
+            });
+
+            // 点击弹窗外部关闭
+            loginModal?.addEventListener('click', (e) => {
+                if (e.target === loginModal) {
+                    loginModal.classList.remove('active');
+                }
+            });
+
+            registerModal?.addEventListener('click', (e) => {
+                if (e.target === registerModal) {
+                    registerModal.classList.remove('active');
+                }
+            });
+
+            // 切换到注册
+            goToRegister?.addEventListener('click', (e) => {
+                e.preventDefault();
+                loginModal.classList.remove('active');
+                registerModal.classList.add('active');
+            });
+
+            // 切换到登录
+            goToLogin?.addEventListener('click', (e) => {
+                e.preventDefault();
+                registerModal.classList.remove('active');
+                loginModal.classList.add('active');
+            });
+
+            // 登录逻辑
+            doLogin?.addEventListener('click', () => {
+                const account = document.getElementById('loginAccount').value.trim();
+                const password = document.getElementById('loginPassword').value.trim();
+
+                if (!account || !password) {
+                    loginError.textContent = '请输入账号和密码';
+                    loginError.style.display = 'block';
+                    return;
+                }
+
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const user = users.find(u => u.account === account && u.password === password);
+
+                if (user) {
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    loginModal.classList.remove('active');
+                    window.location.reload();
+                } else {
+                    loginError.textContent = '账号或密码错误';
+                    loginError.style.display = 'block';
+                }
+            });
+
+            // 注册逻辑
+            doRegister?.addEventListener('click', () => {
+                const account = document.getElementById('registerAccount').value.trim();
+                const password = document.getElementById('registerPassword').value.trim();
+                const confirmPassword = document.getElementById('registerConfirmPassword').value.trim();
+
+                if (!account || !password || !confirmPassword) {
+                    registerError.textContent = '请填写所有字段';
+                    registerError.style.display = 'block';
+                    return;
+                }
+
+                if (password !== confirmPassword) {
+                    registerError.textContent = '两次输入的密码不一致';
+                    registerError.style.display = 'block';
+                    return;
+                }
+
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const existingUser = users.find(u => u.account === account);
+
+                if (existingUser) {
+                    registerError.textContent = '该账号已存在';
+                    registerError.style.display = 'block';
+                    return;
+                }
+
+                users.push({ account, password, role: 'user' });
+                localStorage.setItem('users', JSON.stringify(users));
+                localStorage.setItem('currentUser', JSON.stringify({ account, role: 'user' }));
+                registerModal.classList.remove('active');
+                window.location.reload();
+            });
+
+            // 退出登录
+            logoutBtn?.addEventListener('click', logout);
+
+            // ESC键关闭弹窗
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    loginModal.classList.remove('active');
+                    registerModal.classList.remove('active');
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            animateNumbers();
+            updateAuthUI();
+            initAuthModal();
+            initSolarTerms();
+        });
+
+        // ========== 首页节气数据 ==========
+        const solarData = {
+            spring: [
+                { name: "立春", date: "2月3-5日", dateStart: [2, 3], dateEnd: [2, 5], recommend: "龙泉驿看桃花", recommendDetail: "万亩桃花盛开，春意盎然", custom: "咬春吃春饼，迎春祈福", location: "龙泉驿", emoji: "🌸", image: "images/lc.jpg" },
+                { name: "雨水", date: "2月18-20日", dateStart: [2, 18], dateEnd: [2, 20], recommend: "都江堰放水节", recommendDetail: "千年水利工程，春灌开始", custom: "回娘屋，拉保保", location: "都江堰", emoji: "💧", image: "images/ys.jpg" },
+                { name: "惊蛰", date: "3月5-7日", dateStart: [3, 5], dateEnd: [3, 7], recommend: "青城山采春茶", recommendDetail: "明前春茶，清香扑鼻", custom: "吃梨润肺，祭白虎", location: "青城山", emoji: "🦋", image: "images/jz.jpg" },
+                { name: "春分", date: "3月20-22日", dateStart: [3, 20], dateEnd: [3, 22], recommend: "崇州油菜花", recommendDetail: "金色花海，美不胜收", custom: "竖蛋，吃春菜", location: "崇州", emoji: "🌼", image: "images/cf.jpg" },
+                { name: "清明", date: "4月4-6日", dateStart: [4, 4], dateEnd: [4, 6], recommend: "都江堰放水节", recommendDetail: "清明放水，盛况空前", custom: "祭祖扫墓，踏青", location: "都江堰", emoji: "🌿", image: "images/qm.jpg" },
+                { name: "谷雨", date: "4月19-21日", dateStart: [4, 19], dateEnd: [4, 21], recommend: "蒲江采樱桃", recommendDetail: "酸甜可口，新鲜采摘", custom: "喝谷雨茶，祭仓颉", location: "蒲江", emoji: "🍒", image: "images/gy.jpg" }
+            ],
+            summer: [
+                { name: "立夏", date: "5月5-7日", dateStart: [5, 5], dateEnd: [5, 7], recommend: "人民公园喝茶", recommendDetail: "竹影婆娑，茶香四溢", custom: "秤人，吃立夏饭", location: "人民公园", emoji: "🍵", image: "images/lx.jpg" },
+                { name: "小满", date: "5月20-22日", dateStart: [5, 20], dateEnd: [5, 22], recommend: "三圣乡赏荷", recommendDetail: "接天莲叶，映日荷花", custom: "祭车神，吃苦菜", location: "三圣乡", emoji: "🪷", image: "images/xm.jpg" },
+                { name: "芒种", date: "6月5-20日", dateStart: [6, 5], dateEnd: [6, 20], recommend: "彭州插秧体验", recommendDetail: "稻田青青，农事体验", custom: "送花神，煮梅", location: "彭州", emoji: "🌾", image: "images/mz.jpg" },
+                { name: "夏至", date: "6月21-22日", dateStart: [6, 21], dateEnd: [6, 22], recommend: "青城山避暑", recommendDetail: "清凉世界，道教圣地", custom: "吃凉面，祭地", location: "青城山", emoji: "☀️", image: "images/xz.jpg" },
+                { name: "小暑", date: "7月6-8日", dateStart: [7, 6], dateEnd: [7, 8], recommend: "洛带古镇戏水", recommendDetail: "古镇风情，清凉一夏", custom: "食新，晒伏", location: "洛带古镇", emoji: "💦", image: "images/xs.jpg" },
+                { name: "大暑", date: "7月22-24日", dateStart: [7, 22], dateEnd: [7, 24], recommend: "西岭雪山避暑", recommendDetail: "雪山之巅，凉爽宜人", custom: "喝伏茶，赏荷", location: "西岭雪山", emoji: "🏔️", image: "images/ds.jpg" }
+            ],
+            autumn: [
+                { name: "立秋", date: "8月7-9日", dateStart: [8, 7], dateEnd: [8, 9], recommend: "新都桂湖赏桂", recommendDetail: "桂香满园，芬芳四溢", custom: "贴秋膘，啃秋", location: "新都", emoji: "🌰", image: "images/lq.jpg" },
+                { name: "处暑", date: "8月22-24日", dateStart: [8, 22], dateEnd: [8, 24], recommend: "青城山登高", recommendDetail: "秋高气爽，登高望远", custom: "出游迎秋", location: "青城山", emoji: "⛰️", image: "images/cs.jpg" },
+                { name: "白露", date: "9月7-9日", dateStart: [9, 7], dateEnd: [9, 9], recommend: "蒲江品猕猴桃", recommendDetail: "果香浓郁，营养丰富", custom: "饮白露茶", location: "蒲江", emoji: "🥝", image: "images/bl.jpg" },
+                { name: "秋分", date: "9月22-24日", dateStart: [9, 22], dateEnd: [9, 24], recommend: "龙泉山看日出", recommendDetail: "日出东方，云海翻腾", custom: "祭月，吃秋菜", location: "龙泉山", emoji: "🌅", image: "images/qf.jpg" },
+                { name: "寒露", date: "10月8-9日", dateStart: [10, 8], dateEnd: [10, 9], recommend: "什邡看红叶", recommendDetail: "层林尽染，美不胜收", custom: "赏菊，登高", location: "什邡", emoji: "🍁", image: "images/hl.jpg" },
+                { name: "霜降", date: "10月23-24日", dateStart: [10, 23], dateEnd: [10, 24], recommend: "金堂脐橙采摘", recommendDetail: "硕果累累，香甜可口", custom: "赏菊，进补", location: "金堂", emoji: "🍊", image: "images/sj.jpg" }
+            ],
+            winter: [
+                { name: "立冬", date: "11月7-8日", dateStart: [11, 7], dateEnd: [11, 8], recommend: "品尝羊肉汤", recommendDetail: "冬日暖身，滋补佳品", custom: "冬泳，补冬", location: "全城", emoji: "🍲", image: "images/ld.jpg" },
+                { name: "小雪", date: "11月22-23日", dateStart: [11, 22], dateEnd: [11, 23], recommend: "西岭雪山初雪", recommendDetail: "银装素裹，童话世界", custom: "吃糍粑，腌菜", location: "西岭雪山", emoji: "❄️", image: "images/xx.jpg" },
+                { name: "大雪", date: "12月6-8日", dateStart: [12, 6], dateEnd: [12, 8], recommend: "逛宽窄巷子", recommendDetail: "古巷风情，冬日韵味", custom: "进补，赏雪", location: "宽窄巷子", emoji: "🏮", image: "images/dx.jpg" },
+                { name: "冬至", date: "12月21-23日", dateStart: [12, 21], dateEnd: [12, 23], recommend: "小关庙羊肉汤", recommendDetail: "百年老店，正宗美味", custom: "冬至大如年", location: "小关庙", emoji: "🥟", image: "images/dz.jpg" },
+                { name: "小寒", date: "1月5-7日", dateStart: [1, 5], dateEnd: [1, 7], recommend: "杜甫草堂寻梅", recommendDetail: "暗香浮动，诗意盎然", custom: "探梅，食补", location: "杜甫草堂", emoji: "🌺", image: "images/xh.jpg" },
+                { name: "大寒", date: "1月20-21日", dateStart: [1, 20], dateEnd: [1, 21], recommend: "武侯祠祈福", recommendDetail: "三国圣地，祈愿迎新", custom: "备年货，守岁", location: "武侯祠", emoji: "🎉", image: "images/dh.jpg" }
+            ]
+        };
+
+        // 季节配置
+        const seasonConfig = {
+            spring: { name: '春季', emoji: '🌱', desc: '万物复苏' },
+            summer: { name: '夏季', emoji: '☀️', desc: '万物盛放' },
+            autumn: { name: '秋季', emoji: '🍂', desc: '硕果累累' },
+            winter: { name: '冬季', emoji: '❄️', desc: '瑞雪丰年' }
+        };
+
+        // 获取当前季节
+        function getCurrentSeason() {
+            const month = new Date().getMonth() + 1;
+            if (month >= 3 && month <= 5) return 'spring';
+            if (month >= 6 && month <= 8) return 'summer';
+            if (month >= 9 && month <= 11) return 'autumn';
+            return 'winter';
+        }
+
+        // 获取当前日期所在的节气
+        function getCurrentSolarTerm() {
+            const today = new Date();
+            const month = today.getMonth() + 1;
+            const day = today.getDate();
+            
+            // 将日期转换为天数（从年初计算）
+            function dateToDay(m, d) {
+                return m * 100 + d;
+            }
+            
+            const todayDay = dateToDay(month, day);
+            let currentTerm = null;
+            let nextTerm = null;
+            
+            // 按顺序遍历所有节气
+            const allTerms = [
+                ...solarData.winter.map(t => ({...t, season: 'winter'})),
+                ...solarData.spring.map(t => ({...t, season: 'spring'})),
+                ...solarData.summer.map(t => ({...t, season: 'summer'})),
+                ...solarData.autumn.map(t => ({...t, season: 'autumn'}))
+            ];
+            
+            for (let i = 0; i < allTerms.length; i++) {
+                const term = allTerms[i];
+                const [startMonth, startDay] = term.dateStart;
+                const [endMonth, endDay] = term.dateEnd;
+                const startDayNum = dateToDay(startMonth, startDay);
+                const endDayNum = dateToDay(endMonth, endDay);
+                
+                // 如果当前日期在这个节气范围内
+                if (todayDay >= startDayNum && todayDay <= endDayNum) {
+                    return term;
+                }
+                
+                // 记录最近的一个已过节气
+                if (todayDay > endDayNum) {
+                    currentTerm = term;
+                }
+                
+                // 记录下一个即将到来的节气
+                if (todayDay < startDayNum && !nextTerm) {
+                    nextTerm = term;
+                }
+            }
+            
+            // 如果当前不在任何节气范围内，返回即将到来的节气或最近已过的节气
+            return nextTerm || currentTerm || solarData.summer[2]; // 默认返回芒种
+        }
+
+        // 更新当前节气大卡片
+        function updateCurrentSolarBanner(term) {
+            document.getElementById('currentSolarName').textContent = term.name;
+            document.getElementById('currentSolarDate').textContent = term.date;
+            document.getElementById('currentSolarDesc').textContent = term.recommendDetail;
+            document.getElementById('currentSolarRecommend').textContent = term.recommend;
+            document.getElementById('currentSolarCustom').textContent = term.custom;
+            
+            // 更新背景图片
+            const bannerBgImage = document.getElementById('bannerBgImage');
+            if (term.image && bannerBgImage) {
+                bannerBgImage.src = term.image;
+                bannerBgImage.style.display = 'block';
+            } else if (bannerBgImage) {
+                bannerBgImage.style.display = 'none';
+            }
+            
+            const tags = document.querySelector('.current-solar-tags');
+            tags.innerHTML = `
+                <span class="current-solar-tag">📍 ${term.location}</span>
+                <span class="current-solar-tag">🌾 ${term.custom}</span>
+            `;
+        }
+
+        // 渲染节气卡片网格
+        function renderSolarGrid(season) {
+            const terms = solarData[season];
+            const config = seasonConfig[season];
+            const grid = document.getElementById('homeSolarGrid');
+            
+            const header = document.querySelector('.summer-section-header h3');
+            header.innerHTML = `${config.emoji} ${config.name}节气`;
+            document.querySelector('.summer-section-header p').textContent = config.desc + '，感受成都' + config.name + '风情';
+            
+            grid.innerHTML = terms.map(term => `
+                <div class="home-solar-card" onclick="handleSolarCardClick('${term.name}')">
+                    ${term.image ? `<img src="${term.image}" alt="${term.name}" class="bg-image">` : ''}
+                    <div class="solar-card-header">
+                        <div class="solar-name">${term.name}</div>
+                        <div class="solar-date">${term.date}</div>
+                    </div>
+                    <div class="solar-image-wrapper">
+                        ${term.image ? `<img src="${term.image}" alt="${term.name}" class="solar-image">` : `<div class="solar-image-placeholder">${term.emoji}</div>`}
+                    </div>
+                    <div class="solar-recommend">
+                        <div class="solar-recommend-title">推荐去处</div>
+                        <div class="solar-recommend-name">${term.recommend}</div>
+                        <div class="solar-recommend-desc">${term.recommendDetail}</div>
+                    </div>
+                    <div class="solar-custom">
+                        <div class="solar-custom-title">🌾 民俗</div>
+                        <div class="solar-custom-content">${term.custom}</div>
+                    </div>
+                    <div class="solar-location">
+                        <span>📍</span>
+                        <span>${term.location}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 处理卡片点击
+        function handleSolarCardClick(name) {
+            console.log('点击了节气:', name);
+            alert(`您选择了「${name}」节气`);
+        }
+
+        // 季节筛选器点击事件
+        function initSeasonFilters() {
+            const buttons = document.querySelectorAll('.season-filter-btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    buttons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const season = btn.dataset.season;
+                    renderSolarGrid(season);
+                });
+            });
+        }
+
+        // 渲染首页节气板块
+        function initSolarTerms() {
+            const currentTerm = getCurrentSolarTerm();
+            updateCurrentSolarBanner(currentTerm);
+            
+            const currentSeason = getCurrentSeason();
+            renderSolarGrid(currentSeason);
+            
+            initSeasonFilters();
+        }
+
+        document.addEventListener('DOMContentLoaded', initSolarTerms);
+    </script>
+</body>
+</html>

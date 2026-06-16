@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="成都,文化解码,文章详情">
+    <meta name="description" content="蓉城·慢行 - 文化解码文章详情">
+    <title>文章详情 - 蓉城·慢行</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --primary-dark: #388E3C;
+            --primary-light: #E8F5E9;
+            --background-color: #F5F7F5;
+            --card-bg: #FFFFFF;
+            --text-primary: #2D4A3E;
+            --text-secondary: #6B7B7D;
+            --text-muted: #9CAFA5;
+            --border-color: rgba(76, 175, 80, 0.1);
+            
+            --color-history: #4CAF50;
+            --color-ich: #FF9800;
+            --color-folk: #2196F3;
+            --color-festival: #9C27B0;
+            
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08);
+            --radius-sm: 12px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 400;
+            transition: color 0.25s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            font-family: inherit;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: rgba(76, 175, 80, 0.08);
+        }
+
+        .btn-fill {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-fill:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 14px 24px;
+            border-radius: var(--radius-md);
+            background: rgba(76, 175, 80, 0.08);
+            transition: all 0.3s ease;
+            margin-bottom: 32px;
+            border: 1px solid transparent;
+        }
+
+        .back-btn:hover {
+            background: rgba(76, 175, 80, 0.15);
+            transform: translateX(-6px);
+            border-color: rgba(76, 175, 80, 0.2);
+        }
+
+        .article-container {
+            max-width: 850px;
+            margin: 100px auto 80px;
+            padding: 0 24px;
+        }
+
+        .article-header {
+            margin-bottom: 36px;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .article-tag {
+            padding: 8px 20px;
+            border-radius: 24px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .article-tag.history { background: var(--color-history); }
+        .article-tag.ich { background: var(--color-ich); }
+        .article-tag.folk { background: var(--color-folk); }
+        .article-tag.festival { background: var(--color-festival); }
+
+        .article-date {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .article-date::before {
+            content: '📅';
+            font-size: 0.85rem;
+        }
+
+        .article-title {
+            font-family: 'Noto Serif SC', 'Inter', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.25;
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
+        }
+
+        .article-cover-wrapper {
+            position: relative;
+            margin-bottom: 40px;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .article-cover {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .article-cover-wrapper:hover .article-cover {
+            transform: scale(1.02);
+        }
+
+        .cover-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
+        }
+
+        .article-content {
+            background: var(--card-bg);
+            padding: 48px;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .article-text {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            line-height: 1.9;
+            margin-bottom: 40px;
+        }
+
+        .article-text p {
+            margin-bottom: 24px;
+            text-indent: 2em;
+        }
+
+        .article-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .knowledge-section {
+            background: linear-gradient(135deg, var(--primary-light) 0%, rgba(76, 175, 80, 0.02) 100%);
+            border-left: 5px solid var(--primary-color);
+            padding: 28px;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            margin-bottom: 36px;
+        }
+
+        .knowledge-section h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .knowledge-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .knowledge-section li {
+            position: relative;
+            padding-left: 32px;
+            padding-bottom: 16px;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .knowledge-section li:last-child {
+            padding-bottom: 0;
+        }
+
+        .knowledge-section li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+        }
+
+        .knowledge-section li:nth-child(1)::before { content: '1'; }
+        .knowledge-section li:nth-child(2)::before { content: '2'; }
+        .knowledge-section li:nth-child(3)::before { content: '3'; }
+
+        .extra-section {
+            background: linear-gradient(135deg, #FFF9C4 0%, #FFF59D 100%);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            margin-bottom: 36px;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+
+        .extra-section h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #F57C00;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .extra-section p {
+            font-size: 0.98rem;
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+
+        .source-section {
+            background: #F8F9FA;
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            border-left: 4px solid var(--text-muted);
+        }
+
+        .source-section h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .source-section p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-style: italic;
+        }
+
+        .not-found {
+            text-align: center;
+            padding: 100px 24px;
+            max-width: 550px;
+            margin: 100px auto;
+            background: var(--card-bg);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+        }
+
+        .not-found-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+
+        .not-found h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .not-found p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 48px 24px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 60px;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.25s ease;
+        }
+
+        .footer a:hover {
+            color: var(--primary-dark);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+                height: 64px;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .btn {
+                padding: 8px 14px;
+                font-size: 0.85rem;
+            }
+
+            .article-container {
+                margin-top: 80px;
+                padding: 0 16px;
+            }
+
+            .back-btn {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+
+            .article-title {
+                font-size: 1.7rem;
+                line-height: 1.3;
+            }
+
+            .article-cover-wrapper {
+                border-radius: var(--radius-lg);
+            }
+
+            .article-cover {
+                height: 260px;
+            }
+
+            .article-content {
+                padding: 28px 24px;
+                border-radius: var(--radius-lg);
+            }
+
+            .article-text {
+                font-size: 1rem;
+            }
+
+            .article-text p {
+                margin-bottom: 20px;
+            }
+
+            .knowledge-section,
+            .extra-section,
+            .source-section {
+                padding: 20px;
+            }
+
+            .knowledge-section h3,
+            .extra-section h3 {
+                font-size: 1.1rem;
+            }
+
+            .knowledge-section li {
+                padding-left: 28px;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">蓉城·慢行</a>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="articles.html" class="active">文化解码</a></li>
+                <li><a href="travelogue.html">探访实录</a></li>
+                <li><a href="fengwu.html">风物档案</a></li>
+                <li><a href="map.html">互动地图</a></li>
+                <li><a href="solar-term.html">节气·成都</a></li>
+            </ul>
+            <div class="auth-buttons" id="authButtons">
+                <button class="btn btn-outline" onclick="window.location.href='login.html'">登录</button>
+                <button class="btn btn-fill" onclick="window.location.href='login.html'">注册</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="article-container" id="articleContainer">
+        <div class="not-found" id="notFound">
+            <div class="not-found-icon">📭</div>
+            <h2>文章不存在</h2>
+            <p>抱歉，您访问的文章不存在或已被删除</p>
+            <a href="articles.html" class="btn btn-fill">返回列表</a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 蓉城·慢行 版权所有 | <a href="#" target="_blank">关于我们</a> | <a href="#" target="_blank">隐私政策</a></p>
+    </footer>
+
+    <script>
+        const articlesData = {
+            "history-1": {
+                id: "history-1",
+                title: "三星堆与古蜀文明：神秘的古蜀王国",
+                type: "历史渊源",
+                typeClass: "history",
+                date: "2025年1月1日",
+                image: "images/sanxing.png",
+                content: `三星堆遗址位于四川广汉，距今约4800-2600年，是古蜀文化的代表性遗址。1929年，当地农民燕道诚在挖水沟时首次发现玉石器，从此揭开了古蜀文明的神秘面纱。
+
+1986年，两个祭祀坑的发现震惊世界，出土了青铜神树、青铜大立人、纵目面具等珍贵文物1000余件。这些文物造型奇特、工艺精湛，与中原青铜文明迥然不同，证明古代蜀地存在着一个高度发达的独立文明。
+
+三星堆的发现改写了中国古代文明史，将古蜀文明的历史推前到5000年前。学者认为，三星堆可能是古代蜀国的都城，是长江上游文明的中心。`,
+                knowledgePoints: [
+                    "三星堆遗址位于四川广汉，距今约4800-2600年，是古蜀文化的代表性遗址。",
+                    "出土的青铜神树高达3.96米，是世界上发现最大的单件青铜文物。",
+                    "纵目面具的眼球呈柱状突出，被认为是蜀王蚕丛“纵目”传说的物证。"
+                ],
+                source: "引自《三星堆：古蜀王国的圣地》，四川省文物考古研究院，2021年",
+                extra: {
+                    title: "🔍 考古小知识",
+                    content: "三星堆的“三星”得名于遗址区三个起伏相连的土堆，宛如三颗星辰；而“堆”在四川方言中指人工筑造的土台。"
+                }
+            },
+            "history-2": {
+                id: "history-2",
+                title: "都江堰：李冰父子的千年水利奇迹",
+                type: "历史渊源",
+                typeClass: "history",
+                date: "2025年1月2日",
+                image: "images/dujiangyan.png",
+                content: `都江堰始建于公元前256年，由战国时期秦国蜀郡太守李冰及其子主持修建。这是全世界迄今为止年代最久、唯一留存、仍在使用的无坝引水水利工程。
+
+都江堰由三大主体工程组成：鱼嘴分水堤将岷江分为内江和外江；飞沙堰溢洪道在洪水期自动溢洪排沙；宝瓶口则控制进入成都平原的水量。“深淘滩，低作堰”的治水六字诀，至今仍是水利工程的重要准则。
+
+都江堰的建成使成都平原“水旱从人，不知饥馑”，从此成为“天府之国”。2000年，都江堰被列入世界文化遗产名录。`,
+                knowledgePoints: [
+                    "都江堰由鱼嘴分水堤、飞沙堰溢洪道、宝瓶口引水口三大主体工程组成。",
+                    "“深淘滩，低作堰”的治水六字诀，至今仍是水利工程的重要准则。",
+                    "都江堰使成都平原成为“天府之国”，灌溉面积超过1000万亩。"
+                ],
+                source: "引自《都江堰：世界文化遗产保护报告》，都江堰管理局，2022年",
+                extra: {
+                    title: "🌊 放水节",
+                    content: "每年清明节，都江堰举行盛大的放水节，模拟古代“砍杩槎放水”仪式，重现两千多年前李冰“祀水”的古老传统。"
+                }
+            },
+            "ich-1": {
+                id: "ich-1",
+                title: "蜀锦：千年织锦，东方瑰宝",
+                type: "非遗",
+                typeClass: "ich",
+                date: "2025年1月3日",
+                image: "images/shujin.png",
+                content: `蜀锦是中国四大名锦之一，因产于四川（古称“蜀”）而得名。蜀锦以图案精美、色彩艳丽、质地坚韧著称，已有2000多年历史。
+
+蜀锦采用独特的“通经断纬”织法，可实现复杂图案的一次成型。这种织法比一般织锦更费工时，但图案更加精细立体。蜀锦的纹样多取材于自然，如熊猫、芙蓉、龙凤等，富有浓郁的地方特色。
+
+成都“锦江区”的名称正源于蜀锦。三国时期，蜀汉在成都设“锦官”管理蜀锦生产，成都因此得名“锦官城”。2006年，蜀锦织造技艺被列入第一批国家级非物质文化遗产名录。`,
+                knowledgePoints: [
+                    "蜀锦采用独特的“通经断纬”织法，可实现复杂图案的一次成型。",
+                    "2006年，蜀锦织造技艺被列入第一批国家级非物质文化遗产名录。",
+                    "成都“锦江区”的名称正源于蜀锦，因古代设有锦官管理蜀锦生产。"
+                ],
+                source: "引自《蜀锦志》，成都市非物质文化遗产保护中心，2019年",
+                extra: {
+                    title: "🏛️ 蜀锦与丝绸之路",
+                    content: "蜀锦是南方丝绸之路上的重要贸易商品，远销印度、中亚乃至罗马，是中华文明与世界文明交流的见证。"
+                }
+            },
+            "ich-2": {
+                id: "ich-2",
+                title: "川剧变脸：瞬息万变的艺术",
+                type: "非遗",
+                typeClass: "ich",
+                date: "2025年1月4日",
+                image: "images/bianlian.png",
+                content: `变脸是川剧表演的特技之一，用于揭示剧中人物的内心及思想感情的变化，即把不可见、不可感的抽象情绪变成可见可感的具体形象——脸谱。
+
+川剧变脸的手法大体上分为三种：“抹脸”、“吹脸”、“扯脸”。“抹脸”是将油彩涂在脸上某部位，用手一抹即可变脸；“吹脸”适用于金粉、墨粉等粉末状化妆品；“扯脸”最为复杂，将脸谱画在绸子上剪好，系上丝线贴在脸上，表演时一张张扯下。
+
+变脸的目的与剧情发展紧密相关，是川剧艺术中刻画人物的重要手段。川剧变脸已被列为国家级非物质文化遗产，并成为成都文化的国际名片。`,
+                knowledgePoints: [
+                    "变脸手法包括抹脸、吹脸、扯脸三种，其中“扯脸”最为复杂，可变换10多张脸谱。",
+                    "脸谱颜色代表不同人物性格：红色表忠勇、黑色表刚直、白色表奸诈。",
+                    "川剧变脸已被列为国家级非物质文化遗产，并成为成都文化的国际名片。"
+                ],
+                source: "引自《川剧艺术大观》，四川省川剧院，2020年",
+                extra: {
+                    title: "🎭 著名变脸艺术家",
+                    content: "康子林（1870-1930）是川剧变脸技艺的集大成者；王道正被誉为“变脸王”，曾创下1分钟变12张脸的纪录；彭登怀曾在电视剧《笑傲江湖》中展示变脸技艺。"
+                }
+            },
+            "folk-1": {
+                id: "folk-1",
+                title: "成都茶馆文化：一壶茶，半日闲",
+                type: "民俗",
+                typeClass: "folk",
+                date: "2025年1月5日",
+                image: "images/chaguan.png",
+                content: `成都人爱喝茶，更爱“泡茶馆”。成都拥有超过10000家茶馆，是全国茶馆数量最多的城市。对成都人来说，茶馆不仅是喝茶的地方，更是社交场、议事厅、信息中心。
+
+鹤鸣茶社始建于1923年，位于人民公园内，是成都现存最老的传统茶馆之一。竹椅、方桌、盖碗茶，是鹤鸣不变的标配。老茶客们每天清晨准时出现，一壶茶、一份报，可以坐上一整天。
+
+“盖碗茶”是成都特色茶具，由茶盖、茶碗、茶托三件套组成。茶盖可用来刮茶沫、控制水温，也可以当作杯托使用。喝茶时，用茶盖轻轻拨开茶叶，小口慢饮，这就是成都人的“巴适”生活。`,
+                knowledgePoints: [
+                    "成都拥有超过10000家茶馆，是全国茶馆数量最多的城市。",
+                    "鹤鸣茶社始建于1923年，是成都现存最老的传统茶馆之一。",
+                    "“盖碗茶”是成都特色茶具，茶盖可用来刮茶沫、控制水温、作杯托。"
+                ],
+                source: "引自《成都茶馆：市井生活图景》，四川大学民俗学研究所，2021年",
+                extra: {
+                    title: "🍵 茶馆里的特色服务",
+                    content: "除了喝茶，成都茶馆还提供掏耳朵、擦鞋、卖瓜子花生、棋牌娱乐等服务，是体验成都市井生活的最佳场所。"
+                }
+            },
+            "folk-2": {
+                id: "folk-2",
+                title: "掏耳朵：成都街头的非遗绝活",
+                type: "民俗",
+                typeClass: "folk",
+                date: "2025年1月6日",
+                image: "images/caier.png",
+                content: `在成都的公园和茶馆，随处可见手持长钳、耳勺的“采耳师”。掏耳朵在成都叫“采耳”，是一项流传百年的民间技艺，也是一门非物质文化遗产。
+
+全套采耳工具包括耳扒、鹅毛棒、镊子、云刀、震子等十余种。采耳师先用云刀清理耳周毛发，再用耳勺轻轻掏取耳垢，最后用鹅毛棒转动清理，整个过程让人酥麻放松，有“小舒服”之称。
+
+民间有“到成都不掏耳朵，等于没来”的说法。成都采耳技艺已被列入市级非物质文化遗产名录。许多游客专程来成都体验这一独特的“耳部SPA”。`,
+                knowledgePoints: [
+                    "成都采耳技艺已被列入市级非物质文化遗产名录。",
+                    "全套采耳工具包括耳扒、鹅毛棒、镊子、云刀、震子等十余种。",
+                    "民间有“到成都不掏耳朵，等于没来”的说法。"
+                ],
+                source: "引自《成都采耳技艺传承人口述史》，成都市文化馆，2020年",
+                extra: {
+                    title: "💡 采耳小贴士",
+                    content: "建议在人民公园鹤鸣茶社、宽窄巷子等正规场所体验采耳，价格通常为30-60元/次，包含约15分钟的完整服务。"
+                }
+            },
+            "festival-1": {
+                id: "festival-1",
+                title: "成都国际熊猫节：与国宝的年度约会",
+                type: "特色节庆",
+                typeClass: "festival",
+                date: "2025年1月7日",
+                image: "images/xiongmao.png",
+                content: `成都国际熊猫节是每年9月在成都举办的大型文化旅游盛事，以大熊猫为主题，旨在推广熊猫文化和大熊猫保护事业。
+
+首届熊猫节于2001年举办，至今已成功举办20余届。活动内容包括熊猫画展、熊猫玩偶设计大赛、大熊猫保护国际论坛、熊猫主题花车巡游等。2024年熊猫节吸引了超过50万游客参与。
+
+熊猫节期间，成都大熊猫繁育研究基地会举办“熊猫宝宝见面会”，新生熊猫幼崽首次亮相，是熊猫节最受欢迎的环节。`,
+                knowledgePoints: [
+                    "首届熊猫节于2001年举办，至今已成功举办20余届。",
+                    "活动包括熊猫画展、熊猫玩偶设计大赛、大熊猫保护论坛等。",
+                    "2024年熊猫节吸引了超过50万游客参与。"
+                ],
+                source: "引自《成都文旅节庆活动年报》，成都文旅局，2024年",
+                extra: {
+                    title: "🐼 大熊猫基地信息",
+                    content: "成都大熊猫繁育研究基地是观看大熊猫的最佳地点，建议上午9点前到达，可以看到熊猫最活跃的进食和玩耍状态。"
+                }
+            },
+            "festival-2": {
+                id: "festival-2",
+                title: "都江堰放水节：传承千年的祭祀盛典",
+                type: "特色节庆",
+                typeClass: "festival",
+                date: "2025年1月8日",
+                image: "images/fangshui.png",
+                content: `都江堰放水节是每年清明节在都江堰举行的传统祭祀盛典，已有1000多年历史，是国家级非物质文化遗产。
+
+放水节始于公元978年，最初是纪念李冰父子修建都江堰的祭祀活动。仪式包括“砍杩槎放水”、“祭祀李冰”、“堰工技术表演”等环节。“砍杩槎”是最震撼的环节——砍断拦水的杩槎，岷江水奔腾而出，象征春灌开始。
+
+放水节标志着成都平原春耕的开始，是川西农耕文化的重要象征。如今，放水节已发展为集祭祀、表演、旅游于一体的大型节庆活动，每年吸引数万游客。`,
+                knowledgePoints: [
+                    "放水节始于公元978年，已延续1000多年，是国家级非物质文化遗产。",
+                    "仪式包括“砍杩槎放水”、“祭祀李冰”、“堰工技术表演”等环节。",
+                    "放水标志着成都平原春灌的开始，是川西农耕文化的重要象征。"
+                ],
+                source: "引自《都江堰放水节：从祭祀到旅游节庆》，四川大学，2019年",
+                extra: {
+                    title: "📅 最佳观赏时间",
+                    content: "放水节每年清明节（4月4日或5日）举行，建议提前关注官方公告。观赏最佳位置在都江堰景区伏龙观和安澜索桥附近。"
+                }
+            }
+        };
+
+        function getUrlParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        function renderArticle(article) {
+            const container = document.getElementById('articleContainer');
+            
+            container.innerHTML = `
+                <a href="articles.html" class="back-btn">
+                    <span>←</span>
+                    <span>返回列表</span>
+                </a>
+                
+                <article class="article-header">
+                    <div class="article-meta">
+                        <span class="article-tag ${article.typeClass}">${article.type}</span>
+                        <span class="article-date">${article.date}</span>
+                    </div>
+                    <h1 class="article-title">${article.title}</h1>
+                </article>
+                
+                <div class="article-cover-wrapper">
+                    <img src="${article.image}" alt="${article.title}" class="article-cover"
+                         onerror="this.src='https://picsum.photos/850/420?random=${article.id}'">
+                    <div class="cover-overlay"></div>
+                </div>
+                
+                <div class="article-content">
+                    <div class="article-text">
+                        ${article.content.split('\n').map(p => p.trim() ? `<p>${p}</p>` : '').join('')}
+                    </div>
+                    
+                    <div class="knowledge-section">
+                        <h3>📌 知识点</h3>
+                        <ul>
+                            ${article.knowledgePoints.map(point => `<li>${point}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    <div class="extra-section">
+                        <h3>${article.extra.title}</h3>
+                        <p>${article.extra.content}</p>
+                    </div>
+                    
+                    <div class="source-section">
+                        <h3>📖 引用来源</h3>
+                        <p>${article.source}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateAuthUI() {
+            const authButtons = document.getElementById('authButtons');
+            try {
+                const user = JSON.parse(localStorage.getItem('currentUser'));
+                if (user) {
+                    authButtons.innerHTML = `
+                        <span style="color: var(--text-primary); margin-right: 1rem; font-weight: 500;">${user.nickname}</span>
+                        ${user.isAdmin ? '<a href="admin.html" class="btn btn-outline" style="margin-right: 0.5rem;">管理后台</a>' : ''}
+                        <button class="btn btn-fill" onclick="logout()">退出</button>
+                    `;
+                }
+            } catch (e) {}
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.reload();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateAuthUI();
+            
+            const articleId = getUrlParam('id');
+            if (!articleId) {
+                return;
+            }
+            
+            const article = articlesData[articleId];
+            if (article) {
+                renderArticle(article);
+            }
+        });
+    </script>
+</body>
+</html>

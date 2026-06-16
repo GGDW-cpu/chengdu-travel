@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="成都,文旅,登录,账号">
+    <meta name="description" content="蓉城·慢行 - 用户登录">
+    <title>登录 - 蓉城·慢行</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #5A9E6E;
+            --primary-dark: #3D6B4C;
+            --primary-light: #7CB88C;
+            --background-color: #F5F7F5;
+            --card-bg: #FFFFFF;
+            --text-primary: #2D4A3E;
+            --text-secondary: #7A8E85;
+            --text-muted: #9CAFA5;
+            --border-color: #E0E8E3;
+            --border-focus: #5A9E6E;
+            --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.08);
+            --radius-sm: 12px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 28px;
+            --radius-full: 40px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(90, 158, 110, 0.1);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 68px;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .auth-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .auth-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            transition: color 0.25s;
+        }
+
+        .auth-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .auth-links .active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 100px 24px 40px;
+        }
+
+        .login-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+            transition: all 0.3s ease;
+        }
+
+        .login-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .card-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: 0.95rem;
+            font-family: inherit;
+            color: var(--text-primary);
+            background: transparent;
+            transition: all 0.25s ease;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 3px rgba(90, 158, 110, 0.08);
+        }
+
+        .form-group input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-group input[type="password"] {
+            letter-spacing: 2px;
+        }
+
+        .error-message {
+            display: none;
+            color: #E07A5F;
+            font-size: 0.85rem;
+            margin-top: 8px;
+            padding: 10px 12px;
+            background: rgba(224, 122, 95, 0.08);
+            border-radius: var(--radius-sm);
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: var(--radius-full);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(90, 158, 110, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(90, 158, 110, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1.5px solid var(--border-color);
+            color: var(--text-primary);
+            margin-top: 12px;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .test-account {
+            margin-top: 24px;
+            padding: 16px;
+            background: #F8FAF8;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(90, 158, 110, 0.1);
+        }
+
+        .test-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .test-title::before {
+            content: '💡';
+        }
+
+        .test-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .test-item {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            padding: 6px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .test-item:not(:last-child) {
+            border-bottom: 1px solid rgba(90, 158, 110, 0.08);
+        }
+
+        .test-label {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .test-value {
+            font-family: monospace;
+            background: rgba(90, 158, 110, 0.08);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(90, 158, 110, 0.1);
+        }
+
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer a:hover {
+            color: var(--primary-dark);
+        }
+
+        .register-form {
+            display: none;
+        }
+
+        .register-form.active {
+            display: block;
+        }
+
+        .login-form.hidden {
+            display: none;
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 16px;
+                height: 64px;
+            }
+
+            .logo {
+                font-size: 1.15rem;
+            }
+
+            .main-content {
+                padding: 80px 16px 32px;
+            }
+
+            .login-card {
+                padding: 28px 24px;
+            }
+
+            .card-title {
+                font-size: 1.5rem;
+            }
+
+            .form-group input {
+                padding: 12px 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">蓉城·慢行</a>
+            <div class="auth-links">
+                <a href="login.html" class="active">登录</a>
+                <a href="login.html#register">注册</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="login-card">
+            <div class="card-header">
+                <h1 class="card-title">欢迎回来</h1>
+                <p class="card-subtitle">登录您的账号，开始探索成都</p>
+            </div>
+
+            <div class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label for="account">账号</label>
+                    <input type="text" id="account" placeholder="请输入账号" autocomplete="username">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    <input type="password" id="password" placeholder="请输入密码" autocomplete="current-password">
+                </div>
+
+                <div class="error-message" id="loginError"></div>
+
+                <button class="btn btn-primary" onclick="handleLogin()">登 录</button>
+            </div>
+
+            <div class="register-form" id="registerForm">
+                <div class="form-group">
+                    <label for="regAccount">账号</label>
+                    <input type="text" id="regAccount" placeholder="请设置账号">
+                </div>
+
+                <div class="form-group">
+                    <label for="regPassword">密码</label>
+                    <input type="password" id="regPassword" placeholder="请设置密码">
+                </div>
+
+                <div class="form-group">
+                    <label for="regConfirmPassword">确认密码</label>
+                    <input type="password" id="regConfirmPassword" placeholder="请再次输入密码">
+                </div>
+
+                <div class="error-message" id="registerError"></div>
+
+                <button class="btn btn-primary" onclick="handleRegister()">注 册</button>
+                <button class="btn btn-secondary" onclick="showLogin()">返回登录</button>
+            </div>
+
+            <div class="test-account">
+                <div class="test-title">测试账号</div>
+                <ul class="test-list">
+                    <li class="test-item">
+                        <span class="test-label">管理员</span>
+                        <span>账号: <span class="test-value">admin</span> 密码: <span class="test-value">admin123</span></span>
+                    </li>
+                    <li class="test-item">
+                        <span class="test-label">普通用户</span>
+                        <span>账号: <span class="test-value">user</span> 密码: <span class="test-value">123456</span></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 蓉城·慢行 版权所有 | <a href="#" target="_blank">隐私政策</a></p>
+    </footer>
+
+    <script>
+        const USERS_KEY = 'users';
+        const CURRENT_USER_KEY = 'currentUser';
+
+        function initUsers() {
+            const existing = localStorage.getItem(USERS_KEY);
+            if (existing) return;
+
+            const defaultUsers = [
+                {
+                    id: '1',
+                    account: 'admin',
+                    password: 'admin123',
+                    role: 'admin',
+                    nickname: '管理员',
+                    createdAt: new Date().toISOString()
+                },
+                {
+                    id: '2',
+                    account: 'user',
+                    password: '123456',
+                    role: 'user',
+                    nickname: '游客',
+                    createdAt: new Date().toISOString()
+                }
+            ];
+
+            localStorage.setItem(USERS_KEY, JSON.stringify(defaultUsers));
+        }
+
+        function getUsers() {
+            try {
+                return JSON.parse(localStorage.getItem(USERS_KEY) || '[]');
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function setUsers(users) {
+            localStorage.setItem(USERS_KEY, JSON.stringify(users));
+        }
+
+        function showError(elementId, message) {
+            const errorEl = document.getElementById(elementId);
+            errorEl.textContent = message;
+            errorEl.classList.add('show');
+            setTimeout(() => {
+                errorEl.classList.remove('show');
+            }, 3000);
+        }
+
+        function handleLogin() {
+            const account = document.getElementById('account').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            if (!account) {
+                showError('loginError', '请输入账号');
+                return;
+            }
+
+            if (!password) {
+                showError('loginError', '请输入密码');
+                return;
+            }
+
+            const users = getUsers();
+            const user = users.find(u => u.account === account && u.password === password);
+
+            if (user) {
+                localStorage.setItem(CURRENT_USER_KEY, JSON.stringify({
+                    id: user.id,
+                    account: user.account,
+                    nickname: user.nickname,
+                    role: user.role,
+                    isAdmin: user.role === 'admin'
+                }));
+                window.location.href = 'index.html';
+            } else {
+                showError('loginError', '账号或密码错误');
+            }
+        }
+
+        function handleRegister() {
+            const account = document.getElementById('regAccount').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('regConfirmPassword').value;
+
+            if (!account) {
+                showError('registerError', '请设置账号');
+                return;
+            }
+
+            if (!password) {
+                showError('registerError', '请设置密码');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showError('registerError', '两次输入的密码不一致');
+                return;
+            }
+
+            const users = getUsers();
+            const exists = users.find(u => u.account === account);
+
+            if (exists) {
+                showError('registerError', '该账号已存在');
+                return;
+            }
+
+            const newUser = {
+                id: Date.now().toString(),
+                account: account,
+                password: password,
+                role: 'user',
+                nickname: account,
+                createdAt: new Date().toISOString()
+            };
+
+            users.push(newUser);
+            setUsers(users);
+
+            localStorage.setItem(CURRENT_USER_KEY, JSON.stringify({
+                id: newUser.id,
+                account: newUser.account,
+                nickname: newUser.nickname,
+                role: newUser.role,
+                isAdmin: false
+            }));
+
+            window.location.href = 'index.html';
+        }
+
+        function showLogin() {
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('registerForm').classList.remove('active');
+            document.querySelector('.card-title').textContent = '欢迎回来';
+            document.querySelector('.card-subtitle').textContent = '登录您的账号，开始探索成都';
+            document.querySelector('.auth-links a[href="#register"]').classList.remove('active');
+            document.querySelector('.auth-links a[href="login.html"]').classList.add('active');
+        }
+
+        function showRegister() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('registerForm').classList.add('active');
+            document.querySelector('.card-title').textContent = '创建账号';
+            document.querySelector('.card-subtitle').textContent = '注册新账号，开启成都之旅';
+            document.querySelector('.auth-links a[href="#register"]').classList.add('active');
+            document.querySelector('.auth-links a[href="login.html"]').classList.remove('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initUsers();
+
+            document.querySelector('.auth-links a[href="#register"]').addEventListener('click', function(e) {
+                e.preventDefault();
+                showRegister();
+            });
+
+            document.getElementById('account').addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') handleLogin();
+            });
+
+            document.getElementById('password').addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') handleLogin();
+            });
+        });
+    </script>
+</body>
+</html>

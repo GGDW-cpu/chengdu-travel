@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投稿 - 蓉城·慢行</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">蓉城·慢行</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="articles.html">文化解码</a></li>
+                    <li><a href="travelogue.html">探访实录</a></li>
+                    <li><a href="fengwu.html">风物档案</a></li>
+                    <li><a href="map.html">互动地图</a></li>
+                </ul>
+                <div class="auth-buttons" id="authButtons">
+                    <button class="btn btn-secondary" onclick="goToLogin()">登录</button>
+                    <button class="btn btn-primary" onclick="goToLogin()">注册</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div style="max-width: 600px; margin: 0 auto;">
+                <h1 class="section-title" style="margin-bottom: 2rem;">投稿探访实录</h1>
+                <div class="admin-panel">
+                    <form id="submitVisitForm">
+                        <div class="form-group">
+                            <label>标题 *</label>
+                            <input type="text" id="visitTitle" required placeholder="请输入标题">
+                        </div>
+                        <div class="form-group">
+                            <label>地点 *</label>
+                            <input type="text" id="visitLocation" required placeholder="请输入探访地点">
+                        </div>
+                        <div class="form-group">
+                            <label>正文 *</label>
+                            <textarea id="visitContent" required placeholder="分享您的探访经历..." style="min-height: 200px;"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>图片链接（可选）</label>
+                            <input type="url" id="visitImage" placeholder="https://example.com/image.jpg">
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%">提交投稿</button>
+                        <p style="text-align: center; margin-top: 1rem; color: var(--text-secondary); font-size: 0.9rem;">
+                            投稿后需等待管理员审核通过才会公开显示
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+    <script src="js/data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = getCurrentUser();
+            if (!user) {
+                showNotification('请先登录', 'error');
+                setTimeout(() => {
+                    goToLogin();
+                }, 1500);
+            }
+        });
+
+        document.getElementById('submitVisitForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const user = getCurrentUser();
+            if (!user) {
+                showNotification('请先登录', 'error');
+                return;
+            }
+
+            const title = document.getElementById('visitTitle').value;
+            const location = document.getElementById('visitLocation').value;
+            const content = document.getElementById('visitContent').value;
+            const image = document.getElementById('visitImage').value;
+
+            const newPost = {
+                id: generateId(),
+                title: title,
+                location: location,
+                content: content,
+                image: image,
+                authorId: user.id,
+                authorNickname: user.nickname,
+                status: 'pending',
+                createdAt: new Date().toISOString()
+            };
+
+            const pendingPosts = getStorage(STORAGE_KEYS.PENDING_POSTS);
+            pendingPosts.push(newPost);
+            setStorage(STORAGE_KEYS.PENDING_POSTS, pendingPosts);
+
+            showNotification('投稿成功！等待管理员审核');
+            setTimeout(() => {
+                window.location.href = 'travelogue.html';
+            }, 1500);
+        });
+
+        function goToLogin() {
+            sessionStorage.setItem('redirectUrl', window.location.href);
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>
